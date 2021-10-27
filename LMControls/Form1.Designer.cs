@@ -41,10 +41,14 @@ namespace LMControls
             this.rjProgressBar1 = new LMControls.RJControls.RJProgressBar();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.rjCircularPictureBox1 = new LMControls.RJControls.RJCircularPictureBox();
-            this.panelTitleBar = new System.Windows.Forms.Panel();
             this.lmButton1 = new LMControls.LmControls.LMButton();
             this.lmButton2 = new LMControls.LmControls.LMButton();
             this.lmButton3 = new LMControls.LmControls.LMButton();
+            this.lblThemeColor = new System.Windows.Forms.Label();
+            this.lblLightColor = new System.Windows.Forms.Label();
+            this.lblLightLightColor = new System.Windows.Forms.Label();
+            this.lblDarkColor = new System.Windows.Forms.Label();
+            this.lblDarkDarkColor = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.rjCircularPictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -202,34 +206,26 @@ namespace LMControls
             this.rjCircularPictureBox1.BorderSize = 6;
             this.rjCircularPictureBox1.GradientAngle = 50F;
             this.rjCircularPictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("rjCircularPictureBox1.Image")));
-            this.rjCircularPictureBox1.Location = new System.Drawing.Point(395, 198);
+            this.rjCircularPictureBox1.Location = new System.Drawing.Point(466, 197);
             this.rjCircularPictureBox1.Name = "rjCircularPictureBox1";
             this.rjCircularPictureBox1.Size = new System.Drawing.Size(147, 147);
             this.rjCircularPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.rjCircularPictureBox1.TabIndex = 10;
             this.rjCircularPictureBox1.TabStop = false;
             // 
-            // panelTitleBar
-            // 
-            this.panelTitleBar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTitleBar.Location = new System.Drawing.Point(0, 0);
-            this.panelTitleBar.Name = "panelTitleBar";
-            this.panelTitleBar.Size = new System.Drawing.Size(800, 52);
-            this.panelTitleBar.TabIndex = 11;
-            // 
             // lmButton1
             // 
-            this.lmButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(221)))), ((int)(((byte)(226)))));
-            this.lmButton1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(221)))), ((int)(((byte)(226)))));
+            this.lmButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(15)))), ((int)(((byte)(165)))));
+            this.lmButton1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(15)))), ((int)(((byte)(165)))));
             this.lmButton1.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.lmButton1.BorderRadius = 13;
             this.lmButton1.BorderSize = 0;
-            this.lmButton1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(132)))), ((int)(((byte)(135)))));
+            this.lmButton1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(0)))), ((int)(((byte)(120)))));
             this.lmButton1.FlatAppearance.BorderSize = 0;
             this.lmButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lmButton1.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lmButton1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(41)))), ((int)(((byte)(38)))));
-            this.lmButton1.Location = new System.Drawing.Point(99, 77);
+            this.lmButton1.Location = new System.Drawing.Point(99, 82);
             this.lmButton1.Name = "lmButton1";
             this.lmButton1.Size = new System.Drawing.Size(110, 30);
             this.lmButton1.TabIndex = 17;
@@ -242,18 +238,18 @@ namespace LMControls
             // 
             // lmButton2
             // 
-            this.lmButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(221)))), ((int)(((byte)(226)))));
-            this.lmButton2.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(221)))), ((int)(((byte)(226)))));
+            this.lmButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(15)))), ((int)(((byte)(165)))));
+            this.lmButton2.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(15)))), ((int)(((byte)(165)))));
             this.lmButton2.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.lmButton2.BorderRadius = 13;
             this.lmButton2.BorderSize = 0;
             this.lmButton2.Enabled = false;
-            this.lmButton2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(132)))), ((int)(((byte)(135)))));
+            this.lmButton2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(0)))), ((int)(((byte)(120)))));
             this.lmButton2.FlatAppearance.BorderSize = 0;
             this.lmButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lmButton2.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lmButton2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(41)))), ((int)(((byte)(38)))));
-            this.lmButton2.Location = new System.Drawing.Point(331, 77);
+            this.lmButton2.Location = new System.Drawing.Point(331, 82);
             this.lmButton2.Name = "lmButton2";
             this.lmButton2.Size = new System.Drawing.Size(110, 30);
             this.lmButton2.TabIndex = 18;
@@ -266,17 +262,17 @@ namespace LMControls
             // 
             // lmButton3
             // 
-            this.lmButton3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(221)))), ((int)(((byte)(226)))));
-            this.lmButton3.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(221)))), ((int)(((byte)(226)))));
+            this.lmButton3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(15)))), ((int)(((byte)(165)))));
+            this.lmButton3.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(15)))), ((int)(((byte)(165)))));
             this.lmButton3.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.lmButton3.BorderRadius = 13;
             this.lmButton3.BorderSize = 0;
-            this.lmButton3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(132)))), ((int)(((byte)(135)))));
+            this.lmButton3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(0)))), ((int)(((byte)(120)))));
             this.lmButton3.FlatAppearance.BorderSize = 0;
             this.lmButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lmButton3.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lmButton3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(41)))), ((int)(((byte)(38)))));
-            this.lmButton3.Location = new System.Drawing.Point(215, 77);
+            this.lmButton3.Location = new System.Drawing.Point(215, 82);
             this.lmButton3.Name = "lmButton3";
             this.lmButton3.Size = new System.Drawing.Size(110, 30);
             this.lmButton3.TabIndex = 19;
@@ -287,15 +283,71 @@ namespace LMControls
             this.lmButton3.UseSelectable = true;
             this.lmButton3.UseVisualStyleBackColor = false;
             // 
+            // lblThemeColor
+            // 
+            this.lblThemeColor.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblThemeColor.Location = new System.Drawing.Point(10, 0);
+            this.lblThemeColor.Name = "lblThemeColor";
+            this.lblThemeColor.Size = new System.Drawing.Size(137, 23);
+            this.lblThemeColor.TabIndex = 20;
+            this.lblThemeColor.Text = "ThemeColor";
+            this.lblThemeColor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblLightColor
+            // 
+            this.lblLightColor.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblLightColor.Location = new System.Drawing.Point(153, 0);
+            this.lblLightColor.Name = "lblLightColor";
+            this.lblLightColor.Size = new System.Drawing.Size(137, 23);
+            this.lblLightColor.TabIndex = 20;
+            this.lblLightColor.Text = "LightColor";
+            this.lblLightColor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblLightLightColor
+            // 
+            this.lblLightLightColor.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblLightLightColor.Location = new System.Drawing.Point(296, 0);
+            this.lblLightLightColor.Name = "lblLightLightColor";
+            this.lblLightLightColor.Size = new System.Drawing.Size(137, 23);
+            this.lblLightLightColor.TabIndex = 20;
+            this.lblLightLightColor.Text = "LightLightColor";
+            this.lblLightLightColor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblDarkColor
+            // 
+            this.lblDarkColor.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblDarkColor.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblDarkColor.Location = new System.Drawing.Point(439, 0);
+            this.lblDarkColor.Name = "lblDarkColor";
+            this.lblDarkColor.Size = new System.Drawing.Size(137, 23);
+            this.lblDarkColor.TabIndex = 20;
+            this.lblDarkColor.Text = "DarkColor";
+            this.lblDarkColor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblDarkDarkColor
+            // 
+            this.lblDarkDarkColor.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblDarkDarkColor.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblDarkDarkColor.Location = new System.Drawing.Point(582, 0);
+            this.lblDarkDarkColor.Name = "lblDarkDarkColor";
+            this.lblDarkDarkColor.Size = new System.Drawing.Size(137, 23);
+            this.lblDarkDarkColor.TabIndex = 20;
+            this.lblDarkDarkColor.Text = "DarkDarkColor";
+            this.lblDarkDarkColor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblDarkDarkColor);
+            this.Controls.Add(this.lblDarkColor);
+            this.Controls.Add(this.lblLightLightColor);
+            this.Controls.Add(this.lblLightColor);
+            this.Controls.Add(this.lblThemeColor);
             this.Controls.Add(this.lmButton3);
             this.Controls.Add(this.lmButton2);
             this.Controls.Add(this.lmButton1);
-            this.Controls.Add(this.panelTitleBar);
             this.Controls.Add(this.rjCircularPictureBox1);
             this.Controls.Add(this.rjProgressBar1);
             this.Controls.Add(this.rjTextBox3);
@@ -305,6 +357,7 @@ namespace LMControls
             this.Controls.Add(this.rjRadioButton1);
             this.Controls.Add(this.rjToggleButton2);
             this.Controls.Add(this.rjToggleButton1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.rjCircularPictureBox1)).EndInit();
@@ -325,10 +378,14 @@ namespace LMControls
         private RJControls.RJProgressBar rjProgressBar1;
         private System.Windows.Forms.Timer timer1;
         private RJControls.RJCircularPictureBox rjCircularPictureBox1;
-        private System.Windows.Forms.Panel panelTitleBar;
         private LmControls.LMButton lmButton1;
         private LmControls.LMButton lmButton2;
         private LmControls.LMButton lmButton3;
+        private System.Windows.Forms.Label lblThemeColor;
+        private System.Windows.Forms.Label lblLightColor;
+        private System.Windows.Forms.Label lblLightLightColor;
+        private System.Windows.Forms.Label lblDarkColor;
+        private System.Windows.Forms.Label lblDarkDarkColor;
     }
 }
 

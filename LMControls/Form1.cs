@@ -25,6 +25,12 @@ namespace LMControls
             UserPreferenceChanged = new UserPreferenceChangedEventHandler(SystemEvents_UserPreferenceChanged);
             SystemEvents.UserPreferenceChanged += UserPreferenceChanged;
             this.Disposed += new EventHandler(Form_Disposed);
+
+            lblThemeColor.BackColor = WinTheme.ThemeColor;
+            lblLightColor.BackColor = WinTheme.LightColor;
+            lblLightLightColor.BackColor = WinTheme.LightLightColor;
+            lblDarkColor.BackColor = WinTheme.DarkColor;
+            lblDarkDarkColor.BackColor = WinTheme.DarkDarkColor;
         }
 
         //private void LoadTheme()
