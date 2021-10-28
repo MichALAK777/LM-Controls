@@ -1,4 +1,5 @@
-﻿using LMControls.LmDesign;
+﻿using LMControls.Components;
+using LMControls.LmDesign;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,10 @@ namespace LMControls.Interfaces
         event EventHandler<LmPaintEventArgs> CustomPaintBackground;
         event EventHandler<LmPaintEventArgs> CustomPaint;
         event EventHandler<LmPaintEventArgs> CustomPaintForeground;
+
+        LmTheme Theme { get; set; }
+
+        LmStyleManager StyleManager { get; set; }
 
         bool UseCustomBackColor { get; set; }
         bool UseCustomForeColor { get; set; }

@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace LMControls.LmDesign
 {
-    public class LmDefault
+    public static class LmDefault
     {
+        public const LmTheme Theme = LmTheme.Laranja;
+        public const LmMessageType TipoMensagem = LmMessageType.Padrao;
+
         public static class PropertyCategory
         {
-            public const string LmUI = "LmFramework";
+            public const string LmUI = "LmControls";
         }
     }
 }

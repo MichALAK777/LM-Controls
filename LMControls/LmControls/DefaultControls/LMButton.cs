@@ -1,4 +1,5 @@
-﻿using LMControls.Interfaces;
+﻿using LMControls.Components;
+using LMControls.Interfaces;
 using LMControls.LmDesign;
 using LMControls.Metodos;
 using System;
@@ -33,24 +34,6 @@ namespace LMControls.LmControls
             //t.Start();
         }
 
-        private void AplicarStilo()
-        {
-            Font = _default;
-
-            this.FlatStyle = FlatStyle.Flat;
-            this.FlatAppearance.BorderSize = 0;
-            this.Size = new Size(110, 30);
-            this.BackColor = WinTheme.LightColor;
-            this.FlatAppearance.BorderColor = WinTheme.ThemeColor;
-            //this.BackColor = Color.MediumSlateBlue;
-            //this.ForeColor = Color.White;
-            this.FlatAppearance.BorderColor = Enabled ? WinTheme.ThemeColor : WinTheme.LightColor;
-            this.FlatAppearance.MouseDownBackColor = WinTheme.LightColor;
-            this.FlatAppearance.MouseOverBackColor = WinTheme.ThemeColor;
-
-            this.Refresh();
-        }
-
         #region Interface
 
         [Category(LmDefault.PropertyCategory.LmUI)]
@@ -83,6 +66,49 @@ namespace LMControls.LmControls
             }
         }
 
+        private LmTheme lmTheme = LmTheme.Padrao;
+        [Category(LmDefault.PropertyCategory.LmUI)]
+        [DefaultValue(LmTheme.Padrao)]
+        public LmTheme Theme
+        {
+            get
+            {
+                if (DesignMode || lmTheme != LmTheme.Padrao)
+                {
+                    return lmTheme;
+                }
+
+                if (StyleManager != null && lmTheme == LmTheme.Padrao)
+                {
+                    return StyleManager.Theme;
+                }
+                if (StyleManager == null && lmTheme == LmTheme.Padrao)
+                {
+                    return LmDefault.Theme;
+                }
+
+                return lmTheme;
+            }
+            set
+            {
+                lmTheme = value;
+            }
+        }
+
+        private LmStyleManager lmStyleManager = null;
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public LmStyleManager StyleManager
+        {
+            get { return lmStyleManager; }
+            set
+            {
+                lmStyleManager = value;
+
+                AplicarStilo();
+            }
+        }
+
         private bool useCustomBackColor = false;
         [DefaultValue(true)]
         [Category(LmDefault.PropertyCategory.LmUI)]
@@ -111,6 +137,22 @@ namespace LMControls.LmControls
         }
 
         #endregion
+
+        private void AplicarStilo()
+        {
+            Font = _default;
+
+            this.FlatStyle = FlatStyle.Flat;
+            this.FlatAppearance.BorderSize = 0;
+            this.Size = new Size(110, 30);
+            this.BackColor = Enabled ? LmPaint.BackColor.Button.Normal(Theme) : LmPaint.BackColor.Button.Disabled(Theme);
+            this.FlatAppearance.BorderColor = LmPaint.BorderColor.Button.Normal(Theme);
+            this.FlatAppearance.MouseDownBackColor = LmPaint.BackColor.Button.Press(Theme);
+            this.FlatAppearance.MouseOverBackColor = LmPaint.BackColor.Button.Selected(Theme);
+            this.ForeColor = LmPaint.ForeColor.Button.Normal(Theme);
+
+            this.Refresh();
+        }
 
         #region Fields
 
@@ -159,19 +201,12 @@ namespace LMControls.LmControls
             }
         }
 
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public Color BackgroundColor
-        {
-            get { return this.BackColor; }
-            set { this.BackColor = value; }
-        }
-
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public Color TextColor
-        {
-            get { return this.ForeColor; }
-            set { this.ForeColor = value; }
-        }
+        //[Category(LmDefault.PropertyCategory.LmUI)]
+        //public Color BackgroundColor
+        //{
+        //    get { return this.BackColor; }
+        //    set { this.BackColor = value; }
+        //}
 
         #endregion
 
@@ -180,17 +215,6 @@ namespace LMControls.LmControls
         protected override void OnPaint(PaintEventArgs pevent)
         {
             base.OnPaint(pevent);
-
-            WinTheme.LoadTheme();
-
-            //this.BackgroundColor = Enabled
-            //    ? !isFocused ? WinTheme.LightColor : WinTheme.ThemeColor
-            //    : WinTheme.LightLightColor;
-            //this.TextColor = Enabled
-            //    ? BackgroundColor.IsDarkColor() ? WinTheme.Fr_Branco_Normal : WinTheme.Fr_Preto_Normal
-            //    : BackgroundColor.IsDarkColor() ? WinTheme.Fr_Branco_Disabled : WinTheme.Fr_Preto_Disabled;
-
-            //this.FlatAppearance.BorderColor = !isFocused ? WinTheme.ThemeColor : WinTheme.DarkColor;
 
             Rectangle rectSurface = this.ClientRectangle;
             Rectangle rectBorder = Rectangle.Inflate(rectSurface, -borderSize, -borderSize);
@@ -260,9 +284,8 @@ namespace LMControls.LmControls
         {
             isHovered = true;
 
-            this.BackgroundColor = WinTheme.ThemeColor;
-            this.FlatAppearance.BorderColor = WinTheme.DarkColor;
-            this.TextColor = BackgroundColor.IsDarkColor() ? WinTheme.Fr_Branco_Normal : WinTheme.Fr_Preto_Normal;
+            this.BackColor = Enabled ? LmPaint.BackColor.Button.Selected(Theme) : LmPaint.BackColor.Button.Disabled(Theme);
+            this.ForeColor = Enabled ? LmPaint.ForeColor.Button.Hover(Theme) : LmPaint.ForeColor.Button.Disabled(Theme);
 
             Invalidate();
 
@@ -274,9 +297,8 @@ namespace LMControls.LmControls
             if (!isFocused)
                 isHovered = false;
 
-            this.BackgroundColor = !isFocused ? WinTheme.LightColor : WinTheme.ThemeColor;
-            this.FlatAppearance.BorderColor = !isFocused ? WinTheme.ThemeColor : WinTheme.DarkColor;
-            this.TextColor = BackgroundColor.IsDarkColor() ? WinTheme.Fr_Branco_Normal : WinTheme.Fr_Preto_Normal;
+            this.BackColor = Enabled ? LmPaint.BackColor.Button.Normal(Theme) : LmPaint.BackColor.Button.Disabled(Theme);
+            this.ForeColor = Enabled ? LmPaint.ForeColor.Button.Normal(Theme) : LmPaint.ForeColor.Button.Disabled(Theme);
 
             Invalidate();
 
@@ -300,7 +322,6 @@ namespace LMControls.LmControls
             isPressed = false;
             Invalidate();
 
-            //FlatAppearance.BorderColor = LmPaint.BorderColor.Button.Hover(Theme);
             GC.Collect();
             base.OnMouseUp(e);
         }
@@ -308,17 +329,16 @@ namespace LMControls.LmControls
         protected override void OnEnabledChanged(EventArgs e)
         {
             base.OnEnabledChanged(e);
+
             if (Enabled)
             {
-                this.BackgroundColor = WinTheme.LightColor;
-                this.FlatAppearance.BorderColor = WinTheme.ThemeColor;
-                this.TextColor = BackgroundColor.IsDarkColor() ? WinTheme.Fr_Branco_Normal : WinTheme.Fr_Preto_Normal;
+                FlatAppearance.BorderColor = LmPaint.BorderColor.Button.Normal(Theme);
+                this.BackColor = LmPaint.BackColor.Button.Normal(Theme);
             }
             else
             {
-                this.BackgroundColor = WinTheme.LightLightColor;
-                this.FlatAppearance.BorderColor = WinTheme.LightColor;
-                this.TextColor = BackgroundColor.IsDarkColor() ? WinTheme.Fr_Branco_Normal : WinTheme.Fr_Preto_Normal;
+                FlatAppearance.BorderColor = LmPaint.BorderColor.Button.Disabled(Theme);
+                this.BackColor = LmPaint.BackColor.Button.Disabled(Theme);
             }
 
             Invalidate();
@@ -335,9 +355,9 @@ namespace LMControls.LmControls
             isHovered = true;
             this.SetLastFocusedControl();
 
-            this.BackgroundColor = WinTheme.ThemeColor;
-            this.FlatAppearance.BorderColor = WinTheme.DarkColor;
-            this.TextColor = BackgroundColor.IsDarkColor() ? WinTheme.Fr_Branco_Normal : WinTheme.Fr_Preto_Normal;
+            FlatAppearance.BorderColor = LmPaint.BorderColor.Button.Selected(Theme);
+            this.BackColor = LmPaint.BackColor.Button.Selected(Theme);
+            this.ForeColor = LmPaint.ForeColor.Button.Hover(Theme);
 
             Invalidate();
 
@@ -353,9 +373,9 @@ namespace LMControls.LmControls
             isHovered = false;
             isPressed = false;
 
-            this.BackgroundColor = WinTheme.LightColor;
-            this.FlatAppearance.BorderColor = WinTheme.ThemeColor;
-            this.TextColor = BackgroundColor.IsDarkColor() ? WinTheme.Fr_Branco_Normal : WinTheme.Fr_Preto_Normal;
+            FlatAppearance.BorderColor = LmPaint.BorderColor.Button.Normal(Theme);
+            this.BackColor = LmPaint.BackColor.Button.Normal(Theme);
+            this.ForeColor = LmPaint.ForeColor.Button.Normal(Theme);
 
             Invalidate();
 
