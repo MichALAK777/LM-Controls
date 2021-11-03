@@ -285,17 +285,14 @@ namespace LMControls.LmDesign
         #region ForeColor
 
         internal static Color Fr_Escuro_Normal => Color.FromArgb(43, 41, 38);
-        internal static Color Fr_Escuro_Hover => Color.FromArgb(0, 0, 0);
         internal static Color Fr_Escuro_Selected => Color.FromArgb(23, 21, 18);
         internal static Color Fr_Escuro_Disabled => Color.FromArgb(85, 85, 90);
 
         internal static Color Fr_Claro_Normal => Color.FromArgb(255, 255, 255);
-        internal static Color Fr_Claro_Hover => Color.FromArgb(205, 205, 235);
         internal static Color Fr_Claro_Selected => Color.FromArgb(225, 225, 235);
         internal static Color Fr_Claro_Disabled => Color.FromArgb(129, 129, 129);
 
         public static Color Fr_Person_Normal { get; set; } = Fr_Escuro_Normal;
-        public static Color Fr_Person_Hover { get; set; } = Fr_Escuro_Hover;
         public static Color Fr_Person_Selected { get; set; } = Fr_Escuro_Selected;
         public static Color Fr_Person_Disabled { get; set; } = Fr_Escuro_Disabled;
 

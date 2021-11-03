@@ -23,14 +23,12 @@ namespace LMControls.LmDesign
 
     public enum LmMessageType
     {
-        [System.ComponentModel.Description("Normal")]
+        [System.ComponentModel.Description("Centralizada")]
         Padrao = 0,
-        [System.ComponentModel.Description("Auto Ocultar")]
-        AutoHide = 1,
         [System.ComponentModel.Description("Próximo ao Relógio")]
-        InTaskBar = 2,
+        InTaskBar = 1,
         [System.ComponentModel.Description("Mostar no Controle")]
-        InToolTip = 3
+        InToolTip = 2
     }
 
     public enum LmValueType

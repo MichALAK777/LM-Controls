@@ -17,7 +17,7 @@ namespace LMControls.LmControls
     [ToolboxBitmap(typeof(Button))]
     [DefaultEvent("Click")]
     [Designer("LMControls.LmControls.Design.LmButtonDesign")]
-    public class LMButton : Button, ILmControl
+    public class LmButton : Button, ILmControl
     {
         private bool isHovered = false;
         private bool isPressed = false;
@@ -25,13 +25,11 @@ namespace LMControls.LmControls
 
         private Font _default = new Font("Segoe UI", 8F, FontStyle.Bold);
 
-        public LMButton()
+        public LmButton()
         {
             this.Resize += new EventHandler(Button_Resize);
-
+            Font = _default;
             AplicarStilo();
-            //System.Threading.Thread t = new System.Threading.Thread(() => { AplicarStilo(); }) { IsBackground = true };
-            //t.Start();
         }
 
         #region Interface
@@ -138,22 +136,6 @@ namespace LMControls.LmControls
 
         #endregion
 
-        private void AplicarStilo()
-        {
-            Font = _default;
-
-            this.FlatStyle = FlatStyle.Flat;
-            this.FlatAppearance.BorderSize = 0;
-            this.Size = new Size(110, 30);
-            this.BackColor = Enabled ? LmPaint.BackColor.Button.Normal(Theme) : LmPaint.BackColor.Button.Disabled(Theme);
-            this.FlatAppearance.BorderColor = LmPaint.BorderColor.Button.Normal(Theme);
-            this.FlatAppearance.MouseDownBackColor = LmPaint.BackColor.Button.Press(Theme);
-            this.FlatAppearance.MouseOverBackColor = LmPaint.BackColor.Button.Selected(Theme);
-            this.ForeColor = LmPaint.ForeColor.Button.Normal(Theme);
-
-            this.Refresh();
-        }
-
         #region Fields
 
         private bool useCustomIconColor = false;
@@ -185,6 +167,10 @@ namespace LMControls.LmControls
             set
             {
                 borderRadius = value;
+
+                if (borderRadius > Height / 2)
+                    borderRadius = Height / 2;
+
                 this.Invalidate();
             }
         }
@@ -201,16 +187,40 @@ namespace LMControls.LmControls
             }
         }
 
+        //private Color backColor = Color.PaleVioletRed;
         //[Category(LmDefault.PropertyCategory.LmUI)]
-        //public Color BackgroundColor
+        //public Color BackColor
         //{
-        //    get { return this.BackColor; }
-        //    set { this.BackColor = value; }
+        //    get { return backColor; }
+        //    set
+        //    {
+        //        if (!useCustomBackColor && !DesignMode)
+        //            return;
+
+        //        backColor = value;
+        //        this.Invalidate();
+        //    }
         //}
 
         #endregion
 
         #region Paint Methods
+
+        private void AplicarStilo()
+        {
+            Font = _default;
+
+            this.FlatStyle = FlatStyle.Flat;
+            this.FlatAppearance.BorderSize = 0;
+            this.Size = new Size(110, 30);
+            this.BackColor = Enabled ? LmPaint.BackColor.Button.Normal(Theme) : LmPaint.BackColor.Button.Disabled(Theme);
+            this.FlatAppearance.BorderColor = LmPaint.BorderColor.Button.Normal(Theme);
+            this.FlatAppearance.MouseDownBackColor = LmPaint.BackColor.Button.Press(Theme);
+            this.FlatAppearance.MouseOverBackColor = LmPaint.BackColor.Button.Selected(Theme);
+            this.ForeColor = LmPaint.ForeColor.Button.Normal(Theme);
+
+            this.Refresh();
+        }
 
         protected override void OnPaint(PaintEventArgs pevent)
         {
@@ -260,24 +270,6 @@ namespace LMControls.LmControls
 
         #endregion
 
-        #region Metodos
-
-        private GraphicsPath GetFigurePath(Rectangle rect, float radius)
-        {
-            GraphicsPath path = new GraphicsPath();
-            float curveSize = radius * 2F;
-
-            path.StartFigure();
-            path.AddArc(rect.X, rect.Y, curveSize, curveSize, 180, 90);
-            path.AddArc(rect.Right - curveSize, rect.Y, curveSize, curveSize, 270, 90);
-            path.AddArc(rect.Right - curveSize, rect.Bottom - curveSize, curveSize, curveSize, 0, 90);
-            path.AddArc(rect.X, rect.Bottom - curveSize, curveSize, curveSize, 90, 90);
-            path.CloseFigure();
-            return path;
-        }
-
-        #endregion
-
         #region Override Metodos
 
         protected override void OnMouseEnter(EventArgs e)
@@ -285,7 +277,7 @@ namespace LMControls.LmControls
             isHovered = true;
 
             this.BackColor = Enabled ? LmPaint.BackColor.Button.Selected(Theme) : LmPaint.BackColor.Button.Disabled(Theme);
-            this.ForeColor = Enabled ? LmPaint.ForeColor.Button.Hover(Theme) : LmPaint.ForeColor.Button.Disabled(Theme);
+            this.ForeColor = Enabled ? LmPaint.ForeColor.Button.Selected(Theme) : LmPaint.ForeColor.Button.Disabled(Theme);
 
             Invalidate();
 
@@ -297,7 +289,12 @@ namespace LMControls.LmControls
             if (!isFocused)
                 isHovered = false;
 
-            this.BackColor = Enabled ? LmPaint.BackColor.Button.Normal(Theme) : LmPaint.BackColor.Button.Disabled(Theme);
+            this.BackColor =
+                Enabled
+                ? isFocused ? LmPaint.BackColor.Button.Selected(Theme)
+                : LmPaint.BackColor.Button.Normal(Theme)
+                : LmPaint.BackColor.Button.Disabled(Theme);
+
             this.ForeColor = Enabled ? LmPaint.ForeColor.Button.Normal(Theme) : LmPaint.ForeColor.Button.Disabled(Theme);
 
             Invalidate();
@@ -357,7 +354,7 @@ namespace LMControls.LmControls
 
             FlatAppearance.BorderColor = LmPaint.BorderColor.Button.Selected(Theme);
             this.BackColor = LmPaint.BackColor.Button.Selected(Theme);
-            this.ForeColor = LmPaint.ForeColor.Button.Hover(Theme);
+            this.ForeColor = LmPaint.ForeColor.Button.Selected(Theme);
 
             Invalidate();
 
@@ -385,10 +382,28 @@ namespace LMControls.LmControls
             base.OnLostFocus(e);
         }
 
-        protected override void OnHandleCreated(EventArgs e)
+        //protected override void OnHandleCreated(EventArgs e)
+        //{
+        //    base.OnHandleCreated(e);
+        //    this.Parent.BackColorChanged += new EventHandler(Container_BackColorChanged);
+        //}
+
+        #endregion
+
+        #region Metodos
+
+        private GraphicsPath GetFigurePath(Rectangle rect, float radius)
         {
-            base.OnHandleCreated(e);
-            this.Parent.BackColorChanged += new EventHandler(Container_BackColorChanged);
+            GraphicsPath path = new GraphicsPath();
+            float curveSize = radius * 2F;
+
+            path.StartFigure();
+            path.AddArc(rect.X, rect.Y, curveSize, curveSize, 180, 90);
+            path.AddArc(rect.Right - curveSize, rect.Y, curveSize, curveSize, 270, 90);
+            path.AddArc(rect.Right - curveSize, rect.Bottom - curveSize, curveSize, curveSize, 0, 90);
+            path.AddArc(rect.X, rect.Bottom - curveSize, curveSize, curveSize, 90, 90);
+            path.CloseFigure();
+            return path;
         }
 
         #endregion
@@ -405,6 +420,10 @@ namespace LMControls.LmControls
         {
             this.Invalidate();
         }
+        #endregion
+
+        #region Privates Methods
+
         #endregion
     }
 }

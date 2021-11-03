@@ -729,25 +729,6 @@ namespace LMControls.LmDesign
                     }
                 }
 
-                public static Color Hover(LmTheme Theme)
-                {
-                    Color defaultColor = LmCores.Fr_Escuro_Hover;
-                    switch (Theme)
-                    {
-                        case LmTheme.Laranja: return LmCores.Fr_Escuro_Hover;
-                        case LmTheme.Vermelho: return LmCores.Fr_Escuro_Hover;
-                        case LmTheme.Marrom: return LmCores.Fr_Escuro_Hover;
-                        case LmTheme.Lilas: return LmCores.Fr_Escuro_Hover;
-                        case LmTheme.Azul: return LmCores.Fr_Escuro_Hover;
-                        case LmTheme.Verde: return LmCores.Fr_Escuro_Hover;
-                        case LmTheme.Amarelo: return LmCores.Fr_Escuro_Hover;
-                        case LmTheme.Cinza: return LmCores.Fr_Escuro_Hover;
-                        case LmTheme.Preto: return LmCores.Fr_Claro_Hover;
-                        case LmTheme.Personalizado: return LmCores.Fr_Person_Hover;
-                        default: return defaultColor;
-                    }
-                }
-
                 public static Color Selected(LmTheme Theme)
                 {
                     Color defaultColor = LmCores.Fr_Escuro_Selected;
@@ -808,21 +789,21 @@ namespace LMControls.LmDesign
                     }
                 }
 
-                public static Color Hover(LmTheme Theme)
+                public static Color Selected(LmTheme Theme)
                 {
-                    Color defaultColor = LmCores.Fr_Escuro_Hover;
+                    Color defaultColor = LmCores.Fr_Escuro_Selected;
                     switch (Theme)
                     {
-                        case LmTheme.Laranja: return LmCores.Fr_Escuro_Hover;
-                        case LmTheme.Vermelho: return LmCores.Fr_Escuro_Hover;
-                        case LmTheme.Marrom: return LmCores.Fr_Escuro_Hover;
-                        case LmTheme.Lilas: return LmCores.Fr_Escuro_Hover;
-                        case LmTheme.Azul: return LmCores.Fr_Escuro_Hover;
-                        case LmTheme.Verde: return LmCores.Fr_Escuro_Hover;
-                        case LmTheme.Amarelo: return LmCores.Fr_Escuro_Hover;
-                        case LmTheme.Cinza: return LmCores.Fr_Escuro_Hover;
-                        case LmTheme.Preto: return LmCores.Fr_Claro_Hover;
-                        case LmTheme.Personalizado: return LmCores.Fr_Person_Hover;
+                        case LmTheme.Laranja: return LmCores.Fr_Escuro_Selected;
+                        case LmTheme.Vermelho: return LmCores.Fr_Escuro_Selected;
+                        case LmTheme.Marrom: return LmCores.Fr_Escuro_Selected;
+                        case LmTheme.Lilas: return LmCores.Fr_Escuro_Selected;
+                        case LmTheme.Azul: return LmCores.Fr_Escuro_Selected;
+                        case LmTheme.Verde: return LmCores.Fr_Escuro_Selected;
+                        case LmTheme.Amarelo: return LmCores.Fr_Escuro_Selected;
+                        case LmTheme.Cinza: return LmCores.Fr_Escuro_Selected;
+                        case LmTheme.Preto: return LmCores.Fr_Claro_Selected;
+                        case LmTheme.Personalizado: return LmCores.Fr_Person_Selected;
                         default: return defaultColor;
                     }
                 }
@@ -1009,25 +990,6 @@ namespace LMControls.LmDesign
                         case LmTheme.Cinza: return LmCores.Br_Cinza_Txt_Normal;
                         case LmTheme.Preto: return LmCores.Br_Preto_Txt_Normal;
                         case LmTheme.Personalizado: return LmCores.Br_Person_Txt_Normal;
-                        default: return defaultColor;
-                    }
-                }
-
-                public static Color Hover(LmTheme Theme)
-                {
-                    Color defaultColor = LmCores.Br_Azul_Txt_Selected;
-                    switch (Theme)
-                    {
-                        case LmTheme.Laranja: return LmCores.Br_Laranja_Txt_Selected;
-                        case LmTheme.Vermelho: return LmCores.Br_Vermelho_Txt_Selected;
-                        case LmTheme.Marrom: return LmCores.Br_Marrom_Txt_Selected;
-                        case LmTheme.Lilas: return LmCores.Br_Lilas_Txt_Selected;
-                        case LmTheme.Azul: return LmCores.Br_Azul_Txt_Selected;
-                        case LmTheme.Verde: return LmCores.Br_Verde_Txt_Selected;
-                        case LmTheme.Amarelo: return LmCores.Br_Amarelo_Txt_Selected;
-                        case LmTheme.Cinza: return LmCores.Br_Cinza_Txt_Selected;
-                        case LmTheme.Preto: return LmCores.Br_Preto_Txt_Selected;
-                        case LmTheme.Personalizado: return LmCores.Br_Person_Txt_Selected;
                         default: return defaultColor;
                     }
                 }

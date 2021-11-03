@@ -43,6 +43,16 @@
       "frameworks": {
         "net5.0-windows7.0": {
           "targetAlias": "net5.0-windows",
+          "dependencies": {
+            "DotNetZip": {
+              "target": "Package",
+              "version": "[1.15.0, )"
+            },
+            "iTextSharp.LGPLv2.Core.StrongName": {
+              "target": "Package",
+              "version": "[1.6.71, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

@@ -1,4 +1,5 @@
 ﻿using LMControls.LmDesign;
+using LMControls.LmForms;
 using LMControls.RJControls;
 using Microsoft.Win32;
 using System;
@@ -13,24 +14,11 @@ using System.Windows.Forms;
 
 namespace LMControls
 {
-    public partial class Form1 : Form
+    public partial class Form1 : LmSingleForm
     {
-        private UserPreferenceChangedEventHandler UserPreferenceChanged;
-
         public Form1()
         {
-            WinTheme.LoadTheme();
-
             InitializeComponent();
-            UserPreferenceChanged = new UserPreferenceChangedEventHandler(SystemEvents_UserPreferenceChanged);
-            SystemEvents.UserPreferenceChanged += UserPreferenceChanged;
-            this.Disposed += new EventHandler(Form_Disposed);
-
-            lblThemeColor.BackColor = WinTheme.ThemeColor;
-            lblLightColor.BackColor = WinTheme.LightColor;
-            lblLightLightColor.BackColor = WinTheme.LightLightColor;
-            lblDarkColor.BackColor = WinTheme.DarkColor;
-            lblDarkDarkColor.BackColor = WinTheme.DarkDarkColor;
         }
 
         //private void LoadTheme()
@@ -73,16 +61,9 @@ namespace LMControls
             timer1.Start();
         }
 
-        private void SystemEvents_UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
-            if (e.Category == UserPreferenceCategory.General || e.Category == UserPreferenceCategory.VisualStyle)
-            {
-                WinTheme.LoadTheme();
-            }
-        }
-        private void Form_Disposed(object sender, EventArgs e)
-        {
-            SystemEvents.UserPreferenceChanged -= UserPreferenceChanged;
+
         }
     }
 }

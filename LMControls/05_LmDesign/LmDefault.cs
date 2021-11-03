@@ -8,7 +8,7 @@ namespace LMControls.LmDesign
 {
     public static class LmDefault
     {
-        public const LmTheme Theme = LmTheme.Laranja;
+        public const LmTheme Theme = LmTheme.Azul;
         public const LmMessageType TipoMensagem = LmMessageType.Padrao;
 
         public static class PropertyCategory
