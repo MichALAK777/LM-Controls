@@ -1219,12 +1219,6 @@ namespace LMControls.Metodos
 
         private static string SelColunasImpressao(object sender, List<DataGridViewColumn> colunas, string colunasOcultas)
         {
-            /*
-             * Comentado Temporariamente
-             * 
-             * 
-             * 
-             * 
             var ctrl = (Control)sender;
 
             FrmConfigColunasGrid frm = new FrmConfigColunasGrid("Selecionar Colunas para Imprimir");
@@ -1314,8 +1308,6 @@ namespace LMControls.Metodos
                 return _return;
             }
             else
-
-                */
                 return null;
         }
 

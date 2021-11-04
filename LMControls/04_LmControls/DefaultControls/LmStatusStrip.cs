@@ -20,7 +20,7 @@ namespace LMControls.LmControls
         public LmStatusStrip()
         {
             BackColor = Color.Transparent;
-            Font = new Font("Arial", 9.75F);
+            Font = new Font("Segoe UI", 9.75F);
         }
 
         #endregion

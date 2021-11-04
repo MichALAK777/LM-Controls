@@ -58,7 +58,7 @@ namespace LMControls
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(685, 132);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(717, 210);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // gpbColOculta
@@ -67,9 +67,9 @@ namespace LMControls
             this.gpbColOculta.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gpbColOculta.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.gpbColOculta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(41)))), ((int)(((byte)(38)))));
-            this.gpbColOculta.Location = new System.Drawing.Point(345, 3);
+            this.gpbColOculta.Location = new System.Drawing.Point(361, 3);
             this.gpbColOculta.Name = "gpbColOculta";
-            this.gpbColOculta.Size = new System.Drawing.Size(337, 90);
+            this.gpbColOculta.Size = new System.Drawing.Size(353, 168);
             this.gpbColOculta.TabIndex = 3;
             this.gpbColOculta.TabStop = false;
             this.gpbColOculta.Text = "Colunas Ocultas";
@@ -81,7 +81,7 @@ namespace LMControls
             this.flpColOculta.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flpColOculta.Location = new System.Drawing.Point(3, 22);
             this.flpColOculta.Name = "flpColOculta";
-            this.flpColOculta.Size = new System.Drawing.Size(331, 65);
+            this.flpColOculta.Size = new System.Drawing.Size(347, 143);
             this.flpColOculta.TabIndex = 1;
             this.flpColOculta.WrapContents = false;
             // 
@@ -101,9 +101,9 @@ namespace LMControls
             this.btnCancelar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(41)))), ((int)(((byte)(38)))));
             this.btnCancelar.Image = ((System.Drawing.Image)(resources.GetObject("btnCancelar.Image")));
             this.btnCancelar.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCancelar.Location = new System.Drawing.Point(345, 99);
+            this.btnCancelar.Location = new System.Drawing.Point(361, 177);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(337, 30);
+            this.btnCancelar.Size = new System.Drawing.Size(353, 30);
             this.btnCancelar.TabIndex = 2;
             this.btnCancelar.Text = " Cancelar";
             this.btnCancelar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -129,9 +129,9 @@ namespace LMControls
             this.btnConfirmar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(41)))), ((int)(((byte)(38)))));
             this.btnConfirmar.Image = ((System.Drawing.Image)(resources.GetObject("btnConfirmar.Image")));
             this.btnConfirmar.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnConfirmar.Location = new System.Drawing.Point(3, 99);
+            this.btnConfirmar.Location = new System.Drawing.Point(3, 177);
             this.btnConfirmar.Name = "btnConfirmar";
-            this.btnConfirmar.Size = new System.Drawing.Size(336, 30);
+            this.btnConfirmar.Size = new System.Drawing.Size(352, 30);
             this.btnConfirmar.TabIndex = 3;
             this.btnConfirmar.Text = " Salvar e Fechar";
             this.btnConfirmar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -149,7 +149,7 @@ namespace LMControls
             this.gpbColVisivel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(41)))), ((int)(((byte)(38)))));
             this.gpbColVisivel.Location = new System.Drawing.Point(3, 3);
             this.gpbColVisivel.Name = "gpbColVisivel";
-            this.gpbColVisivel.Size = new System.Drawing.Size(336, 90);
+            this.gpbColVisivel.Size = new System.Drawing.Size(352, 168);
             this.gpbColVisivel.TabIndex = 2;
             this.gpbColVisivel.TabStop = false;
             this.gpbColVisivel.Text = "Colunas Visíveis";
@@ -162,7 +162,7 @@ namespace LMControls
             this.flpColVisivel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flpColVisivel.Location = new System.Drawing.Point(3, 22);
             this.flpColVisivel.Name = "flpColVisivel";
-            this.flpColVisivel.Size = new System.Drawing.Size(330, 65);
+            this.flpColVisivel.Size = new System.Drawing.Size(346, 143);
             this.flpColVisivel.TabIndex = 0;
             this.flpColVisivel.WrapContents = false;
             this.flpColVisivel.DragDrop += new System.Windows.Forms.DragEventHandler(this.flpColVisivel_DragDrop);
@@ -172,8 +172,10 @@ namespace LMControls
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(689, 164);
+            this.ClientSize = new System.Drawing.Size(721, 242);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FrmConfigGeralGrid";
             this.Padding = new System.Windows.Forms.Padding(2, 30, 2, 2);
             this.Text = "Configuração Geral Grid";

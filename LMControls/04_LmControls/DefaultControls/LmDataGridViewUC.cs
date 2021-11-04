@@ -120,7 +120,7 @@ namespace LMControls.LmControls
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "LmDataGridViewUC";
             this.Size = new System.Drawing.Size(531, 150);
-            this.Load += new System.EventHandler(this.CmxDataGridViewUC_Load);
+            this.Load += new System.EventHandler(this.LmDataGridViewUC_Load);
             this.flpBotoes.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -169,41 +169,41 @@ namespace LMControls.LmControls
             }
         }
 
-        private LmTheme cmxTema = LmTheme.Padrao;
+        private LmTheme lmTema = LmTheme.Padrao;
         [Category(LmDefault.PropertyCategory.LmUI)]
         [DefaultValue(LmTheme.Padrao)]
         public LmTheme Theme
         {
             get
             {
-                if (DesignMode || cmxTema != LmTheme.Padrao)
+                if (DesignMode || lmTema != LmTheme.Padrao)
                 {
-                    return cmxTema;
+                    return lmTema;
                 }
 
-                if (StyleManager != null && cmxTema == LmTheme.Padrao)
+                if (StyleManager != null && lmTema == LmTheme.Padrao)
                 {
                     return StyleManager.Theme;
                 }
-                if (StyleManager == null && cmxTema == LmTheme.Padrao)
+                if (StyleManager == null && lmTema == LmTheme.Padrao)
                 {
                     return LmDefault.Theme;
                 }
 
-                return cmxTema;
+                return lmTema;
             }
-            set { cmxTema = value; }
+            set { lmTema = value; }
         }
 
-        private LmStyleManager cmxStyleManager = null;
+        private LmStyleManager lmStyleManager = null;
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public LmStyleManager StyleManager
         {
-            get { return cmxStyleManager; }
+            get { return lmStyleManager; }
             set
             {
-                cmxStyleManager = value;
+                lmStyleManager = value;
 
                 flpRodape.BackColor =
                     Grid.ColumnHeadersDefaultCellStyle.BackColor;
@@ -505,7 +505,7 @@ namespace LMControls.LmControls
         public event RowEvent RowIndexChanged;
         public event GridEvent SalvarConfiguracao;
 
-        private void CmxDataGridViewUC_Load(object sender, EventArgs e)
+        private void LmDataGridViewUC_Load(object sender, EventArgs e)
         {
 
         }
@@ -776,12 +776,6 @@ namespace LMControls.LmControls
 
         private void LnkColunas_Click(object sender, EventArgs e)
         {
-            /*
-             * 
-             * comentado temporariamente
-             * 
-             * 
-             * 
             FrmConfigGeralGrid frm = new FrmConfigGeralGrid(this);
             if (frm.ShowDialog() == DialogResult.OK)
             {
@@ -796,7 +790,6 @@ namespace LMControls.LmControls
                 { IsBackground = true };
                 th.Start();
             }
-            */
         }
 
         public void LnkResraurarGrid_Click(object sender, EventArgs e)

@@ -41,6 +41,8 @@ namespace LMControls.LmControls
             this.flpMain.Name = "flpMain";
             this.flpMain.Size = new System.Drawing.Size(850, 22);
             this.flpMain.TabIndex = 0;
+            this.flpMain.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.FlpMain_ControlAdded);
+            this.flpMain.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.FlpMain_ControlRemoved);
             // 
             // LmMenuJanelaAberta
             // 

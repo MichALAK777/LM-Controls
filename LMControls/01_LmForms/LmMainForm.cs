@@ -6,6 +6,7 @@ using LMControls.Metodos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -38,7 +39,7 @@ namespace LMControls.LmForms
     #endregion
 
     [DefaultEvent("Load")]
-    //[Designer(typeof(Controls.Design.LmFormDesign), typeof(IRootDesigner))]
+    [Designer(typeof(LmControls.Design.LmFormDesign), typeof(IRootDesigner))]
     public partial class LmMainForm : Form, ILmForm, IDisposable
     {
         #region Construtor
@@ -263,8 +264,6 @@ namespace LMControls.LmForms
 
             PnlMain = ((LmPanel)this.Controls["pnlMain"]);
             MenuJanelaAberta = ((LmPanelFlow)this.Controls["msMenuJanelaAberta"].Controls["flpMain"]);
-
-            ((LmMenuJanelaAberta)MenuJanelaAberta.Parent).FecharTudo += MsJanelaAberta_FecharTudo;
 
             switch (StartPosition)
             {
@@ -814,68 +813,67 @@ namespace LMControls.LmForms
 
             try
             {
-                //if (PnlMain != null)
-                //{
-                //    if (PnlMain.Controls.Count > 12)
-                //    {
-                //        MsgBox.Show("O Sistema Permite trabalhar com no máximo Doze(12) Janelas ao mesmo tempo.\nFeche algumas janelas para continuar.",
-                //            "Limite de janelas atingido", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //        Cursor = Cursors.Default;
-                //        return;
-                //    }
+                if (PnlMain != null)
+                {
+                    if (PnlMain.Controls.Count > 12)
+                    {
+                        MsgBox.Show("O Lizard Permite trabalhar com no máximo Doze(12) Janelas ao mesmo tempo.\nFeche algumas janelas para continuar.",
+                            "Limite de janelas atingido", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Cursor = Cursors.Default;
+                        return;
+                    }
 
-                //    LmContainerForm frmContainer = new LmContainerForm
-                //    {
-                //        Name = "frmContainer" + contC,
-                //    };
-                //    contC++;
+                    LmContainerForm frmContainer = new LmContainerForm
+                    {
+                        Name = "frmContainer" + contC,
+                    };
+                    contC++;
 
-                //    frmContainer.ClickHelp += MsJanelaAberta_ClickHelp;
+                    frmContainer.ClickHelp += MsJanelaAberta_ClickHelp;
 
-                //    // Adicionar Aba em msMenuJanelaAberta
-                //    var abaJanela = new LmJanelaAberta(this.Theme)
-                //    {
-                //        Name = frmContainer.Name,
-                //    };
+                    var abaJanela = new LmJanelaAberta(this.Theme)
+                    {
+                        Name = frmContainer.Name,
+                    };
 
-                //    abaJanela.SetText(form.Text);
+                    abaJanela.SetText(form.Text);
 
-                //    abaJanela.FecharTudoExetoEsta += MsJanelaAberta_FecharTudoExetoEsta;
-                //    abaJanela.FecharContainerForms += MsJanelaAberta_FecharContainerForms;
-                //    abaJanela.FecharTudoEsquerda += MsJanelaAberta_FecharTudoEsquerda;
-                //    abaJanela.FecharTudoDireita += MsJanelaAberta_FecharTudoDireita;
+                    abaJanela.FecharTudoExetoEsta += MsJanelaAberta_FecharTudoExetoEsta;
+                    abaJanela.FecharContainerForms += MsJanelaAberta_FecharContainerForms;
+                    abaJanela.FecharTudoEsquerda += MsJanelaAberta_FecharTudoEsquerda;
+                    abaJanela.FecharTudoDireita += MsJanelaAberta_FecharTudoDireita;
 
-                //    form.Dock = DockStyle.Fill;
+                    form.Dock = DockStyle.Fill;
 
-                //    form.Modo = Modo.Novo;
+                    form.Modo = Modo.Novo;
 
-                //    MenuJanelaAberta.Controls.Add(abaJanela);
+                    MenuJanelaAberta.Controls.Add(abaJanela);
 
-                //    form.TopLevel = false;
+                    form.TopLevel = false;
+                
+                    form.IsSelected = true;
+                    form.OnLoading();
 
-                //    form.IsSelected = true;
-                //    form.OnLoading();
+                    frmContainer.Controls.Add(form);
+                    frmContainer.Controls[form.Name].BringToFront();
 
-                //    frmContainer.Controls.Add(form);
-                //    frmContainer.Controls[form.Name].BringToFront();
+                    form.Show();
 
-                //    form.Show();
+                    PnlMain.Controls.Add(frmContainer);
+                    PnlMain.Controls[frmContainer.Name].BringToFront();
 
-                //    PnlMain.Controls.Add(frmContainer);
-                //    PnlMain.Controls[frmContainer.Name].BringToFront();
+                    System.Threading.Thread t1 = new System.Threading.Thread(() => { ((LmMenuJanelaAberta)MenuJanelaAberta.Parent).FocarContainer(frmContainer.Name); }) { IsBackground = true };
+                    t1.Start();
 
-                //    System.Threading.Thread t1 = new System.Threading.Thread(() => { ((LmMenuJanelaAbertaUC)MenuJanelaAberta.Parent).FocarContainer(frmContainer.Name); }) { IsBackground = true };
-                //    t1.Start();
+                    System.Threading.Thread t2 = new System.Threading.Thread(() => { form.OnLoaded(); }) { IsBackground = true };
+                    t2.Start();
 
-                //    System.Threading.Thread t2 = new System.Threading.Thread(() => { form.OnLoaded(); }) { IsBackground = true };
-                //    t2.Start();
-
-                //    frmContainer.TabStop = false;
-                //}
-                //else
-                //{
-                //    MsgBox.Show("Painel \"pnlMain\" do Formulário principal não encontrado.\nContate administrador do sistema.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                //}
+                    frmContainer.TabStop = false;
+                }
+                else
+                {
+                    MsgBox.Show("Painel \"pnlMain\" do Formulário principal não encontrado.\nContate administrador do sistema.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             catch (Exception ex)
             {
@@ -892,13 +890,6 @@ namespace LMControls.LmForms
 
         private void MsJanelaAberta_FecharContainerForms(object sender, EventArgs e)
         {
-            /*
-             * 
-             * Comentado temporariamente
-             * 
-             * 
-             * 
-             * 
             try
             {
                 var container = (LmContainerForm)PnlMain.Controls[((Control)sender).Name];
@@ -921,7 +912,6 @@ namespace LMControls.LmForms
                 MsgBox.Show($"Erro ao Fechar Janelas.\n\n{ex.Message}",
                     "Fechar Tudo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            */
         }
 
         private void MsJanelaAberta_FecharTudo(object sender, EventArgs e)
@@ -1020,12 +1010,6 @@ namespace LMControls.LmForms
 
         private void PnlMain_ControlRemoved(object sender, ControlEventArgs e)
         {
-            /*
-             * comentado temporariamente
-             * 
-             * 
-             * 
-             * 
             if (e.Control.Name.StartsWith("frmContainer"))
             {
                 ((LmMenuJanelaAberta)MenuJanelaAberta.Parent).Removejanela(e.Control.Name);
@@ -1043,8 +1027,6 @@ namespace LMControls.LmForms
             }
 
             this.Refresh();
-
-            */
         }
 
         #endregion

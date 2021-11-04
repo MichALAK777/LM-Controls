@@ -53,7 +53,7 @@ namespace LMControls
             this.txt.Icon = ((System.Drawing.Image)(resources.GetObject("txt.Icon")));
             this.txt.IconShow = true;
             this.txt.Lines = new string[0];
-            this.txt.Location = new System.Drawing.Point(3, 3);
+            this.txt.Location = new System.Drawing.Point(0, 0);
             this.txt.Margin = new System.Windows.Forms.Padding(4);
             this.txt.MaxLength = 32767;
             this.txt.Name = "txt";
@@ -66,7 +66,7 @@ namespace LMControls
             this.txt.SelectionStart = 0;
             this.txt.ShortcutsEnabled = true;
             this.txt.ShowClearButton = true;
-            this.txt.Size = new System.Drawing.Size(195, 31);
+            this.txt.Size = new System.Drawing.Size(201, 31);
             this.txt.TabIndex = 0;
             this.txt.TextPrompt = "Pesquisar";
             this.txt.UnderlinedStyle = true;
@@ -107,7 +107,7 @@ namespace LMControls
             this.dgv.EnableHeadersVisualStyles = false;
             this.dgv.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.dgv.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(222)))), ((int)(((byte)(251)))));
-            this.dgv.Location = new System.Drawing.Point(3, 34);
+            this.dgv.Location = new System.Drawing.Point(0, 31);
             this.dgv.MultiSelect = false;
             this.dgv.Name = "dgv";
             this.dgv.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -123,7 +123,7 @@ namespace LMControls
             this.dgv.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgv.RowTemplate.Height = 25;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgv.Size = new System.Drawing.Size(195, 22);
+            this.dgv.Size = new System.Drawing.Size(201, 28);
             this.dgv.TabIndex = 1;
             this.dgv.UseSelectable = true;
             this.dgv.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dgv_CellClick);
@@ -141,6 +141,7 @@ namespace LMControls
             this.Controls.Add(this.txt);
             this.KeyPreview = true;
             this.Name = "FrmCaixaComboBox";
+            this.Padding = new System.Windows.Forms.Padding(0);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
@@ -154,8 +155,7 @@ namespace LMControls
         }
 
         #endregion
-
-        private LmControls.LmTextBox txt;
         internal LmControls.LmDataGridView dgv;
+        internal LmControls.LmTextBox txt;
     }
 }

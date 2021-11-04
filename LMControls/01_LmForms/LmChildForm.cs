@@ -202,8 +202,6 @@ namespace LMControls.LmForms
                             form.IsSelected = false;
                     }
 
-                    //this.AtualizarStatusLabel?.Invoke(this, new EventArgs());
-
                     if (this.AguardandoAtualizacaoDados)
                     {
                         this.AtualizarDados.Invoke(this, new EventArgs());
@@ -212,11 +210,6 @@ namespace LMControls.LmForms
                    if (_lastFocusedControl != null)
                         _lastFocusedControl.Focus();
 
-                }
-                else
-                {
-                    //if (this.ActiveControl != null)
-                    //    _lastFocusControl = this.ActiveControl;
                 }
             }
         }
@@ -238,27 +231,6 @@ namespace LMControls.LmForms
                     {
                         this.AtualizarDados.Invoke(this, new EventArgs());
                         this.AguardandoAtualizacaoDados = false;
-                    }
-                    else
-                    {
-                        //const string especialChar = " ●";
-
-                        //if (!this.Text.EndsWith(especialChar))
-                        //{
-                        //    this.Text += especialChar;
-
-                        //    if (this.Parent != null && this.Parent.Parent != null && this.Parent.Parent is LmMainForm)
-                        //    {
-                        //        var msJanelaAberta = this.Parent.Parent.Controls["msMenuJanelaAberta"] as LmMenuJanelaAbertaUC;
-
-                        //        if (msJanelaAberta != null && msJanelaAberta.Controls["flpMain"].Controls.ContainsKey(this.Name))
-                        //        {
-                        //            var txtNovo = msJanelaAberta.Controls["flpMain"].Controls[this.Name].Controls["lblNomeJanela"].Text + especialChar;
-                        //            ((LmJanelaAberta)msJanelaAberta.Controls["flpMain"].Controls[this.Name]).SetText(txtNovo);
-                        //        }
-
-                        //    }
-                        //}
                     }
                 }
                 Refresh();
@@ -411,63 +383,60 @@ namespace LMControls.LmForms
         {
             Cursor = Cursors.WaitCursor;
 
-            //try
-            //{
-            //    var frmContainer = this.Parent as LmContainerForm;
+            try
+            {
+                var frmContainer = this.Parent as LmContainerForm;
 
-            //    if (frmContainer != null)
-            //    {
-            //        if (frmContainer.Controls.ContainsKey(form.Name))
-            //        {
-            //            frmContainer.FormsAbertos.Remove(form.Name);
-            //            frmContainer.FormsAbertos.Add(form.Name);
+                if (frmContainer != null)
+                {
+                    if (frmContainer.Controls.ContainsKey(form.Name))
+                    {
+                        var frmPrincipal = this.TopLevelControl as LmMainForm;
 
-            //            var frm = frmContainer.Controls[form.Name] as LmChildForm;
-            //            frm.Close();
-            //        }
+                        frmPrincipal.OpenFormChild(form);
+                    }
 
-            //        if (!frmContainer.Controls.ContainsKey(form.Name))
-            //        {
-            //            if (frmContainer.Controls.Count > 12)
-            //            {
-            //                MsgBox.Show("O Sistema Permite trabalhar com no máximo Doze(12) Janelas ao mesmo tempo.\nFeche algumas janelas para continuar.",
-            //                    "Limite de janelas atingido", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //                Cursor = Cursors.Default;
-            //                return;
-            //            }
+                    if (!frmContainer.Controls.ContainsKey(form.Name))
+                    {
+                        if (frmContainer.Controls.Count > 12)
+                        {
+                            MsgBox.Show("O Lizard Permite trabalhar com no máximo Doze(12) Janelas ao mesmo tempo.\nFeche algumas janelas para continuar.",
+                                "Limite de janelas atingido", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            Cursor = Cursors.Default;
+                            return;
+                        }
 
-            //            this.IsSelected = false;
-            //            form.IsSelected = true;
+                        this.IsSelected = false;
+                        form.IsSelected = true;
 
-            //            form.Dock = DockStyle.Fill;
+                        form.Dock = DockStyle.Fill;
 
-            //            form.Modo = Modo.Novo;
-            //            form.OnLoading();
-            //            form.TopLevel = false;
-            //            form.Parent = frmContainer;
+                        form.Modo = Modo.Novo;
+                        form.OnLoading();
+                        form.TopLevel = false;
+                        form.Parent = frmContainer;
 
-            //            form.BringToFront();
+                        form.BringToFront();
 
-            //            frmContainer.Controls.Add(form);
-            //            frmContainer.Controls[form.Name].BringToFront();
+                        frmContainer.Controls.Add(form);
+                        frmContainer.Controls[form.Name].BringToFront();
 
-            //            this.BloquearControles();
-            //            System.Threading.Thread t2 = new System.Threading.Thread(() => { form.OnLoaded(); }) { IsBackground = true };
-            //            t2.Start();
+                        System.Threading.Thread t2 = new System.Threading.Thread(() => { form.OnLoaded(); }) { IsBackground = true };
+                        t2.Start();
 
-            //            form.Show();
-            //        }
-            //    }
-            //    else
-            //    {
-            //        MsgBox.Show("Container do Formulário não encontrado.\nContate administrador do sistema.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    System.Diagnostics.Debug.Print("Erro: " + ex.Message);
-            //    MsgBox.Show($"Não foi possível abrir o formulário \"{form.Text}\"", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+                        form.Show();
+                    }
+                }
+                else
+                {
+                    MsgBox.Show("Container do Formulário não encontrado.\nContate administrador do sistema.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.Print("Erro: " + ex.Message);
+                MsgBox.Show($"Não foi possível abrir o formulário \"{form.Text}\"", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             Cursor = Cursors.Default;
         }

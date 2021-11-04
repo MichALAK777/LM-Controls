@@ -673,13 +673,9 @@ namespace LMControls.LmControls
                         && e.KeyChar != (char)72 && e.KeyChar != (char)104 && e.KeyChar != (char)22 && e.KeyChar != (char)24) { e.Handled = true; };
                     break;
                 case LmValueType.Num_Inteiro:
-                    /*
-                     * comentado temporariamente
-                     * 
-                     * 
                     if (e.KeyChar == (char)45 &&
-                       (((PromptedTextBox)sender).Text.Contains("-") || !string.IsNullOrEmpty(((PromptedTextBox)sender).Text)) &&
-                       ((PromptedTextBox)sender).SelectionStart != 0)
+                       (this.Text.Contains("-") || !string.IsNullOrEmpty(this.Text)) &&
+                       this.SelectionStart != 0)
                     {
                         e.Handled = true;
                     }
@@ -687,19 +683,14 @@ namespace LMControls.LmControls
                     {
                         e.Handled = true;
                     };
-                    */
+
                     break;
                 case LmValueType.Num_Real:
-                    /*
-                     * comentado temporariamente
-                     * 
-                     * 
-                     * 
                     if (e.KeyChar == (char)46) { e.KeyChar = (char)44; }
-                    if (e.KeyChar == (char)44 && ((PromptedTextBox)sender).Text.Contains(",")) { e.Handled = true; }
+                    if (e.KeyChar == (char)44 && this.Text.Contains(",")) { e.Handled = true; }
                     if (e.KeyChar == (char)45 &&
-                        (((PromptedTextBox)sender).Text.Contains("-") | !string.IsNullOrEmpty(((PromptedTextBox)sender).Text)) &&
-                        ((PromptedTextBox)sender).SelectionStart != 0)
+                        (this.Text.Contains("-") | !string.IsNullOrEmpty(this.Text)) &&
+                        this.SelectionStart != 0)
                     {
                         e.Handled = true;
                     }
@@ -707,18 +698,13 @@ namespace LMControls.LmControls
                     {
                         e.Handled = true;
                     }
-                    */
                     break;
                 case LmValueType.Monetario:
-                    /*
-                     * comentado temporariamente
-                     * 
-                     * 
                     if (e.KeyChar == (char)46) { e.KeyChar = (char)44; }
-                    if (e.KeyChar == (char)44 && ((PromptedTextBox)sender).Text.Contains(",")) { e.Handled = true; }
+                    if (e.KeyChar == (char)44 && this.Text.Contains(",")) { e.Handled = true; }
                     if (e.KeyChar == (char)45 &&
-                        (((PromptedTextBox)sender).Text.Contains("-") | !string.IsNullOrEmpty(((PromptedTextBox)sender).Text)) &&
-                        ((PromptedTextBox)sender).SelectionStart != 0)
+                        (this.Text.Contains("-") | !string.IsNullOrEmpty(this.Text)) &&
+                        this.SelectionStart != 0)
                     {
                         e.Handled = true;
                     }
@@ -726,7 +712,6 @@ namespace LMControls.LmControls
                     {
                         e.Handled = true;
                     }
-                    */
                     break;
                 case LmValueType.Fone:
                     if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)8 && e.KeyChar != (char)3 && e.KeyChar != (char)1 && e.KeyChar != (char)22 && e.KeyChar != (char)24)
@@ -1080,12 +1065,6 @@ namespace LMControls.LmControls
             }
             else if (ctrl is LmTextBox && (((LmTextBox)ctrl).valor == LmValueType.ComboBox || ((LmTextBox)ctrl).valor == LmValueType.ComboBox_Enum))
             {
-                /*
-                 * comentado temporariamente
-                 * 
-                 * 
-                 * 
-                 * 
                 FrmCaixaComboBox frm = new FrmCaixaComboBox(CmbDados, SelectedItem, SelectedValue, ((LmTextBox)ctrl).valor);
                 Rectangle areaTrabalho = Screen.GetWorkingArea(this);
 
@@ -1135,7 +1114,6 @@ namespace LMControls.LmControls
 
                     ((LmTextBox)ctrl).Text = frm._displayText;
                 }
-                */
             }
 
             this.Focus();

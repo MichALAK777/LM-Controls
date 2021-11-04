@@ -61,46 +61,46 @@ namespace LMControls.LmControls
             }
         }
 
-        private LmTheme cmxTheme = LmTheme.Padrao;
+        private LmTheme lmTheme = LmTheme.Padrao;
         [Category(LmDefault.PropertyCategory.LmUI)]
         [DefaultValue(LmTheme.Padrao)]
         public LmTheme Theme
         {
             get
             {
-                if (DesignMode || cmxTheme != LmTheme.Padrao)
+                if (DesignMode || lmTheme != LmTheme.Padrao)
                 {
-                    return cmxTheme;
+                    return lmTheme;
                 }
 
-                if (StyleManager != null && cmxTheme == LmTheme.Padrao)
+                if (StyleManager != null && lmTheme == LmTheme.Padrao)
                 {
                     return StyleManager.Theme;
                 }
-                if (StyleManager == null && cmxTheme == LmTheme.Padrao)
+                if (StyleManager == null && lmTheme == LmTheme.Padrao)
                 {
                     return LmDefault.Theme;
                 }
 
-                return cmxTheme;
+                return lmTheme;
             }
             set
             {
-                cmxTheme = value;
+                lmTheme = value;
             }
         }
 
-        private LmStyleManager cmxStyleManager = null;
+        private LmStyleManager lmStyleManager = null;
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public LmStyleManager StyleManager
         {
-            get { return cmxStyleManager; }
+            get { return lmStyleManager; }
             set
             {
-                cmxStyleManager = value;
+                lmStyleManager = value;
 
-                this.Theme = cmxStyleManager.Theme;
+                this.Theme = lmStyleManager.Theme;
 
             }
         }
@@ -145,14 +145,6 @@ namespace LMControls.LmControls
 
         #endregion
 
-        #region Eventos
-
-        public delegate void ClickControl(object sender, EventArgs e);
-
-        public event ClickControl FecharTudo;
-
-        #endregion
-
         #region Metodos Publicos
 
         public void Removejanela(string name)
@@ -162,11 +154,6 @@ namespace LMControls.LmControls
 
         public void FocarContainer(string name)
         {
-            /*
-             * comentado temporariamente
-             * 
-             * 
-             * 
             foreach (var ctrl in flpMain.Controls)
             {
                 if (ctrl is LmJanelaAberta)
@@ -182,10 +169,7 @@ namespace LMControls.LmControls
 
                             var frm = container.Controls[0] as LmForms.LmChildForm;
 
-                            if (frm.Controls.ContainsKey("pnlTransparent"))
-                                frm.Controls["pnlTransparent"]?.Focus();
-                            else
-                                frm._lastFocusedControl?.Focus();
+                            frm._lastFocusedControl?.Focus();
                         }
                         else
                         {
@@ -198,11 +182,48 @@ namespace LMControls.LmControls
 
                 }
             }
-
-            */
         }
 
         #endregion
 
+        private void FlpMain_ControlAdded(object sender, ControlEventArgs e)
+        {
+            if (e.Control.Location.Y > 60)
+                this.Height = 4 * 22;
+            else if (e.Control.Location.Y > 40)
+                this.Height = 3 * 22;
+            else if (e.Control.Location.Y > 20)
+                this.Height = 2 * 22;
+            else
+                this.Height = 22;
+
+            ((LmJanelaAberta)e.Control).ClickJanela += LmMenuJanelaAberta_ClickJanela;
+        }
+
+        private void LmMenuJanelaAberta_ClickJanela(object sender, EventArgs e)
+        {
+            System.Threading.Thread t = new System.Threading.Thread(() => { this.FocarContainer(((Control)sender).Name); }) { IsBackground = true };
+            t.Start();
+        }
+
+        private void FlpMain_ControlRemoved(object sender, ControlEventArgs e)
+        {
+            if (this.Height == 22) return;
+
+            var maxY = 0;
+
+            foreach (Control ctrl in flpMain.Controls)
+                if (ctrl.Location.Y > maxY)
+                    maxY = ctrl.Location.Y;
+
+            if (maxY > 60)
+                this.Height = 4 * 22;
+            else if (maxY > 40)
+                this.Height = 3 * 22;
+            else if (maxY > 20)
+                this.Height = 2 * 22;
+            else
+                this.Height = 22;
+        }
     }
 }
