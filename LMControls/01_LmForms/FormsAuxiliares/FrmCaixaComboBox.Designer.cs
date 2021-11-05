@@ -35,7 +35,7 @@ namespace LMControls
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txt = new LMControls.LmControls.LmTextBox();
-            this.dgv = new LMControls.LmControls.LmDataGridView();
+            this.dgv = new LMControls.LmControls.LmDataGridMini();
             ((System.ComponentModel.ISupportInitialize)(this.Estilo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
@@ -155,7 +155,7 @@ namespace LMControls
         }
 
         #endregion
-        internal LmControls.LmDataGridView dgv;
+        internal LmControls.LmDataGridMini dgv;
         internal LmControls.LmTextBox txt;
     }
 }

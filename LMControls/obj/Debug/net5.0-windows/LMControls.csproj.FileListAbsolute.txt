@@ -21,7 +21,6 @@ C:\Users\micha\source\repos\LMControls\LMControls\obj\Debug\net5.0-windows\LMCon
 C:\Users\micha\source\repos\LMControls\LMControls\obj\Debug\net5.0-windows\LMControls.FrmMontCalendar.resources
 C:\Users\micha\source\repos\LMControls\LMControls\obj\Debug\net5.0-windows\LMControls.LmForms.LmSingleForm.resources
 C:\Users\micha\source\repos\LMControls\LMControls\obj\Debug\net5.0-windows\LMControls.LmControls.LmColunaGrid.resources
-C:\Users\micha\source\repos\LMControls\LMControls\obj\Debug\net5.0-windows\LMControls.LmControls.LmDataGridViewUC.resources
 C:\Users\micha\source\repos\LMControls\LMControls\obj\Debug\net5.0-windows\LMControls.LmControls.LmPanelFlow.resources
 C:\Users\micha\source\repos\LMControls\LMControls\obj\Debug\net5.0-windows\LMControls.LmControls.LmJanelaAberta.resources
 C:\Users\micha\source\repos\LMControls\LMControls\obj\Debug\net5.0-windows\LMControls.LmControls.LmMenuJanelaAberta.resources
@@ -32,12 +31,13 @@ C:\Users\micha\source\repos\LMControls\LMControls\bin\Debug\net5.0-windows\Syste
 C:\Users\micha\source\repos\LMControls\LMControls\bin\Debug\net5.0-windows\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
 C:\Users\micha\source\repos\LMControls\LMControls\bin\Debug\net5.0-windows\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
 C:\Users\micha\source\repos\LMControls\LMControls\obj\Debug\net5.0-windows\LMControls.FrmCaixaComboBox.resources
-C:\Users\micha\source\repos\LMControls\LMControls\obj\Debug\net5.0-windows\LMControls.csproj.CopyComplete
 C:\Users\micha\source\repos\LMControls\LMControls\obj\Debug\net5.0-windows\LMControls.FrmCaixaMultiselecao.resources
 C:\Users\micha\source\repos\LMControls\LMControls\obj\Debug\net5.0-windows\LMControls.FrmConfigColunasGrid.resources
 C:\Users\micha\source\repos\LMControls\LMControls\obj\Debug\net5.0-windows\LMControls.LmForms.LmMainForm.resources
-C:\Users\micha\source\repos\LMControls\LMControls\obj\Debug\net5.0-windows\LMControls.csproj.AssemblyReference.cache
 C:\Users\micha\source\repos\LMControls\LMControls\obj\Debug\net5.0-windows\LMControls.FrmConfigGeralGrid.resources
 C:\Users\micha\source\repos\LMControls\LMControls\obj\Debug\net5.0-windows\LMControls.FrmConsultaGeral.resources
 C:\Users\micha\source\repos\LMControls\LMControls\obj\Debug\net5.0-windows\LMControls.FrmEscolherSimNao.resources
 C:\Users\micha\source\repos\LMControls\LMControls\obj\Debug\net5.0-windows\LMControls.LmForms.LmChildForm.resources
+C:\Users\micha\source\repos\LMControls\LMControls\obj\Debug\net5.0-windows\LMControls.LmControls.LmDataGridMini.resources
+C:\Users\micha\source\repos\LMControls\LMControls\obj\Debug\net5.0-windows\LMControls.LmControls.LmDataGridView.resources
+C:\Users\micha\source\repos\LMControls\LMControls\obj\Debug\net5.0-windows\LMControls.csproj.CopyComplete

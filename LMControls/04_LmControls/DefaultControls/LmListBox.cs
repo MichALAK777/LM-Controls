@@ -148,8 +148,8 @@ namespace LMControls.LmControls
 
         private void StyleList()
         {
-            Font fRow = new Font("Arial", 9F, FontStyle.Regular);
-            Font fHeader = new Font("Arial", 9F, FontStyle.Regular);
+            Font fRow = new Font("Segoe UI", 9F, FontStyle.Regular);
+            Font fHeader = new Font("Segoe UI", 9F, FontStyle.Regular);
 
             this.Font = fRow;
 

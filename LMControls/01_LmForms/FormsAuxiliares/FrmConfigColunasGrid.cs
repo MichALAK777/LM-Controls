@@ -3,7 +3,6 @@ using LMControls.LmForms;
 using LMControls.Native;
 using System;
 using System.Windows.Forms;
-;
 
 namespace LMControls
 {

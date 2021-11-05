@@ -32,73 +32,17 @@ namespace LMControls
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.lblThemeColor = new System.Windows.Forms.Label();
-            this.lblLightColor = new System.Windows.Forms.Label();
-            this.lblLightLightColor = new System.Windows.Forms.Label();
-            this.lblDarkColor = new System.Windows.Forms.Label();
-            this.lblDarkDarkColor = new System.Windows.Forms.Label();
             this.lmButton4 = new LMControls.LmControls.LmButton();
             this.lmButton5 = new LMControls.LmControls.LmButton();
             this.lmButton6 = new LMControls.LmControls.LmButton();
             this.lmTextBox1 = new LMControls.LmControls.LmTextBox();
+            this.lmDataGridView1 = new LMControls.LmControls.LmDataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.Estilo)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // lblThemeColor
-            // 
-            this.lblThemeColor.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblThemeColor.Location = new System.Drawing.Point(25, 158);
-            this.lblThemeColor.Name = "lblThemeColor";
-            this.lblThemeColor.Size = new System.Drawing.Size(137, 23);
-            this.lblThemeColor.TabIndex = 20;
-            this.lblThemeColor.Text = "ThemeColor";
-            this.lblThemeColor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblLightColor
-            // 
-            this.lblLightColor.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblLightColor.Location = new System.Drawing.Point(168, 158);
-            this.lblLightColor.Name = "lblLightColor";
-            this.lblLightColor.Size = new System.Drawing.Size(137, 23);
-            this.lblLightColor.TabIndex = 20;
-            this.lblLightColor.Text = "LightColor";
-            this.lblLightColor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblLightLightColor
-            // 
-            this.lblLightLightColor.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblLightLightColor.Location = new System.Drawing.Point(311, 158);
-            this.lblLightLightColor.Name = "lblLightLightColor";
-            this.lblLightLightColor.Size = new System.Drawing.Size(137, 23);
-            this.lblLightLightColor.TabIndex = 20;
-            this.lblLightLightColor.Text = "LightLightColor";
-            this.lblLightLightColor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblDarkColor
-            // 
-            this.lblDarkColor.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblDarkColor.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.lblDarkColor.Location = new System.Drawing.Point(454, 158);
-            this.lblDarkColor.Name = "lblDarkColor";
-            this.lblDarkColor.Size = new System.Drawing.Size(137, 23);
-            this.lblDarkColor.TabIndex = 20;
-            this.lblDarkColor.Text = "DarkColor";
-            this.lblDarkColor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblDarkDarkColor
-            // 
-            this.lblDarkDarkColor.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblDarkDarkColor.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.lblDarkDarkColor.Location = new System.Drawing.Point(597, 158);
-            this.lblDarkDarkColor.Name = "lblDarkDarkColor";
-            this.lblDarkDarkColor.Size = new System.Drawing.Size(137, 23);
-            this.lblDarkDarkColor.TabIndex = 20;
-            this.lblDarkDarkColor.Text = "DarkDarkColor";
-            this.lblDarkDarkColor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lmButton4
             // 
@@ -209,25 +153,29 @@ namespace LMControls
             this.lmTextBox1.Size = new System.Drawing.Size(265, 31);
             this.lmTextBox1.TabIndex = 24;
             this.lmTextBox1.TabStop = false;
+            this.lmTextBox1.TextPrompt = "";
             this.lmTextBox1.UnderlinedStyle = false;
             this.lmTextBox1.UseCustomBackColor = false;
             this.lmTextBox1.UseSelectable = true;
             this.lmTextBox1.Valor_Decimais = ((short)(0));
             // 
+            // lmDataGridView1
+            // 
+            this.lmDataGridView1.Location = new System.Drawing.Point(37, 138);
+            this.lmDataGridView1.Name = "lmDataGridView1";
+            this.lmDataGridView1.Size = new System.Drawing.Size(439, 118);
+            this.lmDataGridView1.TabIndex = 25;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(814, 406);
+            this.ClientSize = new System.Drawing.Size(878, 562);
+            this.Controls.Add(this.lmDataGridView1);
             this.Controls.Add(this.lmTextBox1);
             this.Controls.Add(this.lmButton6);
             this.Controls.Add(this.lmButton5);
             this.Controls.Add(this.lmButton4);
-            this.Controls.Add(this.lblDarkDarkColor);
-            this.Controls.Add(this.lblDarkColor);
-            this.Controls.Add(this.lblLightLightColor);
-            this.Controls.Add(this.lblLightColor);
-            this.Controls.Add(this.lblThemeColor);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Form1";
@@ -251,15 +199,11 @@ namespace LMControls
         private LmControls.LmButton lmButton1;
         private LmControls.LmButton lmButton2;
         private LmControls.LmButton lmButton3;
-        private System.Windows.Forms.Label lblThemeColor;
-        private System.Windows.Forms.Label lblLightColor;
-        private System.Windows.Forms.Label lblLightLightColor;
-        private System.Windows.Forms.Label lblDarkColor;
-        private System.Windows.Forms.Label lblDarkDarkColor;
         private LmControls.LmButton lmButton4;
         private LmControls.LmButton lmButton5;
         private LmControls.LmButton lmButton6;
         private LmControls.LmTextBox lmTextBox1;
+        private LmControls.LmDataGridView lmDataGridView1;
     }
 }
 

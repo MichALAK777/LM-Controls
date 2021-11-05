@@ -464,7 +464,6 @@ namespace LMControls.LmForms
 
             LmFormButton newButton = new LmFormButton(button == WindowButtons.Close);
             var fntWeb = new Font("Webdings", 9.25f);
-            var fntArial = new Font("Arial", 14f);
 
             if (button == WindowButtons.Close)
             {

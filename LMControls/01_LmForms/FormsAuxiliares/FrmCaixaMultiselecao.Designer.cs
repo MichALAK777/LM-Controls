@@ -34,7 +34,7 @@ namespace LMControls
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCaixaMultiselecao));
-            this.dgv = new LMControls.LmControls.LmDataGridView();
+            this.dgv = new LMControls.LmControls.LmDataGridMini();
             this.ContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmsPrimeiro = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsMarcar = new System.Windows.Forms.ToolStripMenuItem();
@@ -146,7 +146,7 @@ namespace LMControls
 
         #endregion
 
-        private LmControls.LmDataGridView dgv;
+        private LmControls.LmDataGridMini dgv;
         private System.Windows.Forms.ContextMenuStrip ContextMenu;
         private System.Windows.Forms.ToolStripMenuItem cmsPrimeiro;
         private System.Windows.Forms.ToolStripMenuItem cmsMarcar;

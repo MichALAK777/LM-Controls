@@ -82,10 +82,10 @@ namespace LMControls.Metodos
                         ((LmCheckBox)ctrl.Parent.Controls[ctrl.Name]).Enabled = false;
                     else if (ctrl is LmRadioButton)
                         ((LmRadioButton)ctrl.Parent.Controls[ctrl.Name]).Enabled = false;
-                    else if (ctrl is LmDataGridViewUC)
-                        ((LmDataGridViewUC)ctrl.Parent.Controls[ctrl.Name]).Enabled = false;
                     else if (ctrl is LmDataGridView)
                         ((LmDataGridView)ctrl.Parent.Controls[ctrl.Name]).Enabled = false;
+                    else if (ctrl is LmDataGridMini)
+                        ((LmDataGridMini)ctrl.Parent.Controls[ctrl.Name]).Enabled = false;
                     else if (ctrl is LmPanel)
                         ((LmPanel)ctrl.Parent.Controls[ctrl.Name]).Enabled = false;
                     else if (ctrl is FlowLayoutPanel)
@@ -125,10 +125,10 @@ namespace LMControls.Metodos
                         ((LmCheckBox)ctrl.Parent.Controls[ctrl.Name]).Enabled = true;
                     else if (ctrl is LmRadioButton)
                         ((LmRadioButton)ctrl.Parent.Controls[ctrl.Name]).Enabled = true;
-                    else if (ctrl is LmDataGridViewUC)
-                        ((LmDataGridViewUC)ctrl.Parent.Controls[ctrl.Name]).Enabled = true;
                     else if (ctrl is LmDataGridView)
                         ((LmDataGridView)ctrl.Parent.Controls[ctrl.Name]).Enabled = true;
+                    else if (ctrl is LmDataGridMini)
+                        ((LmDataGridMini)ctrl.Parent.Controls[ctrl.Name]).Enabled = true;
                     else if (ctrl is LmPanel)
                         ((LmPanel)ctrl.Parent.Controls[ctrl.Name]).Enabled = true;
                     else if (ctrl is FlowLayoutPanel)
@@ -702,7 +702,7 @@ namespace LMControls.Metodos
             return bitmapImage;
         }
 
-        public static void ConvertGridToCSV(LmDataGridViewUC dgv)
+        public static void ConvertGridToCSV(LmDataGridView dgv)
         {
             if (dgv.Grid.RowCount == 0)
             {
@@ -781,7 +781,6 @@ namespace LMControls.Metodos
                                         linha += $"{Convert.ToString(row.Cells[cln.Name].EditedFormattedValue.ToString())};" ?? string.Empty + ";";
                                 }
 
-                                // linha = linha.Replace("\r\n", " ");
                                 file.WriteLine(linha.Substring(0, linha.Length - 1));
                             }
                             file.Close();
@@ -811,7 +810,7 @@ namespace LMControls.Metodos
         #region Imprimi DGV
 
         public static string ImprimirDGV(
-            object sender, LmDataGridViewUC dgv, string nomeParaImpressao, string usuario,
+            object sender, LmDataGridView dgv, string nomeParaImpressao, string usuario,
             string dadosEmpresa, System.Drawing.Image logoEmpresa, string titulo, string colunasOcultas,
             bool abrirAposSalvar, out string colOcultasImpress)
         {
@@ -943,7 +942,7 @@ namespace LMControls.Metodos
             //docPDF.LoadFromFile(doc);
         }
 
-        private static void CriarTabela(LmDataGridView dgv,
+        private static void CriarTabela(LmDataGridMini dgv,
             List<DataGridViewColumn> colunas, string pathName, string dadosEmpresa,
             System.Drawing.Image logoEmpresa, string titulo, int numeroColunas, bool retrato)
         {

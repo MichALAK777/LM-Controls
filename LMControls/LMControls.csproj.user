@@ -37,10 +37,10 @@
     <Compile Update="03_Components\LmStyleManager.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="04_LmControls\DefaultControls\LmDataGridViewUC.cs">
+    <Compile Update="04_LmControls\DefaultControls\LmColunaGrid.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="04_LmControls\DefaultControls\LmColunaGrid.cs">
+    <Compile Update="04_LmControls\DefaultControls\LmDataGridView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="04_LmControls\DefaultControls\LmGroupBox.cs">
@@ -49,7 +49,7 @@
     <Compile Update="04_LmControls\DefaultControls\LmCheckBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="04_LmControls\DefaultControls\LmDataGridView.cs">
+    <Compile Update="04_LmControls\DefaultControls\LmDataGridMini.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="04_LmControls\DefaultControls\LmJanelaAberta.cs">

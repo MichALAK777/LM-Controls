@@ -101,7 +101,7 @@ namespace LMControls.LmControls
                 lmStyleManager = value;
 
                 this.Theme = lmStyleManager.Theme;
-
+                this.BackColor = LmPaint.BackColor.MenuJanelaAberta.JanelaAberta(this.Theme);
             }
         }
 

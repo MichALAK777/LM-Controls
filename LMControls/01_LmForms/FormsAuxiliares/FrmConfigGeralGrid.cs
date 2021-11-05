@@ -14,8 +14,6 @@ namespace LMControls
     {
         class ColunaGrid
         {
-            //public int ID { get; set; }
-
             [DataObjectField(true, false)]
             public string Name { get; set; }
 
@@ -24,134 +22,134 @@ namespace LMControls
         }
 
         bool possuiImgAnexo = false;
-        LmDataGridViewUC _dgv = new LmDataGridViewUC();
+        LmDataGridView _dgv = new LmDataGridView();
 
-        public FrmConfigGeralGrid(LmDataGridViewUC lmDataGrid)
+        public FrmConfigGeralGrid(LmDataGridView lmDataGrid)
         {
             InitializeComponent();
 
-            _dgv = lmDataGrid;
+            //_dgv = lmDataGrid;
 
-            Rectangle areaTrabalho = Screen.GetWorkingArea(this);
-            this.MaximumSize = new Size(width: 777, height: areaTrabalho.Height);
+            //Rectangle areaTrabalho = Screen.GetWorkingArea(this);
+            //this.MaximumSize = new Size(width: 777, height: areaTrabalho.Height);
 
-            this.Height += (lmDataGrid.Grid.Columns.Count * 24);
+            //this.Height += (lmDataGrid.Grid.Columns.Count * 24);
 
-            Thread t1 = new Thread(() => { CriarControles(); }) { IsBackground = true };
-            t1.Start();
+            //Thread t1 = new Thread(() => { CriarControles(); }) { IsBackground = true };
+            //t1.Start();
 
-            flpColVisivel.Focus();
+            //flpColVisivel.Focus();
         }
 
         private void CriarControles()
         {
-            string[] colBloqueadas = !string.IsNullOrEmpty(_dgv.ColunasBloqueadasGrid)
-                ? _dgv.ColunasBloqueadasGrid.Split(new string[] { "^" }, StringSplitOptions.RemoveEmptyEntries)
-                : null;
+            //string[] colBloqueadas = !string.IsNullOrEmpty(_dgv.ColunasBloqueadasGrid)
+            //    ? _dgv.ColunasBloqueadasGrid.Split(new string[] { "^" }, StringSplitOptions.RemoveEmptyEntries)
+            //    : null;
 
-            string[] colOcultas = !string.IsNullOrEmpty(_dgv.ColunasOcultasGrid)
-                ? _dgv.ColunasOcultasGrid.Split(new string[] { "^" }, StringSplitOptions.RemoveEmptyEntries)
-                : null;
+            //string[] colOcultas = !string.IsNullOrEmpty(_dgv.ColunasOcultasGrid)
+            //    ? _dgv.ColunasOcultasGrid.Split(new string[] { "^" }, StringSplitOptions.RemoveEmptyEntries)
+            //    : null;
 
-            List<DataGridViewColumn> colunasVisiveis = new List<DataGridViewColumn>();
-            List<DataGridViewColumn> colunasOcultas = new List<DataGridViewColumn>();
+            //List<DataGridViewColumn> colunasVisiveis = new List<DataGridViewColumn>();
+            //List<DataGridViewColumn> colunasOcultas = new List<DataGridViewColumn>();
 
-            foreach (DataGridViewColumn cln in _dgv.Grid.Columns)
-            {
-                if (cln.ValueType != typeof(System.Drawing.Bitmap) && (colBloqueadas == null || !colBloqueadas.Contains(cln.Name)))
-                {
-                    if (colOcultas == null || !colOcultas.Contains(cln.Name))
-                    {
-                        colunasVisiveis.Add(cln);
-                    }
-                    else
-                    {
-                        colunasOcultas.Add(cln);
-                    }
-                }
-                else if (cln.ValueType == typeof(System.Drawing.Bitmap))
-                {
-                    possuiImgAnexo = true;
-                }
-            }
+            //foreach (DataGridViewColumn cln in _dgv.Grid.Columns)
+            //{
+            //    if (cln.ValueType != typeof(System.Drawing.Bitmap) && (colBloqueadas == null || !colBloqueadas.Contains(cln.Name)))
+            //    {
+            //        if (colOcultas == null || !colOcultas.Contains(cln.Name))
+            //        {
+            //            colunasVisiveis.Add(cln);
+            //        }
+            //        else
+            //        {
+            //            colunasOcultas.Add(cln);
+            //        }
+            //    }
+            //    else if (cln.ValueType == typeof(System.Drawing.Bitmap))
+            //    {
+            //        possuiImgAnexo = true;
+            //    }
+            //}
 
-            for (int i = 0; i < colunasVisiveis.Count; i++)
-            {
-                for (int h = i + 1; h < colunasVisiveis.Count; h++)
-                {
-                    if (colunasVisiveis[i].DisplayIndex > colunasVisiveis[h].DisplayIndex)
-                    {
-                        DataGridViewColumn clnChange = colunasVisiveis[i];
-                        colunasVisiveis[i] = colunasVisiveis[h];
-                        colunasVisiveis[h] = clnChange;
-                    }
-                }
-            }
+            //for (int i = 0; i < colunasVisiveis.Count; i++)
+            //{
+            //    for (int h = i + 1; h < colunasVisiveis.Count; h++)
+            //    {
+            //        if (colunasVisiveis[i].DisplayIndex > colunasVisiveis[h].DisplayIndex)
+            //        {
+            //            DataGridViewColumn clnChange = colunasVisiveis[i];
+            //            colunasVisiveis[i] = colunasVisiveis[h];
+            //            colunasVisiveis[h] = clnChange;
+            //        }
+            //    }
+            //}
 
-            foreach (var item in colunasVisiveis)
-            {
-                Invoke(new MethodInvoker(delegate ()
-                {
-                    LmColunaGrid uc = new LmColunaGrid(this._dgv.Theme, colunaVisivel: true);
-                    uc.lblDescricao.Text = item.HeaderText.Replace("▲  ", "").Replace("▼  ", "");
-                    uc.Name = item.Name;
+            //foreach (var item in colunasVisiveis)
+            //{
+            //    Invoke(new MethodInvoker(delegate ()
+            //    {
+            //        LmColunaGrid uc = new LmColunaGrid(this._dgv.Theme, colunaVisivel: true);
+            //        uc.lblDescricao.Text = item.HeaderText.Replace("▲  ", "").Replace("▼  ", "");
+            //        uc.Name = item.Name;
 
-                    uc.MouseDownCtrl += Uc_MouseDownVisivel;
-                    uc.MoverParaOculto += Uc_MoverParaOculto;
+            //        uc.MouseDownCtrl += Uc_MouseDownVisivel;
+            //        uc.MoverParaOculto += Uc_MoverParaOculto;
 
-                    flpColVisivel.Controls.Add(uc);
-                }));
-            }
+            //        flpColVisivel.Controls.Add(uc);
+            //    }));
+            //}
 
-            foreach (var item in colunasOcultas)
-            {
-                Invoke(new MethodInvoker(delegate ()
-                {
-                    LmColunaGrid uc = new LmColunaGrid(this._dgv.Theme, colunaVisivel: false);
-                    uc.lblDescricao.Text = item.HeaderText.Replace("▲  ", "").Replace("▼  ", "");
-                    uc.Name = item.Name;
+            //foreach (var item in colunasOcultas)
+            //{
+            //    Invoke(new MethodInvoker(delegate ()
+            //    {
+            //        LmColunaGrid uc = new LmColunaGrid(this._dgv.Theme, colunaVisivel: false);
+            //        uc.lblDescricao.Text = item.HeaderText.Replace("▲  ", "").Replace("▼  ", "");
+            //        uc.Name = item.Name;
 
-                    uc.MoverParaVisivel += Uc_MoverParaVisivel;
+            //        uc.MoverParaVisivel += Uc_MoverParaVisivel;
 
-                    flpColOculta.Controls.Add(uc);
-                }));
-            }
+            //        flpColOculta.Controls.Add(uc);
+            //    }));
+            //}
         }
 
         private void Uc_MoverParaOculto(object sender, EventArgs e)
         {
-            if (flpColVisivel.Controls.Count == 1)
-            {
-                MsgBox.Show("Você não pode ocultar todas as colunas!",
-                    "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
+            //if (flpColVisivel.Controls.Count == 1)
+            //{
+            //    MsgBox.Show("Você não pode ocultar todas as colunas!",
+            //        "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    return;
+            //}
 
-            var ucSend = (LmColunaGrid)sender;
-            flpColVisivel.Controls.RemoveByKey(ucSend.Name);
+            //var ucSend = (LmColunaGrid)sender;
+            //flpColVisivel.Controls.RemoveByKey(ucSend.Name);
 
-            LmColunaGrid uc = new LmColunaGrid(this._dgv.Theme, colunaVisivel: false);
-            uc.lblDescricao.Text = ucSend.lblDescricao.Text;
-            uc.Name = ucSend.Name;
+            //LmColunaGrid uc = new LmColunaGrid(this._dgv.Theme, colunaVisivel: false);
+            //uc.lblDescricao.Text = ucSend.lblDescricao.Text;
+            //uc.Name = ucSend.Name;
 
-            uc.MoverParaVisivel += Uc_MoverParaVisivel;
+            //uc.MoverParaVisivel += Uc_MoverParaVisivel;
 
-            flpColOculta.Controls.Add(uc);
+            //flpColOculta.Controls.Add(uc);
         }
 
         private void Uc_MoverParaVisivel(object sender, EventArgs e)
         {
-            var ucSend = (LmColunaGrid)sender;
-            flpColOculta.Controls.RemoveByKey(ucSend.Name);
+            //var ucSend = (LmColunaGrid)sender;
+            //flpColOculta.Controls.RemoveByKey(ucSend.Name);
 
-            LmColunaGrid uc = new LmColunaGrid(this._dgv.Theme, colunaVisivel: true);
-            uc.lblDescricao.Text = ucSend.lblDescricao.Text;
-            uc.Name = ucSend.Name;
+            //LmColunaGrid uc = new LmColunaGrid(this._dgv.Theme, colunaVisivel: true);
+            //uc.lblDescricao.Text = ucSend.lblDescricao.Text;
+            //uc.Name = ucSend.Name;
 
-            uc.MouseDownCtrl += Uc_MouseDownVisivel;
-            uc.MoverParaOculto += Uc_MoverParaOculto;
+            //uc.MouseDownCtrl += Uc_MouseDownVisivel;
+            //uc.MoverParaOculto += Uc_MoverParaOculto;
 
-            flpColVisivel.Controls.Add(uc);
+            //flpColVisivel.Controls.Add(uc);
         }
 
         private void Uc_MouseDownVisivel(object sender, MouseEventArgs e)
@@ -192,26 +190,26 @@ namespace LMControls
 
         private void BtnConfirmar_Click(object sender, EventArgs e)
         {
-            int index = possuiImgAnexo ? 1 : 0;
-            foreach (var ctrl in flpColVisivel.Controls)
-            {
-                _dgv.Grid.Columns[((LmColunaGrid)ctrl).Name].Visible = true;
-                _dgv.Grid.Columns[((LmColunaGrid)ctrl).Name].DisplayIndex = index;
-                index++;
-            }
+            //int index = possuiImgAnexo ? 1 : 0;
+            //foreach (var ctrl in flpColVisivel.Controls)
+            //{
+            //    _dgv.Grid.Columns[((LmColunaGrid)ctrl).Name].Visible = true;
+            //    _dgv.Grid.Columns[((LmColunaGrid)ctrl).Name].DisplayIndex = index;
+            //    index++;
+            //}
 
-            _dgv.ColunasOcultasGrid = "";
-            foreach (var ctrl in flpColOculta.Controls)
-            {
-                _dgv.Grid.Columns[((LmColunaGrid)ctrl).Name].Visible = false;
-                _dgv.ColunasOcultasGrid += ((LmColunaGrid)ctrl).Name + "^";
-            }
+            //_dgv.ColunasOcultasGrid = "";
+            //foreach (var ctrl in flpColOculta.Controls)
+            //{
+            //    _dgv.Grid.Columns[((LmColunaGrid)ctrl).Name].Visible = false;
+            //    _dgv.ColunasOcultasGrid += ((LmColunaGrid)ctrl).Name + "^";
+            //}
 
-            if (_dgv.ColunasOcultasGrid.EndsWith("^"))
-                _dgv.ColunasOcultasGrid = _dgv.ColunasOcultasGrid.Substring(0, _dgv.ColunasOcultasGrid.Length - 1);
+            //if (_dgv.ColunasOcultasGrid.EndsWith("^"))
+            //    _dgv.ColunasOcultasGrid = _dgv.ColunasOcultasGrid.Substring(0, _dgv.ColunasOcultasGrid.Length - 1);
 
-            if (!string.IsNullOrEmpty(_dgv.ColunaOrdenacaoGrid))
-                _dgv.Grid.Sort(_dgv.Grid.Columns[_dgv.ColunaOrdenacaoGrid.Split('^')[0]], (ListSortDirection)Convert.ToInt16(_dgv.ColunaOrdenacaoGrid.Split('^')[1]));
+            //if (!string.IsNullOrEmpty(_dgv.ColunaOrdenacaoGrid))
+            //    _dgv.Grid.Sort(_dgv.Grid.Columns[_dgv.ColunaOrdenacaoGrid.Split('^')[0]], (ListSortDirection)Convert.ToInt16(_dgv.ColunaOrdenacaoGrid.Split('^')[1]));
 
             DialogResult = DialogResult.OK;
             Close();
