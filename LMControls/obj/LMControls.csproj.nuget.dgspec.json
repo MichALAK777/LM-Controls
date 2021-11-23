@@ -48,6 +48,10 @@
               "target": "Package",
               "version": "[1.15.0, )"
             },
+            "FontAwesome.Sharp.Pro": {
+              "target": "Package",
+              "version": "[5.15.3, )"
+            },
             "iTextSharp.LGPLv2.Core.StrongName": {
               "target": "Package",
               "version": "[1.6.71, )"
@@ -71,7 +75,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }

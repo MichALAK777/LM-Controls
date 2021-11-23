@@ -9,7 +9,6 @@ using System.Windows.Forms.Design;
 
 namespace LMControls.LmControls.Design
 {
-    [System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name = "FullTrust")]
     public class LmFormDesign : DocumentDesigner 
     {
         public LmFormDesign()
@@ -40,6 +39,7 @@ namespace LMControls.LmControls.Design
         protected override void PreFilterProperties(IDictionary properties)
         {
             base.PreFilterProperties(properties);
+
         }
 
     }

@@ -15,6 +15,33 @@
           "lib/netstandard2.0/DotNetZip.dll": {}
         }
       },
+      "FontAwesome.Sharp/5.15.3": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.1/FontAwesome.Sharp.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/FontAwesome.Sharp.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App"
+        ]
+      },
+      "FontAwesome.Sharp.Pro/5.15.3": {
+        "type": "package",
+        "dependencies": {
+          "FontAwesome.Sharp": "5.15.3"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/FontAwesome.Sharp.Pro.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/FontAwesome.Sharp.Pro.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App"
+        ]
+      },
       "iTextSharp.LGPLv2.Core.StrongName/1.6.71": {
         "type": "package",
         "dependencies": {
@@ -1030,6 +1057,38 @@
         "lib/netstandard2.0/DotNetZip.dll",
         "lib/netstandard2.0/DotNetZip.pdb",
         "lib/netstandard2.0/DotNetZip.xml"
+      ]
+    },
+    "FontAwesome.Sharp/5.15.3": {
+      "sha512": "b72giuP5i2aR2W+u1gdYfYnTRkMIvI78idSDgrgcSV0aSE/nwJcMoh3sItxugMqOcNeIHxveGxAxcrcTYmwlHA==",
+      "type": "package",
+      "path": "fontawesome.sharp/5.15.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "fontawesome.sharp.5.15.3.nupkg.sha512",
+        "fontawesome.sharp.nuspec",
+        "lib/net40/FontAwesome.Sharp.dll",
+        "lib/net45/FontAwesome.Sharp.dll",
+        "lib/net472/FontAwesome.Sharp.dll",
+        "lib/net48/FontAwesome.Sharp.dll",
+        "lib/netcoreapp3.1/FontAwesome.Sharp.dll"
+      ]
+    },
+    "FontAwesome.Sharp.Pro/5.15.3": {
+      "sha512": "JPGny7ohoJA12Qla9m7Zh2lrImCDWof6KguoriZq0DFEmUfVcev2qaGBKJkZUi5ssmkmtxMOLaYq561lOZj3Ig==",
+      "type": "package",
+      "path": "fontawesome.sharp.pro/5.15.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "fontawesome.sharp.pro.5.15.3.nupkg.sha512",
+        "fontawesome.sharp.pro.nuspec",
+        "lib/net40/FontAwesome.Sharp.Pro.dll",
+        "lib/net45/FontAwesome.Sharp.Pro.dll",
+        "lib/net472/FontAwesome.Sharp.Pro.dll",
+        "lib/net48/FontAwesome.Sharp.Pro.dll",
+        "lib/netcoreapp3.1/FontAwesome.Sharp.Pro.dll"
       ]
     },
     "iTextSharp.LGPLv2.Core.StrongName/1.6.71": {
@@ -3700,6 +3759,7 @@
   "projectFileDependencyGroups": {
     "net5.0-windows7.0": [
       "DotNetZip >= 1.15.0",
+      "FontAwesome.Sharp.Pro >= 5.15.3",
       "iTextSharp.LGPLv2.Core.StrongName >= 1.6.71"
     ]
   },
@@ -3751,6 +3811,10 @@
             "target": "Package",
             "version": "[1.15.0, )"
           },
+          "FontAwesome.Sharp.Pro": {
+            "target": "Package",
+            "version": "[5.15.3, )"
+          },
           "iTextSharp.LGPLv2.Core.StrongName": {
             "target": "Package",
             "version": "[1.6.71, )"
@@ -3774,7 +3838,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

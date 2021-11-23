@@ -1,12 +1,7 @@
 ﻿using LMControls.Components;
 using LMControls.Interfaces;
 using LMControls.LmDesign;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LMControls.LmControls
@@ -28,38 +23,7 @@ namespace LMControls.LmControls
 
         #region Interface
 
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaintBackground;
-        protected virtual void OnCustomPaintBackground(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaintBackground != null)
-            {
-                CustomPaintBackground(this, e);
-            }
-        }
-
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaint;
-        protected virtual void OnCustomPaint(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaint != null)
-            {
-                CustomPaint(this, e);
-            }
-        }
-
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaintForeground;
-        protected virtual void OnCustomPaintForeground(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaintForeground != null)
-            {
-                CustomPaintForeground(this, e);
-            }
-        }
-
         private LmTheme lmTheme = LmTheme.Padrao;
-        [Category(LmDefault.PropertyCategory.LmUI)]
         [DefaultValue(LmTheme.Padrao)]
         public LmTheme Theme
         {
@@ -81,7 +45,11 @@ namespace LMControls.LmControls
 
                 return lmTheme;
             }
-            set { lmTheme = value; }
+            set
+            {
+                lmTheme = value;
+                Invalidate();
+            }
         }
 
         private LmStyleManager lmStyleManager = null;
@@ -93,36 +61,35 @@ namespace LMControls.LmControls
             set { lmStyleManager = value; }
         }
 
-        private bool useCustomBackColor = false;
-        [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public bool UseCustomBackColor
-        {
-            get { return useCustomBackColor; }
-            set { useCustomBackColor = value; }
-        }
+        #endregion
 
-        private bool useCustomForeColor = false;
-        private string raioCantos = "0;0;0;0";
+        #region Fields
 
-        [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public bool UseCustomForeColor
-        {
-            get { return useCustomForeColor; }
-            set { useCustomForeColor = value; }
-        }
+        private bool isPanelMenu;
 
-        [Browsable(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        [DefaultValue(false)]
-        public bool UseSelectable
+        public bool IsPanelMenu
         {
-            get { return GetStyle(ControlStyles.Selectable); }
-            set { SetStyle(ControlStyles.Selectable, value); }
+            get { return isPanelMenu; }
+            set
+            {
+                isPanelMenu = value;
+                Invalidate();
+            }
         }
 
         #endregion
 
+        #region OnPaint Methods
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            if (isPanelMenu)
+                this.BackColor = LmPaint.BackColor.MenuStrip.MenuPrincipalNormal(this.Theme);
+            else
+                this.BackColor = LmPaint.BackColor.Form(this.Theme);
+        }
+        #endregion
     }
 }

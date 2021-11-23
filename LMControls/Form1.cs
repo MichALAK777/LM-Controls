@@ -49,10 +49,7 @@ namespace LMControls
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (rjProgressBar1.Value < rjProgressBar1.Maximum)
-                rjProgressBar1.Value++;
-            else
-                timer1.Stop();
+            lblSize.Text = $"Size: {this.Size.ToString()} | ClientSize: {this.ClientSize.ToString()}";
         }
 
         private void rjButton1_Click(object sender, EventArgs e)
@@ -64,6 +61,30 @@ namespace LMControls
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void PictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            //Graphics g = e.Graphics;
+            //using (Bitmap bmp = new Bitmap("myImage.png"))
+            //{
+
+            //    // Set the image attribute's color mappings
+            //    System.Drawing.Imaging.ColorMap[] colorMap = new System.Drawing.Imaging.ColorMap[1];
+            //    colorMap[0] = new System.Drawing.Imaging.ColorMap();
+            //    colorMap[0].OldColor = Color.Black;
+            //    colorMap[0].NewColor = Color.Blue;
+            //    System.Drawing.Imaging.ImageAttributes attr = new System.Drawing.Imaging.ImageAttributes();
+            //    attr.SetRemapTable(colorMap);
+            //    // Draw using the color map
+            //    Rectangle rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
+            //    g.DrawImage(bmp, rect, 0, 0, rect.Width, rect.Height, GraphicsUnit.Pixel, attr);
+            //}
+        }
+
+        private void lmMenuItem2_Click(object sender, EventArgs e)
+        {
+            MenuControles.Show(lmMenuItem2, lmMenuItem2.Width, 0);
         }
     }
 }

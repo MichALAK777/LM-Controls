@@ -25,10 +25,12 @@ namespace LMControls.LmDesign
     {
         [System.ComponentModel.Description("Centralizada")]
         Padrao = 0,
+        [System.ComponentModel.Description("Auto Ocultar")]
+        AutoHide = 1,
         [System.ComponentModel.Description("Próximo ao Relógio")]
-        InTaskBar = 1,
+        InTaskBar = 2,
         [System.ComponentModel.Description("Mostar no Controle")]
-        InToolTip = 2
+        InToolTip = 3
     }
 
     public enum LmValueType
@@ -54,6 +56,13 @@ namespace LMControls.LmDesign
         Excluir = 2,
         Login = 3,
         Diversos = 99,
+    }
+
+    public enum LmControlStatus 
+    { 
+        Normal = 0,
+        Selected = 1,
+        Disabled = 2,
     }
 
 }

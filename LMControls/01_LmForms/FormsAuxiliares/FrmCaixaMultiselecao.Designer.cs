@@ -92,7 +92,6 @@ namespace LMControls
             this.dgv.RowTemplate.Height = 25;
             this.dgv.Size = new System.Drawing.Size(266, 76);
             this.dgv.TabIndex = 0;
-            this.dgv.UseSelectable = true;
             this.dgv.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellClick);
             this.dgv.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellValueChanged);
             this.dgv.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseDown);

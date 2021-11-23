@@ -1,6 +1,7 @@
 ﻿using LMControls.LmControls;
 using LMControls.LmDesign;
 using LMControls.LmForms;
+using LMControls.Metodos;
 using LMControls.Native;
 using System;
 using System.Drawing;
@@ -23,8 +24,8 @@ namespace LMControls
 
             lblSim.BackColor = LmPaint.BackColor.Button.Normal(Theme);
             lblNao.BackColor = LmPaint.BackColor.Button.Normal(Theme);
-            lblSim.ForeColor = LmPaint.ForeColor.Button.Normal(Theme);
-            lblNao.ForeColor = LmPaint.ForeColor.Button.Normal(Theme);
+            lblSim.ForeColor = lblSim.BackColor.GetForeColor(LmControlStatus.Normal);
+            lblNao.ForeColor = lblNao.BackColor.GetForeColor(LmControlStatus.Normal);
 
             if (ocultarSegundoBotao)
             {
@@ -62,13 +63,13 @@ namespace LMControls
         private void Lbl_MouseEnter(object sender, EventArgs e)
         {
             ((LmLabel)sender).BackColor = LmPaint.BackColor.Button.Selected(Theme);
-            ((LmLabel)sender).ForeColor = LmPaint.ForeColor.Button.Selected(Theme);
+            ((LmLabel)sender).ForeColor = ((LmLabel)sender).BackColor.GetForeColor(LmControlStatus.Selected);
         }
 
         private void Lbl_MouseLeave(object sender, EventArgs e)
         {
             ((LmLabel)sender).BackColor = LmPaint.BackColor.Button.Normal(Theme);
-            ((LmLabel)sender).ForeColor = LmPaint.ForeColor.Button.Normal(Theme);
+            ((LmLabel)sender).ForeColor = ((LmLabel)sender).BackColor.GetForeColor(LmControlStatus.Normal);
         }
 
         private void LblSim_Click(object sender, EventArgs e)

@@ -62,8 +62,7 @@ namespace LMControls.LmForms
 
         #region Interface
 
-        private LmTheme lmTheme = LmTheme.Padrao;
-        [Category(LmDefault.PropertyCategory.LmUI)]
+        private LmTheme lmTheme = LmTheme.Padrao;        
         public LmTheme Theme
         {
             get
@@ -219,7 +218,6 @@ namespace LMControls.LmForms
                     lmLabel.AutoSize = true;
                     lmLabel.Name = frm.Name;
                     lmLabel.FontSize = LmLabelSize.Small;
-                    lmLabel.UseCustomForeColor = true;
                     lmLabel.Margin = new Padding(0, 5, 0, 0);
 
                     lmLabel.Text = frm.Text;
@@ -242,7 +240,7 @@ namespace LMControls.LmForms
 
                     lmLabel.Click += Lmlink_Click;
 
-                    var isDark = this.BackColor.IsDarkColor();
+                    //var isDark = this.BackColor.IsDarkColor();
 
                     if (this.pnlForms.Controls.Count > 0)
                     {
@@ -254,12 +252,12 @@ namespace LMControls.LmForms
                         lbl.Margin = new Padding(0, 5, 0, 0);
                         lbl.FontWeight = LmLabelWeight.Regular;
 
-                        lbl.ForeColor = isDark ? LmCores.Fr_Claro_Normal : LmCores.Fr_Escuro_Normal;
+                        lbl.ForeColor =this.BackColor.GetForeColor(LmControlStatus.Normal);
 
                         this.pnlForms.Controls.Add(lbl);
                     }
 
-                    lmLabel.ForeColor = isDark ? LmCores.Fr_Claro_Normal : LmCores.Fr_Escuro_Normal;
+                    lmLabel.ForeColor = this.BackColor.GetForeColor(LmControlStatus.Normal);
 
                     this.pnlForms.Controls.Add(lmLabel);
                 }
@@ -312,9 +310,8 @@ namespace LMControls.LmForms
 
         #region Window Buttons
 
-        public delegate void ButClick(object sender, EventArgs e);
-
-        public event ButClick ClickHelp;
+        //public delegate void ButClick(object sender, EventArgs e);
+        //public event ButClick ClickHelp;
 
         private enum WindowButtons
         {
@@ -377,7 +374,7 @@ namespace LMControls.LmForms
                 }
                 else if (btnFlag == WindowButtons.Help)
                 {
-                    ClickHelp?.Invoke(this.Controls.OfType<LmChildForm>().FirstOrDefault(), e);
+                    //ClickHelp?.Invoke(this.Controls.OfType<LmChildForm>().FirstOrDefault(), e);
                 }
             }
         }
@@ -580,15 +577,15 @@ namespace LMControls.LmForms
 
                     var backColor = LmPaint.BackColor.Form(_Tema);
 
-                    var isDarkForm = LmCores.IsDarkColor(backColor.R, backColor.G, backColor.B);
+                   // var isDarkForm = LmCores.IsDarkColor(backColor.R, backColor.G, backColor.B);
 
-                    foreColor = isDarkForm ? LmCores.Fr_Claro_Normal : LmCores.Fr_Escuro_Normal;
+                    foreColor =backColor.GetForeColor(LmControlStatus.Normal);
 
                     if (isHovered && !isPressed && Enabled)
                     {
                         if (!isCloseBtn)
                         {
-                            foreColor = isDarkForm ? LmCores.Fr_Claro_Selected : LmCores.Fr_Escuro_Selected;
+                            foreColor =backColor.GetForeColor(LmControlStatus.Selected);
 
                             backColor = LmPaint.BackColor.FormHeader(_Tema);
                         }
@@ -600,13 +597,13 @@ namespace LMControls.LmForms
                     }
                     else if (isHovered && isPressed && Enabled)
                     {
-                        foreColor = isDarkForm ? LmCores.Fr_Claro_Selected : LmCores.Fr_Escuro_Selected;
+                        foreColor = backColor.GetForeColor(LmControlStatus.Selected);
 
                         backColor = LmPaint.BackColor.GridView.CellNormal(_Tema);
                     }
                     else if (!Enabled)
                     {
-                        foreColor = isDarkForm ? LmCores.Fr_Claro_Disabled : LmCores.Fr_Escuro_Disabled;
+                        foreColor = backColor.GetForeColor(LmControlStatus.Disabled);
 
                         backColor = LmPaint.BackColor.Button.Disabled(_Tema);
                     }

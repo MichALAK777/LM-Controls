@@ -53,8 +53,6 @@ namespace LMControls.LmControls
             this.lblNomeJanela.TabIndex = 0;
             this.lblNomeJanela.Text = "Cadastro de Usuário";
             this.lblNomeJanela.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.lblNomeJanela.UseCustomBackColor = true;
-            this.lblNomeJanela.UseCustomForeColor = true;
             this.lblNomeJanela.Click += new System.EventHandler(this.LblNomeJanela_Click);
             this.lblNomeJanela.MouseEnter += new System.EventHandler(this.LmJanelaAberta_MouseEnter);
             this.lblNomeJanela.MouseLeave += new System.EventHandler(this.LmJanelaAberta_MouseLeave);

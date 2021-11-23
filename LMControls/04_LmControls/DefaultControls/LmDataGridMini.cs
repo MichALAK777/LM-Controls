@@ -1,6 +1,7 @@
 ﻿using LMControls.Components;
 using LMControls.Interfaces;
 using LMControls.LmDesign;
+using LMControls.Metodos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,38 +29,8 @@ namespace LMControls.LmControls
 
         #region Interface
 
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaintBackground;
-        protected virtual void OnCustomPaintBackground(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaintBackground != null)
-            {
-                CustomPaintBackground(this, e);
-            }
-        }
-
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaint;
-        protected virtual void OnCustomPaint(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaint != null)
-            {
-                CustomPaint(this, e);
-            }
-        }
-
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaintForeground;
-        protected virtual void OnCustomPaintForeground(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaintForeground != null)
-            {
-                CustomPaintForeground(this, e);
-            }
-        }
-
         private LmTheme lmTheme = LmTheme.Padrao;
-        [Category(LmDefault.PropertyCategory.LmUI)]
+
         [DefaultValue(LmTheme.Padrao)]
         public LmTheme Theme
         {
@@ -91,33 +62,6 @@ namespace LMControls.LmControls
         {
             get { return lmStyleManager; }
             set { lmStyleManager = value; StyleGrid(); }
-        }
-
-        private bool useCustomBackColor = false;
-        [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public bool UseCustomBackColor
-        {
-            get { return useCustomBackColor; }
-            set { useCustomBackColor = value; }
-        }
-
-        private bool useCustomForeColor = false;
-        [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public bool UseCustomForeColor
-        {
-            get { return useCustomForeColor; }
-            set { useCustomForeColor = value; }
-        }
-
-        [Browsable(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        [DefaultValue(false)]
-        public bool UseSelectable
-        {
-            get { return GetStyle(ControlStyles.Selectable); }
-            set { SetStyle(ControlStyles.Selectable, value); }
         }
 
         #endregion
@@ -185,7 +129,7 @@ namespace LMControls.LmControls
             //this.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             this.BackgroundColor = LmPaint.BackColor.Form(Theme);
             this.GridColor = LmPaint.BackColor.Form(Theme);
-            this.ForeColor = LmPaint.ForeColor.TextBox.Selected(Theme);
+            this.ForeColor = BackgroundColor.GetForeColor(LmControlStatus.Normal);
             this.Font = fRow;
 
             this.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
@@ -204,23 +148,23 @@ namespace LMControls.LmControls
             this.ColumnHeadersDefaultCellStyle.Font = fHeader;
             this.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True;
             this.ColumnHeadersDefaultCellStyle.BackColor = LmPaint.BackColor.GridView.Header(Theme);
-            this.ColumnHeadersDefaultCellStyle.ForeColor = LmPaint.ForeColor.GridView.Header(Theme);
+            this.ColumnHeadersDefaultCellStyle.ForeColor = this.ColumnHeadersDefaultCellStyle.BackColor.GetForeColor(LmControlStatus.Normal);
             this.ColumnHeadersDefaultCellStyle.SelectionBackColor = LmPaint.BackColor.GridView.Header(Theme);
-            this.ColumnHeadersDefaultCellStyle.SelectionForeColor = LmPaint.ForeColor.GridView.Header(Theme);
+            this.ColumnHeadersDefaultCellStyle.SelectionForeColor = this.ColumnHeadersDefaultCellStyle.SelectionBackColor.GetForeColor(LmControlStatus.Normal);
 
             // Estilo do Cabeçalho Linha
             this.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             this.RowHeadersDefaultCellStyle.BackColor = LmPaint.BackColor.GridView.Header(Theme);
-            this.RowHeadersDefaultCellStyle.ForeColor = LmPaint.ForeColor.GridView.Header(Theme);
+            this.RowHeadersDefaultCellStyle.ForeColor = this.RowHeadersDefaultCellStyle.BackColor.GetForeColor(LmControlStatus.Normal);
             this.RowHeadersDefaultCellStyle.SelectionBackColor = LmPaint.BackColor.GridView.Header(Theme);
-            this.RowHeadersDefaultCellStyle.SelectionForeColor = LmPaint.ForeColor.GridView.Header(Theme);
+            this.RowHeadersDefaultCellStyle.SelectionForeColor = this.RowHeadersDefaultCellStyle.SelectionBackColor.GetForeColor(LmControlStatus.Normal);
 
             // Estilo da Celula
             this.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
             this.DefaultCellStyle.BackColor = LmPaint.BackColor.GridView.CellNormal(Theme);
-            this.DefaultCellStyle.ForeColor = LmPaint.ForeColor.GridView.CellNormal(Theme);
+            this.DefaultCellStyle.ForeColor = this.DefaultCellStyle.BackColor.GetForeColor(LmControlStatus.Normal);
             this.DefaultCellStyle.SelectionBackColor = LmPaint.BackColor.GridView.CellSelected(Theme);
-            this.DefaultCellStyle.SelectionForeColor = LmPaint.ForeColor.GridView.CellSelected(Theme);
+            this.DefaultCellStyle.SelectionForeColor = this.DefaultCellStyle.SelectionBackColor.GetForeColor(LmControlStatus.Selected);
         }
 
         #endregion

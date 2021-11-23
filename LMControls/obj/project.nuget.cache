@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "37s4tbS6qEWoV02VLwYen2tq+w/t1pPHv22ac3zkOk9cSF/ezbXWffV6rUcp/Y2nxwkGdW1ouMi0g7J2ki7Bxw==",
+  "dgSpecHash": "YvV463PlaZKw2C45byc8q16ALsbZ2rmtE+gZd0GK9ukIXw7mUSdawEdF8orwkojAF/wk5mZq1u3O5hKS5EouPw==",
   "success": true,
   "projectFilePath": "C:\\Users\\micha\\source\\repos\\LMControls\\LMControls\\LMControls.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\micha\\.nuget\\packages\\dotnetzip\\1.15.0\\dotnetzip.1.15.0.nupkg.sha512",
+    "C:\\Users\\micha\\.nuget\\packages\\fontawesome.sharp\\5.15.3\\fontawesome.sharp.5.15.3.nupkg.sha512",
+    "C:\\Users\\micha\\.nuget\\packages\\fontawesome.sharp.pro\\5.15.3\\fontawesome.sharp.pro.5.15.3.nupkg.sha512",
     "C:\\Users\\micha\\.nuget\\packages\\itextsharp.lgplv2.core.strongname\\1.6.71\\itextsharp.lgplv2.core.strongname.1.6.71.nupkg.sha512",
     "C:\\Users\\micha\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
     "C:\\Users\\micha\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",

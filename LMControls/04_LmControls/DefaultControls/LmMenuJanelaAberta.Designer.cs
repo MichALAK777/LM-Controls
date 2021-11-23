@@ -30,7 +30,7 @@ namespace LMControls.LmControls
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.flpMain = new System.Windows.Forms.FlowLayoutPanel();
+            this.flpMain =new LmPanelFlow();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
@@ -39,7 +39,7 @@ namespace LMControls.LmControls
             this.flpMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flpMain.Location = new System.Drawing.Point(0, 0);
             this.flpMain.Name = "flpMain";
-            this.flpMain.Size = new System.Drawing.Size(850, 22);
+            this.flpMain.Size = new System.Drawing.Size(496, 22);
             this.flpMain.TabIndex = 0;
             this.flpMain.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.FlpMain_ControlAdded);
             this.flpMain.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.FlpMain_ControlRemoved);
@@ -50,14 +50,14 @@ namespace LMControls.LmControls
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.flpMain);
             this.Name = "LmMenuJanelaAberta";
-            this.Size = new System.Drawing.Size(850, 22);
+            this.Size = new System.Drawing.Size(496, 22);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.FlowLayoutPanel flpMain;
+        private LmPanelFlow flpMain;
         private System.Windows.Forms.ToolTip toolTip1;
     }
 }

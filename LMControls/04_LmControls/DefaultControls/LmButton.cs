@@ -1,23 +1,18 @@
-﻿using LMControls.Components;
-using LMControls.Interfaces;
+﻿using FontAwesome.Sharp;
+using LMControls.Components;
 using LMControls.LmDesign;
 using LMControls.Metodos;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LMControls.LmControls
 {
-    [ToolboxBitmap(typeof(Button))]
     [DefaultEvent("Click")]
-    [Designer("LMControls.LmControls.Design.LmButtonDesign")]
-    public class LmButton : Button, ILmControl
+    //[Designer(typeof(LmControls.Design.LmButtonDesign))]
+    public class LmButton : IconButton
     {
         private bool isHovered = false;
         private bool isPressed = false;
@@ -27,45 +22,14 @@ namespace LMControls.LmControls
 
         public LmButton()
         {
-            this.Resize += new EventHandler(Button_Resize);
             Font = _default;
+            this.Size = new Size(110, 30);
             AplicarStilo();
         }
 
         #region Interface
 
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaintBackground;
-        protected virtual void OnCustomPaintBackground(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaintBackground != null)
-            {
-                CustomPaintBackground(this, e);
-            }
-        }
-
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaint;
-        protected virtual void OnCustomPaint(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaint != null)
-            {
-                CustomPaint(this, e);
-            }
-        }
-
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaintForeground;
-        protected virtual void OnCustomPaintForeground(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaintForeground != null)
-            {
-                CustomPaintForeground(this, e);
-            }
-        }
-
         private LmTheme lmTheme = LmTheme.Padrao;
-        [Category(LmDefault.PropertyCategory.LmUI)]
         [DefaultValue(LmTheme.Padrao)]
         public LmTheme Theme
         {
@@ -107,48 +71,12 @@ namespace LMControls.LmControls
             }
         }
 
-        private bool useCustomBackColor = false;
-        [DefaultValue(true)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public bool UseCustomBackColor
-        {
-            get { return useCustomBackColor; }
-            set { useCustomBackColor = value; }
-        }
-
-        private bool useCustomForeColor = false;
-        [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public bool UseCustomForeColor
-        {
-            get { return useCustomForeColor; }
-            set { useCustomForeColor = value; }
-        }
-
-        [Browsable(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        [DefaultValue(false)]
-        public bool UseSelectable
-        {
-            get { return GetStyle(ControlStyles.Selectable); }
-            set { SetStyle(ControlStyles.Selectable, value); }
-        }
-
         #endregion
 
         #region Fields
 
-        private bool useCustomIconColor = false;
-        [DefaultValue(true)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public bool UseCustomIconColor
-        {
-            get { return useCustomIconColor; }
-            set { useCustomIconColor = value; }
-        }
-
         private int borderSize = 0;
-        [Category(LmDefault.PropertyCategory.LmUI)]
+
         public int BorderSize
         {
             get { return borderSize; }
@@ -160,7 +88,7 @@ namespace LMControls.LmControls
         }
 
         private int borderRadius = 15;
-        [Category(LmDefault.PropertyCategory.LmUI)]
+
         public int BorderRadius
         {
             get { return borderRadius; }
@@ -176,7 +104,7 @@ namespace LMControls.LmControls
         }
 
         private Color borderColor = Color.PaleVioletRed;
-        [Category(LmDefault.PropertyCategory.LmUI)]
+
         public Color BorderColor
         {
             get { return borderColor; }
@@ -186,21 +114,6 @@ namespace LMControls.LmControls
                 this.Invalidate();
             }
         }
-
-        //private Color backColor = Color.PaleVioletRed;
-        //[Category(LmDefault.PropertyCategory.LmUI)]
-        //public Color BackColor
-        //{
-        //    get { return backColor; }
-        //    set
-        //    {
-        //        if (!useCustomBackColor && !DesignMode)
-        //            return;
-
-        //        backColor = value;
-        //        this.Invalidate();
-        //    }
-        //}
 
         #endregion
 
@@ -212,12 +125,12 @@ namespace LMControls.LmControls
 
             this.FlatStyle = FlatStyle.Flat;
             this.FlatAppearance.BorderSize = 0;
-            this.Size = new Size(110, 30);
             this.BackColor = Enabled ? LmPaint.BackColor.Button.Normal(Theme) : LmPaint.BackColor.Button.Disabled(Theme);
             this.FlatAppearance.BorderColor = LmPaint.BorderColor.Button.Normal(Theme);
             this.FlatAppearance.MouseDownBackColor = LmPaint.BackColor.Button.Press(Theme);
             this.FlatAppearance.MouseOverBackColor = LmPaint.BackColor.Button.Selected(Theme);
-            this.ForeColor = LmPaint.ForeColor.Button.Normal(Theme);
+            this.ForeColor = this.IconColor = this.BackColor.GetForeColor(LmControlStatus.Normal);
+           
 
             this.Refresh();
         }
@@ -276,8 +189,12 @@ namespace LMControls.LmControls
         {
             isHovered = true;
 
-            this.BackColor = Enabled ? LmPaint.BackColor.Button.Selected(Theme) : LmPaint.BackColor.Button.Disabled(Theme);
-            this.ForeColor = Enabled ? LmPaint.ForeColor.Button.Selected(Theme) : LmPaint.ForeColor.Button.Disabled(Theme);
+            this.BackColor = Enabled
+                ? LmPaint.BackColor.Button.Selected(Theme)
+                : LmPaint.BackColor.Button.Disabled(Theme);
+            this.ForeColor = this.IconColor = Enabled
+                ? this.BackColor.GetForeColor(LmControlStatus.Selected)
+                : this.BackColor.GetForeColor(LmControlStatus.Disabled);
 
             Invalidate();
 
@@ -290,12 +207,15 @@ namespace LMControls.LmControls
                 isHovered = false;
 
             this.BackColor =
-                Enabled
-                ? isFocused ? LmPaint.BackColor.Button.Selected(Theme)
-                : LmPaint.BackColor.Button.Normal(Theme)
-                : LmPaint.BackColor.Button.Disabled(Theme);
+               Enabled
+               ? isFocused ? LmPaint.BackColor.Button.Selected(Theme)
+               : LmPaint.BackColor.Button.Normal(Theme)
+               : LmPaint.BackColor.Button.Disabled(Theme);
 
-            this.ForeColor = Enabled ? LmPaint.ForeColor.Button.Normal(Theme) : LmPaint.ForeColor.Button.Disabled(Theme);
+            this.ForeColor = this.IconColor = Enabled
+                ? isFocused ? this.BackColor.GetForeColor(LmControlStatus.Selected)
+                : this.BackColor.GetForeColor(LmControlStatus.Normal)
+                : this.BackColor.GetForeColor(LmControlStatus.Disabled);
 
             Invalidate();
 
@@ -354,7 +274,7 @@ namespace LMControls.LmControls
 
             FlatAppearance.BorderColor = LmPaint.BorderColor.Button.Selected(Theme);
             this.BackColor = LmPaint.BackColor.Button.Selected(Theme);
-            this.ForeColor = LmPaint.ForeColor.Button.Selected(Theme);
+            this.ForeColor = this.IconColor = this.BackColor.GetForeColor(LmControlStatus.Selected);
 
             Invalidate();
 
@@ -372,7 +292,7 @@ namespace LMControls.LmControls
 
             FlatAppearance.BorderColor = LmPaint.BorderColor.Button.Normal(Theme);
             this.BackColor = LmPaint.BackColor.Button.Normal(Theme);
-            this.ForeColor = LmPaint.ForeColor.Button.Normal(Theme);
+            this.ForeColor = this.IconColor = this.BackColor.GetForeColor(LmControlStatus.Normal);
 
             Invalidate();
 
@@ -382,11 +302,11 @@ namespace LMControls.LmControls
             base.OnLostFocus(e);
         }
 
-        //protected override void OnHandleCreated(EventArgs e)
-        //{
-        //    base.OnHandleCreated(e);
-        //    this.Parent.BackColorChanged += new EventHandler(Container_BackColorChanged);
-        //}
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+            this.Parent.BackColorChanged += new EventHandler(Container_BackColorChanged);
+        }
 
         #endregion
 
@@ -410,20 +330,18 @@ namespace LMControls.LmControls
 
         #region Events
 
-        private void Button_Resize(object sender, EventArgs e)
-        {
-            if (borderRadius > this.Height)
-                borderRadius = this.Height;
-        }
+        //private void Button_Resize(object sender, EventArgs e)
+        //{
+        //    if (borderRadius > this.Height / 2)
+        //        borderRadius = this.Height / 2;
+        //}
 
         private void Container_BackColorChanged(object sender, EventArgs e)
         {
             this.Invalidate();
         }
-        #endregion
-
-        #region Privates Methods
 
         #endregion
+
     }
 }

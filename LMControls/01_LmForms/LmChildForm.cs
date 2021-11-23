@@ -65,8 +65,7 @@ namespace LMControls.LmForms
 
         #region Interface
 
-        private LmTheme lmTheme = LmTheme.Padrao;
-        [Category(LmDefault.PropertyCategory.LmUI)]
+        private LmTheme lmTheme = LmTheme.Padrao;        
         public LmTheme Theme
         {
             get
@@ -93,7 +92,7 @@ namespace LMControls.LmForms
 
         #region Campos
 
-        [Category(LmDefault.PropertyCategory.LmUI)]
+        
         [DefaultValue(true)]
         [Browsable(true)]
         public bool CloseOnEscape { get; set; } = true;
@@ -474,5 +473,17 @@ namespace LMControls.LmForms
 
         #endregion
 
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // LmChildForm
+            // 
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "LmChildForm";
+            this.ResumeLayout(false);
+
+        }
     }
 }

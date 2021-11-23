@@ -117,7 +117,6 @@ namespace LMControls
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv.Size = new System.Drawing.Size(596, 147);
             this.dgv.TabIndex = 0;
-            this.dgv.UseSelectable = true;
             this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dgv_CellDoubleClick);
             this.dgv.Sorted += new System.EventHandler(this.Dgv_Sorted);
             this.dgv.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Dgv_KeyDown);
@@ -190,14 +189,11 @@ namespace LMControls
             // txtPesquisar
             // 
             this.txtPesquisar.BackColor = System.Drawing.SystemColors.Window;
-            this.txtPesquisar.BorderColor = System.Drawing.Color.MediumSlateBlue;
-            this.txtPesquisar.BorderFocusColor = System.Drawing.Color.HotPink;
             this.txtPesquisar.BorderRadius = 0;
             this.txtPesquisar.BorderSize = 2;
             this.txtPesquisar.Dock = System.Windows.Forms.DockStyle.Top;
             this.txtPesquisar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtPesquisar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.txtPesquisar.Icon = ((System.Drawing.Image)(resources.GetObject("txtPesquisar.Icon")));
             this.txtPesquisar.IconShow = true;
             this.txtPesquisar.Lines = new string[0];
             this.txtPesquisar.Location = new System.Drawing.Point(102, 4);
@@ -217,8 +213,6 @@ namespace LMControls
             this.txtPesquisar.TabIndex = 4;
             this.txtPesquisar.TextPrompt = "Pesquisar";
             this.txtPesquisar.UnderlinedStyle = true;
-            this.txtPesquisar.UseCustomBackColor = false;
-            this.txtPesquisar.UseSelectable = true;
             this.txtPesquisar.Valor_Decimais = ((short)(0));
             this.txtPesquisar.TextChanged += new System.EventHandler(this.TxtPesquisar_TextChanged);
             this.txtPesquisar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtPesquisar_KeyDown);
@@ -245,9 +239,6 @@ namespace LMControls
             this.btnConfirmar.TabIndex = 5;
             this.btnConfirmar.Text = "Selecionar";
             this.btnConfirmar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnConfirmar.UseCustomBackColor = false;
-            this.btnConfirmar.UseCustomIconColor = false;
-            this.btnConfirmar.UseSelectable = true;
             this.btnConfirmar.UseVisualStyleBackColor = false;
             this.btnConfirmar.Click += new System.EventHandler(this.BtnConfirmar_Click);
             // 
@@ -387,7 +378,6 @@ namespace LMControls
             this.Controls.Add(this.msMenuStrip);
             this.Name = "FrmConsultaGeral";
             this.Padding = new System.Windows.Forms.Padding(2, 30, 2, 2);
-            this.Resizable = false;
             this.Text = "Consulta";
             this.Load += new System.EventHandler(this.FrmConsultaGeral_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Estilo)).EndInit();

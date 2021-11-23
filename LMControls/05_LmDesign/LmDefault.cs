@@ -11,9 +11,9 @@ namespace LMControls.LmDesign
         public const LmTheme Theme = LmTheme.Azul;
         public const LmMessageType TipoMensagem = LmMessageType.Padrao;
 
-        public static class PropertyCategory
-        {
-            public const string LmUI = "LmControls";
-        }
+        //public static class PropertyCategory
+        //{
+        //    public const string LmUI = "LmControls";
+        //}
     }
 }

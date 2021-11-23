@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LMControls.LmDesign;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -137,26 +138,8 @@ namespace LMControls.Metodos
             {
                 if (data.ToLower().StartsWith("h"))
                 {
-                    if (data.Contains("+"))
-                    {
-                        short dias = 1;
-                        var spl = data.Split('+');
-                        if (spl.Length > 1 && !string.IsNullOrEmpty(spl[1].SomenteNumeros()))
-                            dias = Convert.ToInt16(spl[1].SomenteNumeros());
-
-                        return DateTime.Now.AddDays(dias).ToShortDateString();
-                    }
-                    else if (data.Contains("-"))
-                    {
-                        short dias = 1;
-                        var spl = data.Split('-');
-                        if (spl.Length > 1 && !string.IsNullOrEmpty(spl[1].SomenteNumeros()))
-                            dias = Convert.ToInt16(spl[1].SomenteNumeros());
-
-                        return DateTime.Now.AddDays(-dias).ToShortDateString();
-                    }
-                    else
-                        return DateTime.Now.ToShortDateString();
+                    short dias = (short)data.ToLower().Replace("h", "h0").SomenteNumerosToInt();
+                    return DateTime.Now.AddDays(data.Contains("-") ? -dias : dias).ToShortDateString();
                 }
                 else
                     data = data.SomenteNumeros();
@@ -904,6 +887,29 @@ namespace LMControls.Metodos
         public static bool IsDarkColor(this Color cor)
         {
             return LmDesign.LmCores.IsDarkColor(cor.R, cor.G, cor.B);
+        }
+
+        public static Color GetForeColor(this Color cor, LmControlStatus statusCtrl)
+        {
+            return LmDesign.LmCores.GetForeColor(statusCtrl, cor);
+        }
+
+        public static bool IsDarkColor(this Image bitmap)
+        {
+            for (int i = 0; i < bitmap.Width; i++)
+            {
+                for (int j = 0; j < bitmap.Height; j++)
+                {
+                  var  clr = ((Bitmap)bitmap).GetPixel(i, j);
+
+                    if (clr.A > 150 && clr.R < 100 && clr.G < 100 && clr.B < 100)
+                        return true;
+                    else if (clr.A > 150 && clr.R > 200 && clr.G > 200 && clr.B > 200)
+                        return false;
+                }
+            }
+
+            return true;
         }
 
         #region Metodos Privados

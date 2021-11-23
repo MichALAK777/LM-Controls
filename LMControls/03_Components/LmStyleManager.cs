@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace LMControls.Components
 {
-    [Designer("LMControls.Components.LmStyleManagerDesign")]
+    [Designer(typeof(LmControls.Design.LmStyleManagerDesign))]
     public sealed class LmStyleManager : Component, ISupportInitialize
     {
         #region Campos

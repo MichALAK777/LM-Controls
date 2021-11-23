@@ -62,8 +62,6 @@ namespace LMControls
             this.lblNao.TabIndex = 1;
             this.lblNao.Text = "Não";
             this.lblNao.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblNao.UseCustomBackColor = true;
-            this.lblNao.UseCustomForeColor = true;
             this.lblNao.Click += new System.EventHandler(this.LblNao_Click);
             this.lblNao.MouseEnter += new System.EventHandler(this.Lbl_MouseEnter);
             this.lblNao.MouseLeave += new System.EventHandler(this.Lbl_MouseLeave);
@@ -83,8 +81,6 @@ namespace LMControls
             this.lblSim.TabIndex = 0;
             this.lblSim.Text = "Sim";
             this.lblSim.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblSim.UseCustomBackColor = true;
-            this.lblSim.UseCustomForeColor = true;
             this.lblSim.Click += new System.EventHandler(this.LblSim_Click);
             this.lblSim.MouseEnter += new System.EventHandler(this.Lbl_MouseEnter);
             this.lblSim.MouseLeave += new System.EventHandler(this.Lbl_MouseLeave);

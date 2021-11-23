@@ -43,14 +43,11 @@ namespace LMControls
             // txt
             // 
             this.txt.BackColor = System.Drawing.SystemColors.Window;
-            this.txt.BorderColor = System.Drawing.Color.MediumSlateBlue;
-            this.txt.BorderFocusColor = System.Drawing.Color.HotPink;
             this.txt.BorderRadius = 0;
             this.txt.BorderSize = 2;
             this.txt.Dock = System.Windows.Forms.DockStyle.Top;
             this.txt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txt.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.txt.Icon = ((System.Drawing.Image)(resources.GetObject("txt.Icon")));
             this.txt.IconShow = true;
             this.txt.Lines = new string[0];
             this.txt.Location = new System.Drawing.Point(0, 0);
@@ -70,8 +67,6 @@ namespace LMControls
             this.txt.TabIndex = 0;
             this.txt.TextPrompt = "Pesquisar";
             this.txt.UnderlinedStyle = true;
-            this.txt.UseCustomBackColor = false;
-            this.txt.UseSelectable = true;
             this.txt.Valor_Decimais = ((short)(0));
             this.txt.TextChanged += new System.EventHandler(this.txt_TextChanged);
             // 
@@ -125,7 +120,6 @@ namespace LMControls
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dgv.Size = new System.Drawing.Size(201, 28);
             this.dgv.TabIndex = 1;
-            this.dgv.UseSelectable = true;
             this.dgv.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dgv_CellClick);
             this.dgv.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dgv_CellMouseEnter);
             this.dgv.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Dgv_KeyDown);

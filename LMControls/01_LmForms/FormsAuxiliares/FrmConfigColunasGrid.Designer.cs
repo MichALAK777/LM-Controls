@@ -88,9 +88,7 @@ namespace LMControls
             this.btnConfirmar.TabIndex = 0;
             this.btnConfirmar.Text = " Confirmar";
             this.btnConfirmar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnConfirmar.UseCustomBackColor = false;
-            this.btnConfirmar.UseCustomIconColor = false;
-            this.btnConfirmar.UseSelectable = true;
+
             this.btnConfirmar.UseVisualStyleBackColor = false;
             this.btnConfirmar.Click += new System.EventHandler(this.BtnConfirmar_Click);
             // 
@@ -116,9 +114,7 @@ namespace LMControls
             this.btnCancelar.TabIndex = 1;
             this.btnCancelar.Text = " Cancelar";
             this.btnCancelar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnCancelar.UseCustomBackColor = false;
-            this.btnCancelar.UseCustomIconColor = false;
-            this.btnCancelar.UseSelectable = true;
+
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.BtnCancelar_Click);
             // 

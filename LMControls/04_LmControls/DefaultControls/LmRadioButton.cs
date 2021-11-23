@@ -15,7 +15,7 @@ using System.Windows.Forms;
 namespace LMControls.LmControls
 {
     [DefaultEvent("CheckedChanged")]
-    [Designer("LMControls.LmControls.Design.LmRadioButtonDesign")]
+    [Designer(typeof(LmControls.Design.LmRadioButtonDesign))]
     public partial class LmRadioButton : RadioButton, ILmControl
     {
         #region Construtor
@@ -32,38 +32,7 @@ namespace LMControls.LmControls
 
         #region Interface
 
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaintBackground;
-        protected virtual void OnCustomPaintBackground(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaintBackground != null)
-            {
-                CustomPaintBackground(this, e);
-            }
-        }
-
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaint;
-        protected virtual void OnCustomPaint(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaint != null)
-            {
-                CustomPaint(this, e);
-            }
-        }
-
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaintForeground;
-        protected virtual void OnCustomPaintForeground(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaintForeground != null)
-            {
-                CustomPaintForeground(this, e);
-            }
-        }
-
         private LmTheme lmTheme = LmTheme.Padrao;
-        [Category(LmDefault.PropertyCategory.LmUI)]
         [DefaultValue(LmTheme.Padrao)]
         public LmTheme Theme
         {
@@ -97,49 +66,13 @@ namespace LMControls.LmControls
             set { lmStyleManager = value; }
         }
 
-        private bool useCustomBackColor = false;
-        [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public bool UseCustomBackColor
-        {
-            get { return useCustomBackColor; }
-            set { useCustomBackColor = value; }
-        }
-
-        private bool useCustomForeColor = false;
-        [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public bool UseCustomForeColor
-        {
-            get { return useCustomForeColor; }
-            set { useCustomForeColor = value; }
-        }
-
-        private bool useStyleColors = false;
-        [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public bool UseStyleColors
-        {
-            get { return useStyleColors; }
-            set { useStyleColors = value; }
-        }
-
-        [Browsable(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        [DefaultValue(false)]
-        public bool UseSelectable
-        {
-            get { return GetStyle(ControlStyles.Selectable); }
-            set { SetStyle(ControlStyles.Selectable, value); }
-        }
-
         #endregion
 
         #region Fields
 
         private bool displayFocusRectangle = false;
         [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
+
         public bool DisplayFocus
         {
             get { return displayFocusRectangle; }
@@ -148,7 +81,7 @@ namespace LMControls.LmControls
 
         private LmCheckBoxSize lmCheckBoxSize = LmCheckBoxSize.Small;
         [DefaultValue(LmCheckBoxSize.Small)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
+
         public LmCheckBoxSize FontSize
         {
             get { return lmCheckBoxSize; }
@@ -157,7 +90,7 @@ namespace LMControls.LmControls
 
         private LmCheckBoxWeight lmCheckBoxWeight = LmCheckBoxWeight.Regular;
         [DefaultValue(LmCheckBoxWeight.Regular)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
+
         public LmCheckBoxWeight FontWeight
         {
             get { return lmCheckBoxWeight; }
@@ -189,12 +122,7 @@ namespace LMControls.LmControls
         {
             try
             {
-                Color backColor = BackColor;
-
-                if (!useCustomBackColor)
-                {
-                    backColor = LmPaint.BackColor.Form(Theme);
-                }
+                Color backColor = backColor = LmPaint.BackColor.Form(Theme);
 
                 if (backColor.A == 255)
                 {
@@ -204,7 +132,7 @@ namespace LMControls.LmControls
 
                 base.OnPaintBackground(e);
 
-                OnCustomPaintBackground(new LmPaintEventArgs(backColor, Color.Empty, e.Graphics));
+                // OnCustomPaintBackground(new LmPaintEventArgs(backColor, Color.Empty, e.Graphics));
             }
             catch
             {
@@ -221,7 +149,7 @@ namespace LMControls.LmControls
                     OnPaintBackground(e);
                 }
 
-                OnCustomPaint(new LmPaintEventArgs(Color.Empty, Color.Empty, e.Graphics));
+                // OnCustomPaint(new LmPaintEventArgs(Color.Empty, Color.Empty, e.Graphics));
                 OnPaintForeground(e);
             }
             catch
@@ -234,49 +162,25 @@ namespace LMControls.LmControls
         {
             Color borderColor, foreColor;
 
-            if (useCustomForeColor)
+            if (isHovered && !isPressed && Enabled)
             {
-                foreColor = ForeColor;
-
-                if (isHovered && !isPressed && Enabled)
-                {
-                    borderColor = LmPaint.BorderColor.TextBox.Selected(Theme);
-                }
-                else if (isHovered && isPressed && Enabled)
-                {
-                    borderColor = LmPaint.BorderColor.TextBox.Selected(Theme);
-                }
-                else if (!Enabled)
-                {
-                    borderColor = LmPaint.BorderColor.TextBox.Disabled(Theme);
-                }
-                else
-                {
-                    borderColor = LmPaint.BorderColor.TextBox.Normal(Theme);
-                }
+                foreColor = BackColor.GetForeColor(LmControlStatus.Selected);
+                borderColor = LmPaint.BorderColor.TextBox.Selected(Theme);
+            }
+            else if (isHovered && isPressed && Enabled)
+            {
+                foreColor = BackColor.GetForeColor(LmControlStatus.Selected);
+                borderColor = LmPaint.BorderColor.TextBox.Selected(Theme);
+            }
+            else if (!Enabled)
+            {
+                foreColor = BackColor.GetForeColor(LmControlStatus.Disabled);
+                borderColor = LmPaint.BorderColor.TextBox.Disabled(Theme);
             }
             else
             {
-                if (isHovered && !isPressed && Enabled)
-                {
-                    foreColor = LmPaint.ForeColor.TextBox.Selected(Theme);
-                    borderColor = LmPaint.BorderColor.TextBox.Selected(Theme);
-                }
-                else if (isHovered && isPressed && Enabled)
-                {
-                    foreColor = LmPaint.ForeColor.TextBox.Selected(Theme);
-                    borderColor = LmPaint.BorderColor.TextBox.Selected(Theme);
-                }
-                else if (!Enabled)
-                {
-                    foreColor = LmPaint.ForeColor.TextBox.Disabled(Theme);
-                    borderColor = LmPaint.BorderColor.TextBox.Disabled(Theme);
-                }
-                else
-                {
-                    foreColor = !useStyleColors ? LmPaint.ForeColor.TextBox.Normal(Theme) : ForeColor;
-                    borderColor = LmPaint.BorderColor.TextBox.Normal(Theme);
-                }
+                foreColor = BackColor.GetForeColor(LmControlStatus.Normal);
+                borderColor = LmPaint.BorderColor.TextBox.Normal(Theme);
             }
 
             e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
@@ -303,7 +207,7 @@ namespace LMControls.LmControls
             Rectangle textRect = new Rectangle(16, 0, Width - 16, Height);
             TextRenderer.DrawText(e.Graphics, Text, LmFonts.CheckBox(lmCheckBoxSize, lmCheckBoxWeight), textRect, foreColor, LmPaint.GetTextFormatFlags(TextAlign));
 
-            OnCustomPaintForeground(new LmPaintEventArgs(Color.Empty, foreColor, e.Graphics));
+            // OnCustomPaintForeground(new LmPaintEventArgs(Color.Empty, foreColor, e.Graphics));
 
             if (displayFocusRectangle && isFocused)
                 ControlPaint.DrawFocusRectangle(e.Graphics, ClientRectangle);

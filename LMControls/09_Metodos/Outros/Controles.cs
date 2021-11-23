@@ -702,6 +702,29 @@ namespace LMControls.Metodos
             return bitmapImage;
         }
 
+        public static Bitmap ChangeColor(Bitmap bitmap, Color newColor)
+        {
+            Color originalColor;
+            Bitmap newBitmap = new Bitmap(bitmap.Width, bitmap.Height);
+            for (int i = 0; i < bitmap.Width; i++)
+            {
+                for (int j = 0; j < bitmap.Height; j++)
+                {
+                    originalColor = bitmap.GetPixel(i, j);
+                    if (originalColor.A > 150)
+                    {
+                        newBitmap.SetPixel(i, j, newColor);
+                    }
+                    else
+                    {
+                        newBitmap.SetPixel(i, j, originalColor);
+                    }
+                }
+            }
+
+            return newBitmap;
+        }
+
         public static void ConvertGridToCSV(LmDataGridView dgv)
         {
             if (dgv.Grid.RowCount == 0)

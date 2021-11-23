@@ -34,56 +34,47 @@ namespace LMControls
         public static DialogResult Show(string texto, string titulo = "",
             MessageBoxButtons msgBoxButtons = MessageBoxButtons.OK,
             MessageBoxIcon msgBoxIcon = MessageBoxIcon.None,
-            string textoBotao1 = "", string textoBotao2 = "", string textoBotao3 = "") 
+            ContentAlignment alinhamentoTitulo = ContentAlignment.MiddleCenter, ContentAlignment alinhamentoCorpo = ContentAlignment.MiddleLeft,
+            string textoBotao1 = "", string textoBotao2 = "", string textoBotao3 = "")
         {
-            return DialogResult.Abort; //temporariamente
-            /*
-             * 
-             * comentado temporariamente
-             * 
-             * 
-            try                                     
+            try
             {
                 CloseWaitMessage();
 
-                FrmMsgBox frm = new FrmMsgBox(texto, titulo, msgBoxButtons, msgBoxIcon, textoBotao1, textoBotao2, textoBotao3);
+                DialogResult result = DialogResult.None;
 
-                if (InfoDefaultUI.DefaultMsgType == LmMessageType.InTaskBar )
-                    frm.StartPosition = FormStartPosition.Manual;
-
-                if ((msgBoxIcon == MessageBoxIcon.Information || msgBoxIcon == MessageBoxIcon.None) &&
-                     msgBoxButtons == MessageBoxButtons.OK)
+                if (InfoDefaultUI.DefaultMsgType != LmMessageType.AutoHide ||
+                    (InfoDefaultUI.DefaultMsgType == LmMessageType.AutoHide && (msgBoxIcon == MessageBoxIcon.Question || msgBoxIcon == MessageBoxIcon.Warning || msgBoxIcon == MessageBoxIcon.Error)))
                 {
-                    frm.Show();
+                    LmMsgBox frm = new LmMsgBox(texto, titulo, msgBoxButtons, msgBoxIcon, alinhamentoTitulo, alinhamentoCorpo,
+                        textoBotao1, textoBotao2, textoBotao3);
+                    result = frm.ShowDialog();
                 }
                 else
-                    frm.ShowDialog();
+                {
+                    ShowHide(texto, titulo, msgBoxIcon);
+                }
 
-                return frm.DialogResult;
+                return result;
             }
             catch (Exception ex)
             {
                 LmException.ShowException(ex, "Erro não visivel pelo Usuario", true);
                 return DialogResult.Abort;
             }
-            */
         }
 
         public static RetornoMsgBox Show(string texto, string titulo, MessageBoxIcon msgBoxIcon,
             string textoBotao1, string textoBotao2 = "", string textoBotao3 = "",
-            Image iconButton1 = null, Image iconButton2 = null, Image iconButton3 = null)
+            FontAwesome.Sharp.IconChar iconButton1 = FontAwesome.Sharp.IconChar.None,
+            FontAwesome.Sharp.IconChar iconButton2 = FontAwesome.Sharp.IconChar.None,
+            FontAwesome.Sharp.IconChar iconButton3 = FontAwesome.Sharp.IconChar.None)
         {
-            return RetornoMsgBox.SemRetorno; //temporariamente
-            /*
-             * 
-             * comentado temporariamente
-             * 
-             * 
             try
             {
                 CloseWaitMessage();
 
-                FrmMsgBoxCustom frm = new FrmMsgBoxCustom(texto, titulo, msgBoxIcon,
+                LmMsgBoxCustom frm = new LmMsgBoxCustom(texto, titulo, msgBoxIcon,
                     textoBotao1, textoBotao2, textoBotao3,
                     iconButton1, iconButton2, iconButton3);
                 frm.ShowDialog();
@@ -96,25 +87,34 @@ namespace LMControls
                 LmException.ShowException(ex, "Erro não visivel pelo Usuario", true);
                 return RetornoMsgBox.SemRetorno;
             }
-            */
         }
 
         /// <summary>
-        /// Mostrar Dica no controle especificado
+        /// Mostrar Caixa de Mensagem e Ocultar Após Alguns Segundos.
         /// </summary>
-        /// <param name="owner">Formulário onde estara embutido o controle</param>
-        /// <param name="control">Controle que irá mostrar a Dica</param>
-        /// <param name="texto">Mensagem a ser exibida</param>
-        /// <param name="titulo">Titulo da mensagem (Não Obrigatório)</param>
-        /// <param name="tempoExibicao">Tempo de exposição da mensagem em milisegundos (Não Obrigatório)</param>
-        [STAThreadAttribute]
-        public static void ShowToolTip(/*IWin32Window owner,*/ Control control, string texto, string titulo = "", int tempoExibicao = 0)
+        /// <param name="texto">Texto para Exibição</param>
+        /// <param name="titulo">Título da mensagem</param>
+        /// <param name="msgBoxIcon">Escolha Icone</param>
+        /// <param name="inTaskBar">Mostrar Caixa de texto próximo ao relógio</param>
+        public static void ShowHide(string texto, string titulo = "", MessageBoxIcon msgBoxIcon = MessageBoxIcon.None)
         {
-            /*
-             * 
-             * comentado temporariamente
-             * 
-             * 
+            try
+            {
+                CloseWaitMessage();
+
+                LmMsgBoxAutoHide frm = new LmMsgBoxAutoHide(texto, titulo, msgBoxIcon);
+                System.Threading.Thread t = new System.Threading.Thread(() => { frm.ShowAlert(); }) { IsBackground = true };
+                t.Start();
+            }
+            catch (Exception ex)
+            {
+                LmException.ShowException(ex, "Erro não visivel pelo Usuario", true);
+            }
+        }
+
+        [STAThreadAttribute]
+        public static void ShowToolTip( Control control, string texto, string titulo = "", int tempoExibicao = 0)
+        {
             try
             {
                 CloseWaitMessage();
@@ -123,7 +123,7 @@ namespace LMControls
                 {
                     Control _owner = control.Parent;
 
-                    frmMsgToolTip _msgToolTip = new frmMsgToolTip(texto, titulo, tempoExibicao);
+                    LmMsgToolTip _msgToolTip = new LmMsgToolTip(texto, titulo, tempoExibicao);
 
                     _msgToolTip.Size = new Size(1, 1);
 
@@ -151,26 +151,18 @@ namespace LMControls
             {
                 LmException.ShowException(ex, "Erro não visivel pelo Usuario", true);
             }
-
-            */
         }
 
         [STAThreadAttribute]
         public static void ShowToolTipPerson(Control control, string texto)
         {
-            /*
-             * 
-             * comentado temporariamente
-             * 
-             * 
-             * 
             try
             {
                 if (control != null && control.Parent != null)
                 {
                     Control _owner = control.Parent;
 
-                    FrmMsgToolTipPerson frm = new FrmMsgToolTipPerson(texto);
+                    LmMsgToolTipPerson frm = new LmMsgToolTipPerson(texto);
                     Rectangle areaTrabalho = Screen.GetWorkingArea(_owner);
 
                     var ptScreen = control.PointToScreen(Point.Empty);
@@ -209,7 +201,6 @@ namespace LMControls
             {
                 LmException.ShowException(ex, "Erro não visivel pelo Usuario", true);
             }
-            */
         }
 
         public static void ShowWaitMessage(string texto = "Aguarde...")
@@ -271,40 +262,25 @@ namespace LMControls
         }
 
         public static string ImputBox(string message = "", string titulo = "", string textoImputPadrao = "",
-            LmValueType lmValueType = LmValueType.Alfanumerico, bool textoLongo = false, bool CentralizarForm = false)
+            LmValueType cmxValueType = LmValueType.Alfanumerico, bool textoLongo = false, bool CentralizarForm = false)
         {
-            /*
-             * comentado temporariamente
-             * 
-             * 
-             * 
-             * 
-            FrmImputBox frm = new FrmImputBox(message, titulo, textoImputPadrao, lmValueType, textoLongo, CentralizarForm);
+            LmImputBox frm = new LmImputBox(message, titulo, textoImputPadrao, cmxValueType, textoLongo, CentralizarForm);
             if (frm.ShowDialog() == DialogResult.OK)
                 return frm.txt.Text;
             else
-
-                */
                 return string.Empty;
         }
         public static string ImputBox(out DialogResult dialogResult, string message = "", string titulo = "", string textoImputPadrao = "",
-             LmValueType lmValueType = LmValueType.Alfanumerico, bool textoLongo = false, bool CentralizarForm = false)
+             LmValueType cmxValueType = LmValueType.Alfanumerico, bool textoLongo = false, bool CentralizarForm = false)
         {
-            /*
-             * comentado temporariamente
-             * 
-             * 
-             * 
-            FrmImputBox frm = new FrmImputBox(message, titulo, textoImputPadrao, lmValueType, textoLongo, CentralizarForm);
+            LmImputBox frm = new LmImputBox(message, titulo, textoImputPadrao, cmxValueType, textoLongo, CentralizarForm);
 
             dialogResult = frm.ShowDialog();
 
             if (dialogResult == DialogResult.OK)
                 return frm.txt.Text;
             else
-                */
-            dialogResult = DialogResult.None; // temporariamente
-            return string.Empty;
+                return string.Empty;
         }
 
     }

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace LMControls
 {
@@ -61,15 +62,15 @@ namespace LMControls
 
             if (!naoMostrarMensagem)
             {
-                //if (ex.InnerException != null)
-                //{
-                //    if (ex.InnerException.InnerException != null)
-                //        MsgBox.Show(TraduzirErro(ex.InnerException.InnerException.Message) + MensagemComplementar(ex), errorMessageTitulo, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //    else
-                //        MsgBox.Show(TraduzirErro(ex.InnerException.Message) + MensagemComplementar(ex), errorMessageTitulo, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //}
-                //else
-                //    MsgBox.Show(TraduzirErro(ex.Message + MensagemComplementar(ex)), errorMessageTitulo, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (ex.InnerException != null)
+                {
+                    if (ex.InnerException.InnerException != null)
+                        MsgBox.Show(TraduzirErro(ex.InnerException.InnerException.Message) + MensagemComplementar(ex), errorMessageTitulo, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    else
+                        MsgBox.Show(TraduzirErro(ex.InnerException.Message) + MensagemComplementar(ex), errorMessageTitulo, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                    MsgBox.Show(TraduzirErro(ex.Message + MensagemComplementar(ex)), errorMessageTitulo, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             _ex = ex;

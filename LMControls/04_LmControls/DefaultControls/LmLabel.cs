@@ -1,6 +1,7 @@
 ﻿using LMControls.Components;
 using LMControls.Interfaces;
 using LMControls.LmDesign;
+using LMControls.Metodos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,7 +14,7 @@ using System.Windows.Forms;
 namespace LMControls.LmControls
 {
     [DefaultEvent("Click")]
-    [Designer("LMControls.LmControls.Design.LmLabelDesign")]
+    [Designer(typeof(LmControls.Design.LmLabelDesign))]
     public partial class LmLabel : Label, ILmControl
     {
         #region Construtor
@@ -31,38 +32,7 @@ namespace LMControls.LmControls
 
         #region Interface
 
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaintBackground;
-        protected virtual void OnCustomPaintBackground(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaintBackground != null)
-            {
-                CustomPaintBackground(this, e);
-            }
-        }
-
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaint;
-        protected virtual void OnCustomPaint(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaint != null)
-            {
-                CustomPaint(this, e);
-            }
-        }
-
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaintForeground;
-        protected virtual void OnCustomPaintForeground(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaintForeground != null)
-            {
-                CustomPaintForeground(this, e);
-            }
-        }
-
-        private LmTheme lmTheme = LmTheme.Padrao;
-        [Category(LmDefault.PropertyCategory.LmUI)]
+        private LmTheme lmTheme = LmTheme.Padrao;        
         [DefaultValue(LmTheme.Padrao)]
         public LmTheme Theme
         {
@@ -96,49 +66,13 @@ namespace LMControls.LmControls
             set { lmStyleManager = value; }
         }
 
-        private bool useCustomBackColor = false;
-        [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public bool UseCustomBackColor
-        {
-            get { return useCustomBackColor; }
-            set { useCustomBackColor = value; }
-        }
-
-        private bool useCustomForeColor = false;
-        [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public bool UseCustomForeColor
-        {
-            get { return useCustomForeColor; }
-            set { useCustomForeColor = value; }
-        }
-
-        private bool useStyleColors = false;
-        [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public bool UseStyleColors
-        {
-            get { return useStyleColors; }
-            set { useStyleColors = value; }
-        }
-
-        [Browsable(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        [DefaultValue(false)]
-        public bool UseSelectable
-        {
-            get { return GetStyle(ControlStyles.Selectable); }
-            set { SetStyle(ControlStyles.Selectable, value); }
-        }
-
         #endregion
 
         #region Campos
 
         private LmLabelSize lmLabelSize = LmLabelSize.Medium;
         [DefaultValue(LmLabelSize.Medium)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
+        
         public LmLabelSize FontSize
         {
             get { return lmLabelSize; }
@@ -147,7 +81,7 @@ namespace LMControls.LmControls
 
         private LmLabelWeight lmLabelWeight = LmLabelWeight.Regular;
         [DefaultValue(LmLabelWeight.Regular)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
+        
         public LmLabelWeight FontWeight
         {
             get { return lmLabelWeight; }
@@ -156,7 +90,7 @@ namespace LMControls.LmControls
 
         private bool wrapToLine;
         [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
+        
         public bool WrapToLine
         {
             get { return wrapToLine; }
@@ -165,7 +99,7 @@ namespace LMControls.LmControls
 
         private bool isLink;
         [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
+        
         public bool IsLink
         {
             get { return isLink; }
@@ -184,10 +118,7 @@ namespace LMControls.LmControls
         {
             try
             {
-                Color backColor = BackColor;
-
-                if (!UseCustomBackColor)
-                    backColor = Color.Transparent;
+                Color backColor = backColor = Color.Transparent;
 
                 if (backColor.A == 255 && BackgroundImage == null)
                 {
@@ -197,7 +128,7 @@ namespace LMControls.LmControls
 
                 base.OnPaintBackground(e);
 
-                OnCustomPaintBackground(new LmPaintEventArgs(backColor, Color.Empty, e.Graphics));
+                // OnCustomPaintBackground(new LmPaintEventArgs(backColor, Color.Empty, e.Graphics));
             }
             catch
             {
@@ -214,7 +145,7 @@ namespace LMControls.LmControls
                     OnPaintBackground(e);
                 }
 
-                OnCustomPaint(new LmPaintEventArgs(Color.Empty, Color.Empty, e.Graphics));
+                // OnCustomPaint(new LmPaintEventArgs(Color.Empty, Color.Empty, e.Graphics));
                 OnPaintForeground(e);
             }
             catch
@@ -231,36 +162,32 @@ namespace LMControls.LmControls
             {
                 foreColor = Theme == LmTheme.Preto ? Color.FromArgb(70, 110, 255) : Color.FromArgb(0, 0, 210);
             }
-            else if (useCustomForeColor)
-            {
-                foreColor = ForeColor;
-            }
             else
             {
                 if (!Enabled)
                 {
                     if (Parent != null)
                     {
-                        foreColor = LmPaint.ForeColor.Label.Disabled(Theme);
+                        foreColor = this.Parent.BackColor.GetForeColor(LmControlStatus.Disabled);
                     }
                     else
                     {
-                        foreColor = LmPaint.ForeColor.Label.Disabled(Theme);
+                        foreColor = LmPaint.BackColor.Form(Theme).GetForeColor(LmControlStatus.Disabled);
                     }
                 }
                 else
                 {
                     if (Parent != null)
                     {
-                        foreColor = LmPaint.ForeColor.Label.Normal(Theme);
+                        foreColor = this.Parent.BackColor.GetForeColor(LmControlStatus.Normal);
                     }
                     else
-                        foreColor = LmPaint.ForeColor.Label.Normal(Theme);
+                        foreColor = LmPaint.BackColor.Form(Theme).GetForeColor(LmControlStatus.Normal);
                 }
             }
 
             TextRenderer.DrawText(e.Graphics, Text, LmFonts.Label(lmLabelSize, lmLabelWeight, IsLink), ClientRectangle, foreColor, LmPaint.GetTextFormatFlags(TextAlign, wrapToLine));
-            OnCustomPaintForeground(new LmPaintEventArgs(Color.Empty, foreColor, e.Graphics));
+            // OnCustomPaintForeground(new LmPaintEventArgs(Color.Empty, foreColor, e.Graphics));
         }
 
         #endregion

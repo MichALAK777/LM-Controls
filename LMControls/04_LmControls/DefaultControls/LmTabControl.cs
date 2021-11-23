@@ -1,6 +1,7 @@
 ﻿using LMControls.Components;
 using LMControls.Interfaces;
 using LMControls.LmDesign;
+using LMControls.Metodos;
 using LMControls.Native;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ using System.Windows.Forms;
 namespace LMControls.LmControls
 {
     [DefaultEvent("Load")]
-    [Designer("LMControls.LmControls.Design.LmTabControlDesigner")]
+    [Designer(typeof(LmControls.Design.LmTabControlDesigner))]
     public partial class LmTabControl : TabControl, ILmControl
     {
 
@@ -42,38 +43,7 @@ namespace LMControls.LmControls
 
         #region Interface
 
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaintBackground;
-        protected virtual void OnCustomPaintBackground(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaintBackground != null)
-            {
-                CustomPaintBackground(this, e);
-            }
-        }
-
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaint;
-        protected virtual void OnCustomPaint(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaint != null)
-            {
-                CustomPaint(this, e);
-            }
-        }
-
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaintForeground;
-        protected virtual void OnCustomPaintForeground(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaintForeground != null)
-            {
-                CustomPaintForeground(this, e);
-            }
-        }
-
         private LmTheme lmTheme = LmTheme.Padrao;
-        [Category(LmDefault.PropertyCategory.LmUI)]
         [DefaultValue(LmTheme.Padrao)]
         public LmTheme Theme
         {
@@ -107,42 +77,6 @@ namespace LMControls.LmControls
             set { lmStyleManager = value; }
         }
 
-        private bool useCustomBackColor = false;
-        [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public bool UseCustomBackColor
-        {
-            get { return useCustomBackColor; }
-            set { useCustomBackColor = value; }
-        }
-
-        private bool useCustomForeColor = false;
-        [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public bool UseCustomForeColor
-        {
-            get { return useCustomForeColor; }
-            set { useCustomForeColor = value; }
-        }
-
-        private bool useStyleColors = false;
-        [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public bool UseStyleColors
-        {
-            get { return useStyleColors; }
-            set { useStyleColors = value; }
-        }
-
-        [Browsable(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        [DefaultValue(false)]
-        public bool UseSelectable
-        {
-            get { return GetStyle(ControlStyles.Selectable); }
-            set { SetStyle(ControlStyles.Selectable, value); }
-        }
-
         #endregion
 
         #region Fields
@@ -159,7 +93,7 @@ namespace LMControls.LmControls
 
         private LmTabControlSize lmLabelSize = LmTabControlSize.Medium;
         [DefaultValue(LmTabControlSize.Medium)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
+
         public LmTabControlSize FontSize
         {
             get { return lmLabelSize; }
@@ -168,7 +102,7 @@ namespace LMControls.LmControls
 
         private LmTabControlWeight lmLabelWeight = LmTabControlWeight.Regular;
         [DefaultValue(LmTabControlWeight.Regular)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
+
         public LmTabControlWeight FontWeight
         {
             get { return lmLabelWeight; }
@@ -177,7 +111,7 @@ namespace LMControls.LmControls
 
         private ContentAlignment textAlign = ContentAlignment.MiddleLeft;
         [DefaultValue(ContentAlignment.MiddleLeft)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
+
         public ContentAlignment TextAlign
         {
             get
@@ -202,7 +136,7 @@ namespace LMControls.LmControls
 
         private bool isMirrored;
         [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
+
         public new bool IsMirrored
         {
             get
@@ -233,7 +167,7 @@ namespace LMControls.LmControls
                     OnPaintBackground(e);
                 }
 
-                OnCustomPaint(new LmPaintEventArgs(Color.Empty, Color.Empty, e.Graphics));
+                // OnCustomPaint(new LmPaintEventArgs(Color.Empty, Color.Empty, e.Graphics));
                 OnPaintForeground(e);
             }
             catch
@@ -246,12 +180,7 @@ namespace LMControls.LmControls
         {
             try
             {
-                Color backColor = BackColor;
-
-                if (!useCustomBackColor)
-                {
-                    backColor = LmPaint.BackColor.Form(Theme);
-                }
+                Color backColor = LmPaint.BackColor.Form(Theme);
 
                 if (backColor.A == 255 && BackgroundImage == null)
                 {
@@ -261,7 +190,7 @@ namespace LMControls.LmControls
 
                 base.OnPaintBackground(e);
 
-                OnCustomPaintBackground(new LmPaintEventArgs(backColor, Color.Empty, e.Graphics));
+                // OnCustomPaintBackground(new LmPaintEventArgs(backColor, Color.Empty, e.Graphics));
             }
             catch
             {
@@ -287,7 +216,7 @@ namespace LMControls.LmControls
             DrawTab(SelectedIndex, e.Graphics);
             DrawTabSelected(SelectedIndex, e.Graphics);
 
-            OnCustomPaintForeground(new LmPaintEventArgs(Color.Empty, Color.Empty, e.Graphics));
+            // OnCustomPaintForeground(new LmPaintEventArgs(Color.Empty, Color.Empty, e.Graphics));
         }
 
         private void DrawTabBottomBorder(int index, Graphics graphics)
@@ -315,7 +244,9 @@ namespace LMControls.LmControls
 
         private void DrawTabSelected(int index, Graphics graphics)
         {
-            using (Brush selectionBrush = new SolidBrush(LmPaint.BackColor.TabControl.Selected(Theme)))
+            Color backColor = LmPaint.BackColor.TabControl.Selected(Theme);
+
+            using (Brush selectionBrush = new SolidBrush(backColor))
             {
                 Rectangle selectedTabRect = GetTabRect(index);
 
@@ -327,7 +258,7 @@ namespace LMControls.LmControls
 
                 TabPage tabPage = TabPages[index];
 
-                Color foreColorSelected = LmPaint.ForeColor.TabControl.Selected(Theme);
+                Color foreColorSelected = backColor.GetForeColor(LmControlStatus.Selected);
                 Color backColorSelected = Color.Transparent;
 
                 Rectangle newSelectedTabRect = new Rectangle(selectedTabRect.X + ((index == 0) ? 2 : 0),
@@ -344,30 +275,18 @@ namespace LMControls.LmControls
             if (SelectedIndex == index) return;
 
             Color foreColor;
-            Color backColor = BackColor;
-
-            if (!useCustomBackColor)
-            {
-                backColor = LmPaint.BackColor.Form(Theme);
-            }
+            Color backColor = LmPaint.BackColor.Form(Theme);
 
             TabPage tabPage = TabPages[index];
             Rectangle tabRect = GetTabRect(index);
 
             if (!Enabled || tabDisable.Contains(tabPage.Name))
             {
-                foreColor = LmPaint.ForeColor.Label.Disabled(Theme);
+                foreColor = backColor.GetForeColor(LmControlStatus.Disabled);
             }
             else
             {
-                if (useCustomForeColor)
-                {
-                    foreColor = DefaultForeColor;
-                }
-                else
-                {
-                    foreColor = LmPaint.ForeColor.TabControl.Normal(Theme);
-                }
+                foreColor = backColor.GetForeColor(LmControlStatus.Normal);
             }
 
             if (index == 0)

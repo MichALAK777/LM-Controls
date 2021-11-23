@@ -1,4 +1,5 @@
-﻿using LMControls.Components;
+﻿using FontAwesome.Sharp;
+using LMControls.Components;
 using LMControls.Interfaces;
 using LMControls.LmDesign;
 using LMControls.Metodos;
@@ -16,9 +17,9 @@ using System.Windows.Forms;
 
 namespace LMControls.LmControls
 {
-    //[ToolboxBitmap(typeof(TextBox))]
+    [ToolboxBitmap(typeof(TextBox))]
     [DefaultEvent("TextChanged")]
-    [Designer("LMControls.LmControls.Design.LmTextBoxDesign")]
+    [Designer(typeof(LmControls.Design.LmTextBoxDesign))]
     public partial class LmTextBox : UserControl, ILmControl
     {
         #region Construtor
@@ -26,6 +27,13 @@ namespace LMControls.LmControls
         public LmTextBox()
         {
             InitializeComponent();
+
+            ptbF8.Visible = ptbF7.Visible = ptbClearButton.Visible = ptbIcon.Visible = false;
+
+            ptbClearButton.IconColor = Color.FromArgb(123,123,123);// LmPaint.BorderColor.TextBox.Disabled(this.Theme);
+
+            ptbF8.IconColor =
+            ptbF7.IconColor = LmPaint.BorderColor.TextBox.Normal(this.Theme);
 
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.OptimizedDoubleBuffer, true);
             this.GotFocus += LmTextBox_GotFocus;
@@ -42,38 +50,7 @@ namespace LMControls.LmControls
 
         #region Interface
 
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaintBackground;
-        protected virtual void OnCustomPaintBackground(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaintBackground != null)
-            {
-                CustomPaintBackground(this, e);
-            }
-        }
-
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaint;
-        protected virtual void OnCustomPaint(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaint != null)
-            {
-                CustomPaint(this, e);
-            }
-        }
-
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaintForeground;
-        protected virtual void OnCustomPaintForeground(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaintForeground != null)
-            {
-                CustomPaintForeground(this, e);
-            }
-        }
-
         private LmTheme lmTema = LmTheme.Padrao;
-        [Category(LmDefault.PropertyCategory.LmUI)]
         [DefaultValue(LmTheme.Padrao)]
         public LmTheme Theme
         {
@@ -111,52 +88,109 @@ namespace LMControls.LmControls
             }
         }
 
-        private bool useCustomBackColor = false;
-        [DefaultValue(true)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public bool UseCustomBackColor
-        {
-            get { return useCustomBackColor; }
-            set { useCustomBackColor = value; }
-        }
-
-        private bool useCustomForeColor = false;
-        [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public bool UseCustomForeColor
-        {
-            get { return useCustomForeColor; }
-            set { useCustomForeColor = value; }
-        }
-
-        [Browsable(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        [DefaultValue(false)]
-        public bool UseSelectable
-        {
-            get { return GetStyle(ControlStyles.Selectable); }
-            set { SetStyle(ControlStyles.Selectable, value); }
-        }
-
         #endregion
 
         #region Campos
 
-        private Image textBoxIcon = null;
+        private IconChar textBoxIcon = IconChar.None;        
         [Browsable(true)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [DefaultValue(null)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public Image Icon
+
+        public IconChar Icon
         {
-            get { return textBoxIcon; }
+            get { return textBoxIcon;  }
             set
             {
                 textBoxIcon = value;
 
-                ptbIcon.Image = textBoxIcon;
+                ptbIcon.IconChar = textBoxIcon;
 
                 Refresh();
+            }
+        }
+
+        private IconChar iconF7 = IconChar.None;
+        [Browsable(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [DefaultValue(null)]
+
+        public IconChar IconF7
+        {
+            get { return iconF7; }
+            set
+            {
+                iconF7 = value;
+
+                ptbF7.IconChar = iconF7;
+
+                Refresh();
+            }
+        }
+
+        private IconChar iconF8 = IconChar.None;
+        [Browsable(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [DefaultValue(null)]
+
+        public IconChar IconF8
+        {
+            get { return iconF8; }
+            set
+            {
+                iconF8 = value;
+
+                ptbF8.IconChar = iconF8;
+
+                Refresh();
+            }
+        }
+
+        private int textBoxIconSize = 16;
+        [Browsable(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [DefaultValue(false)]
+
+        public int IconSize
+        {
+            get { return textBoxIconSize; }
+            set
+            {
+                textBoxIconSize = value;
+
+                ptbIcon.IconSize = textBoxIconSize;
+            }
+        }
+
+        private int textBoxIconSizeF7 = 16;
+        [Browsable(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [DefaultValue(false)]
+
+        public int IconSizeF7
+        {
+            get { return textBoxIconSizeF7; }
+            set
+            {
+                textBoxIconSizeF7 = value;
+
+                ptbF7.IconSize = textBoxIconSizeF7;
+            }
+        }
+
+        private int textBoxIconSizeF8 = 16;
+        [Browsable(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [DefaultValue(false)]
+
+        public int IconSizeF8
+        {
+            get { return textBoxIconSizeF8; }
+            set
+            {
+                textBoxIconSizeF8 = value;
+
+                ptbF8.IconSize = textBoxIconSizeF8;
             }
         }
 
@@ -164,7 +198,7 @@ namespace LMControls.LmControls
         [Browsable(true)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
+
         public bool IconRight
         {
             get { return textBoxIconRight; }
@@ -183,7 +217,7 @@ namespace LMControls.LmControls
         [Browsable(true)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
+
         public bool IconShow
         {
             get { return iconShow; }
@@ -203,7 +237,7 @@ namespace LMControls.LmControls
         [Browsable(true)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
+
         public bool ShowButtonF7
         {
             get { return _showbuttonF7; }
@@ -223,7 +257,7 @@ namespace LMControls.LmControls
         [Browsable(true)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
+
         public bool ShowButtonF8
         {
             get { return _showbuttonF8; }
@@ -231,46 +265,10 @@ namespace LMControls.LmControls
             {
                 _showbuttonF8 = value;
 
-                if (_showbuttonF7)
-                    ptbF7.Visible = true;
+                if (_showbuttonF8)
+                    ptbF8.Visible = true;
                 else
-                    ptbF7.Visible = false;
-
-                Refresh();
-            }
-        }
-
-        private Image iconF7 = null;
-        [Browsable(true)]
-        [EditorBrowsable(EditorBrowsableState.Always)]
-        [DefaultValue(null)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public Image IconF7
-        {
-            get { return iconF7; }
-            set
-            {
-                iconF7 = value;
-
-                ptbF7.Image = iconF7;
-
-                Refresh();
-            }
-        }
-
-        private Image iconF8 = null;
-        [Browsable(true)]
-        [EditorBrowsable(EditorBrowsableState.Always)]
-        [DefaultValue(null)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public Image IconF8
-        {
-            get { return iconF8; }
-            set
-            {
-                iconF8 = value;
-
-                ptbF8.Image = iconF8;
+                    ptbF8.Visible = false;
 
                 Refresh();
             }
@@ -281,7 +279,7 @@ namespace LMControls.LmControls
         [Browsable(true)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
+
         public bool ShowClearButton
         {
             get { return _showclear; }
@@ -294,7 +292,7 @@ namespace LMControls.LmControls
         }
 
         private bool campoObrigatorio;
-        [Category(LmDefault.PropertyCategory.LmUI)]
+
         [DefaultValue(false)]
         public bool CampoObrigatorio
         {
@@ -303,7 +301,7 @@ namespace LMControls.LmControls
         }
 
         private LmValueType valor;
-        [Category(LmDefault.PropertyCategory.LmUI)]
+
         [DefaultValue(LmValueType.Alfanumerico)]
         public LmValueType Valor
         {
@@ -316,7 +314,7 @@ namespace LMControls.LmControls
 
         private short valor_Decimais;
         [Browsable(true)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
+
         [DefaultValue(0)]
         public short Valor_Decimais
         {
@@ -394,23 +392,23 @@ namespace LMControls.LmControls
             set { propriedade = value; }
         }
 
-        private Color borderColor = Color.MediumSlateBlue;
-        public Color BorderColor
-        {
-            get { return borderColor; }
-            set
-            {
-                borderColor = value;
-                this.Invalidate();
-            }
-        }
+        //private Color borderColor = LmPaint.BorderColor.TextBox.Normal(lmth);
+        //public Color BorderColor
+        //{
+        //    get { return borderColor; }
+        //    set
+        //    {
+        //        borderColor = value;
+        //        this.Invalidate();
+        //    }
+        //}
 
-        private Color borderFocusColor = Color.HotPink;
-        public Color BorderFocusColor
-        {
-            get { return borderFocusColor; }
-            set { borderFocusColor = value; }
-        }
+        //private Color borderFocusColor = Color.HotPink;
+        //public Color BorderFocusColor
+        //{
+        //    get { return borderFocusColor; }
+        //    set { borderFocusColor = value; }
+        //}
 
         private int borderSize = 2;
         public int BorderSize
@@ -480,11 +478,11 @@ namespace LMControls.LmControls
             set { baseTextBox.Multiline = value; }
         }
 
-        [Browsable (true)]
+        [Browsable(true)]
         public override string Text
         {
             get { return baseTextBox.Text; }
-            set { baseTextBox.Text = value;  }
+            set { baseTextBox.Text = value; }
         }
 
         public string[] Lines
@@ -824,7 +822,14 @@ namespace LMControls.LmControls
         {
             base.OnTextChanged(e);
 
-            ptbClearButton.Visible = !string.IsNullOrEmpty(this.Text) && _showclear;
+            if (!string.IsNullOrEmpty(this.Text) && _showclear)
+            {
+                ptbClearButton.BringToFront();
+                baseTextBox.BringToFront();
+                ptbClearButton.Visible = true;
+            }
+            else
+                ptbClearButton.Visible = false;
 
             if (baseTextBox.Text != "" && !_withtext)
             {
@@ -861,7 +866,7 @@ namespace LMControls.LmControls
             if (this.isPrimaryKey)
                 this.Text = this.Text.SomenteNumeros();
 
-            TextChanged.Invoke(sender, e);
+            TextChanged?.Invoke(sender, e);
         }
 
         public void Clear()
@@ -939,6 +944,15 @@ namespace LMControls.LmControls
             base.OnPaint(e);
             Graphics graph = e.Graphics;
 
+            Color borderColor = LmPaint.BorderColor.TextBox.Normal(this.Theme);
+
+            if (isFocused && Enabled && !ReadOnly)
+                borderColor = LmPaint.BorderColor.TextBox.Selected(this.Theme);
+            else if (isHovered && !isFocused && Enabled && !ReadOnly)
+                borderColor = LmPaint.BorderColor.TextBox.Selected(this.Theme);
+            else if (!Enabled)
+                borderColor = LmPaint.BorderColor.TextBox.Disabled(this.Theme);
+
             if (borderRadius > 1)//Rounded TextBox
             {
                 //-Fields
@@ -956,8 +970,8 @@ namespace LMControls.LmControls
                     if (borderRadius > 15) SetTextBoxRoundedRegion();//Set the rounded region of TextBox component
                     graph.SmoothingMode = SmoothingMode.AntiAlias;
                     penBorder.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
-                   
-                    if (isFocused || isHovered) penBorder.Color = borderFocusColor;
+
+                    //if (isFocused || isHovered) penBorder.Color = borderFocusColor;
 
                     if (underlinedStyle) //Line Style
                     {
@@ -983,7 +997,6 @@ namespace LMControls.LmControls
                 {
                     this.Region = new Region(this.ClientRectangle);
                     penBorder.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
-                    if (isFocused) penBorder.Color = borderFocusColor;
 
                     if (underlinedStyle) //Line Style
                         graph.DrawLine(penBorder, 0, this.Height - 1, this.Width, this.Height - 1);
@@ -992,8 +1005,184 @@ namespace LMControls.LmControls
                 }
             }
         }
-        #endregion
 
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            base.OnPaintBackground(e);
+
+            ptbIcon.IconSize = textBoxIconSize;
+            ptbF7.IconSize = textBoxIconSizeF7;
+            ptbF8.IconSize = textBoxIconSizeF8;
+
+            if (ReadOnly)
+                this.BackColor = this.baseTextBox.BackColor = LmPaint.BackColor.TextBox.Disabled(Theme);
+            else if (isFocused && Enabled)
+                this.BackColor = this.baseTextBox.BackColor = LmPaint.BackColor.TextBox.Selected(Theme);
+            else if (isHovered && !isFocused && Enabled)
+                this.BackColor = this.baseTextBox.BackColor = LmPaint.BackColor.TextBox.Selected(Theme);
+            else if (!Enabled)
+                this.BackColor = this.baseTextBox.BackColor = LmPaint.BackColor.TextBox.Disabled(Theme);
+            else
+                this.BackColor = this.baseTextBox.BackColor = LmPaint.BackColor.TextBox.Normal(this.Theme);
+        }
+
+        [DefaultValue(CharacterCasing.Normal)]
+        public CharacterCasing CharacterCasing
+        {
+            get { return baseTextBox.CharacterCasing; }
+            set { baseTextBox.CharacterCasing = value; }
+        }
+
+        protected override void OnEnter(EventArgs e)
+        {
+            base.OnEnter(e);
+
+            this.SetLastFocusedControl();
+
+            isFocused = true;
+
+            switch (Valor)
+            {
+                case LmValueType.Data:
+                    Text = Text.SomenteNumeros();
+                    break;
+                case LmValueType.Hora:
+                    Text = Text.SomenteNumeros();
+                    break;
+                case LmValueType.Fone:
+                    Text = Text.SomenteNumeros();
+                    break;
+                case LmValueType.Monetario:
+                    if (!string.IsNullOrEmpty(Text))
+                        Text = Convert.ToDouble(Text.Replace("R", "").Replace("$", "").Replace(" ", "")).ToString();
+                    if (Text == "0")
+                        Text = "";
+                    break;
+                case LmValueType.Cpf_Cnpj:
+                    Text = Text.SomenteNumeros();
+                    break;
+                case LmValueType.Num_Real:
+                    if (!string.IsNullOrEmpty(Text))
+                        Text = Convert.ToDouble(Text).ToString();
+                    if (Text == "0")
+                        Text = "";
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        protected override void OnLeave(EventArgs e)
+        {
+            base.OnLeave(e);
+
+            isFocused = false;
+
+            if (valor != LmValueType.Data && CampoObrigatorio && string.IsNullOrEmpty(Text))
+            {
+                MsgBox.ShowToolTip(this, "Campo Obrigatório!");
+            }
+
+            switch (Valor)
+            {
+                case LmValueType.Data:
+                    {
+                        Text = Text.FormatarData();
+                        if (!DateTime.TryParse(Text, out _))
+                        {
+                            if (CampoObrigatorio || !string.IsNullOrEmpty(Text))
+                            {
+                                MsgBox.ShowToolTip(this, "Data Inválida!");
+
+                                if (!string.IsNullOrEmpty(Text))
+                                {
+                                    this.Focus();
+                                    this.baseTextBox.SelectAll();
+                                }
+                            }
+                        }
+                    }
+                    break;
+                case LmValueType.Hora:
+                    {
+                        Text = Text.FormatarHora();
+                        if (!string.IsNullOrEmpty(Text))
+                        {
+                            var hor = Convert.ToInt32(Text.Split(':')[0]);
+                            var min = Convert.ToInt32(Text.Split(':')[1]);
+                            if (hor > 23)
+                            {
+                                if (Valor_Decimais != 3)
+                                {
+                                    MsgBox.ShowToolTip(this, $"Hora '{hor:00}' Não Pode Ser Maior que 23!");
+
+                                    this.baseTextBox.SelectAll();
+                                    this.Focus();
+                                }
+                            }
+                            if (min > 59)
+                            {
+                                MsgBox.ShowToolTip(this, $"Minuto '{min:00}' Não Pode Ser Maior que 59!");
+
+                                this.baseTextBox.SelectAll();
+                                this.Focus();
+                            }
+                        }
+                    }
+                    break;
+                case LmValueType.Cpf_Cnpj:
+                    Text = ValidarCpfCnpj(Text);
+                    break;
+                case LmValueType.Email:
+                    Text = Text.Replace("^", ",").Replace("|", ",").Replace(";", ",").Replace("/", ",").Replace("\\", ",").Replace("+", ",").Replace("*", ",");
+                    Email.ValidarEmail(Text, this);
+                    break;
+                case LmValueType.Fone:
+                    Text = Text.FormatarFone();
+                    break;
+                case LmValueType.Monetario:
+                    Text = Text.FormatarMonetario();
+                    break;
+                case LmValueType.Num_Real:
+                    if (!string.IsNullOrEmpty(Text))
+                        Text = Text.Numerico(Valor_Decimais);
+                    else
+                        Text = "0".Numerico(Valor_Decimais);
+                    break;
+                case LmValueType.ComboBox:
+                    if (int.TryParse(Text, out int cmbValue))
+                    {
+                        SelectedValue = null;
+                        SelectedValue = cmbValue;
+                        if (string.IsNullOrEmpty(Text) && !string.IsNullOrEmpty(cmbValue.ToString()))
+                        {
+                            Text = cmbValue.ToString();
+                            UpdateItemValueByText();
+                        }
+                    }
+                    else if (!string.IsNullOrEmpty(Text))
+                        UpdateItemValueByText();
+                    else
+                        SelectedValue = null;
+                    break;
+                case LmValueType.ComboBox_Enum:
+                    if (int.TryParse(Text, out int cmbValue_Enum))
+                    {
+                        SelectedValue = null;
+                        SelectedValue = cmbValue_Enum;
+                    }
+                    else if (!string.IsNullOrEmpty(Text))
+                        UpdateItemValueByText();
+                    else
+                        SelectedValue = null;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        #endregion
+        
         private void baseTextBox_Enter(object sender, EventArgs e)
         {
             isFocused = true;
@@ -1005,6 +1194,20 @@ namespace LMControls.LmControls
             this.Invalidate();
         }
 
+        private void Ptb_MouseEnter(object sender, EventArgs e)
+        {
+            ((IconPictureBox)sender).IconColor = LmPaint.BorderColor.TextBox.Selected(this.Theme);
+        }
+
+        private void ptb_MouseLeave(object sender, EventArgs e)
+        {
+            ((IconPictureBox)sender).IconColor =  LmPaint.BorderColor.TextBox.Normal(this.Theme);
+        }
+
+        private void ptbClose_MouseLeave(object sender, EventArgs e)
+        {
+            ((IconPictureBox)sender).IconColor =Color.FromArgb(123, 123, 123);// LmPaint.BorderColor.TextBox.Disabled(this.Theme);
+        }
 
         #region Private Methods
 
@@ -1123,6 +1326,11 @@ namespace LMControls.LmControls
         {
             //if (ButtonClick != null) ButtonClick(this, e);
             ButtonClickF8?.Invoke(this, e);
+        }
+
+        private void PtbClearButton_Click(object sender, EventArgs e)
+        {
+            this.Text = string.Empty;
         }
 
         //void _button_MouseLeave(object sender, EventArgs e)
@@ -1335,8 +1543,99 @@ namespace LMControls.LmControls
                 }
         }
 
-        #endregion
+        private string ValidarCpfCnpj(string Cpf_Cnpj)
+        {
+            int[] multiplicador1;
+            int[] multiplicador2;
+            string temporario;
+            string digito;
+            int soma;
+            int resto;
 
+            try
+            {
+                if (string.IsNullOrEmpty(Cpf_Cnpj)) return string.Empty;
+
+                Cpf_Cnpj = Cpf_Cnpj.RemoverCaracteresEspeciais();//.Replace(".", "").Replace("-", "").Replace("/", "").Replace(",", "").Replace(" ", "");
+
+                if (Cpf_Cnpj.Length >= 9 && Cpf_Cnpj.Length <= 11)
+                {
+                    multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+                    multiplicador2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+
+                    Cpf_Cnpj = Convert.ToInt64(Cpf_Cnpj).ToString("00000000000");
+                    temporario = Cpf_Cnpj.Substring(0, 9);
+                    soma = 0;
+
+                    for (int i = 0; i < 9; i++)
+                        soma += int.Parse(temporario[i].ToString()) * multiplicador1[i];
+                    resto = soma % 11;
+                    if (resto < 2)
+                        resto = 0;
+                    else
+                        resto = 11 - resto;
+                    digito = resto.ToString();
+                    temporario = temporario + digito;
+                    soma = 0;
+                    for (int i = 0; i < 10; i++)
+                        soma += int.Parse(temporario[i].ToString()) * multiplicador2[i];
+                    resto = soma % 11;
+                    if (resto < 2)
+                        resto = 0;
+                    else
+                        resto = 11 - resto;
+                    digito = digito + resto.ToString();
+
+                    if (Cpf_Cnpj.EndsWith(digito))
+                        Cpf_Cnpj = Convert.ToInt64(Cpf_Cnpj).ToString(@"000\.000\.000-00");
+                    else
+                        MsgBox.ShowToolTip(this, "CPF Inválido!");
+                }
+                else if (Cpf_Cnpj.Length >= 12 && Cpf_Cnpj.Length <= 14)
+                {
+                    multiplicador1 = new int[12] { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
+                    multiplicador2 = new int[13] { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
+
+                    Cpf_Cnpj = Convert.ToInt64(Cpf_Cnpj).ToString("00000000000000");
+                    temporario = Cpf_Cnpj.Substring(0, 12);
+                    soma = 0;
+
+                    for (int i = 0; i < 12; i++)
+                        soma += int.Parse(temporario[i].ToString()) * multiplicador1[i];
+                    resto = (soma % 11);
+                    if (resto < 2)
+                        resto = 0;
+                    else
+                        resto = 11 - resto;
+                    digito = resto.ToString();
+                    temporario = temporario + digito;
+                    soma = 0;
+                    for (int i = 0; i < 13; i++)
+                        soma += int.Parse(temporario[i].ToString()) * multiplicador2[i];
+                    resto = (soma % 11);
+                    if (resto < 2)
+                        resto = 0;
+                    else
+                        resto = 11 - resto;
+                    digito = digito + resto.ToString();
+
+                    if (Cpf_Cnpj.EndsWith(digito))
+                        Cpf_Cnpj = Convert.ToInt64(Cpf_Cnpj).ToString(@"00\.000\.000/0000-00");
+                    else
+                        MsgBox.ShowToolTip(this, "CNPJ Inválido!");
+                }
+                else
+                    MsgBox.ShowToolTip(this, "CPF/CNPJ Inválido!");
+            }
+            catch (Exception ex)
+            {
+                MsgBox.ShowToolTip(this, "CPF/CNPJ Inválido!", "Erro");
+            }
+
+            return Cpf_Cnpj;
+        }
+
+        #endregion
 
     }
 }

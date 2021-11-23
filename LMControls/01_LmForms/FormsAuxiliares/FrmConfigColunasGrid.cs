@@ -1,5 +1,6 @@
 ﻿using LMControls.LmDesign;
 using LMControls.LmForms;
+using LMControls.Metodos;
 using LMControls.Native;
 using System;
 using System.Windows.Forms;
@@ -17,7 +18,7 @@ namespace LMControls
             this.Text = text;
 
             clbColunas.BackColor = LmPaint.BackColor.Form(this.btnConfirmar.Theme);
-            clbColunas.ForeColor = LmPaint.ForeColor.Label.Normal(this.btnConfirmar.Theme);
+            clbColunas.ForeColor = clbColunas.BackColor.GetForeColor(LmControlStatus.Normal);
         }
 
         private void FrmConfigColunasGrid_Load(object sender, EventArgs e)

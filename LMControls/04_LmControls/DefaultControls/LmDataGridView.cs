@@ -18,7 +18,7 @@ using System.Windows.Forms;
 namespace LMControls.LmControls
 {
     [DefaultEvent("Click")]
-    [Designer("LmFramework.Controls.Design.LmDataGridViewUCDesign")]
+    [Designer(typeof(LmControls.Design.LmDataGridViewUCDesign))]
     public partial class LmDataGridView : UserControl, ILmControl
     {
         const string setaCima = "▲  ";
@@ -42,38 +42,7 @@ namespace LMControls.LmControls
 
         #region Interface
 
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaintBackground;
-        protected virtual void OnCustomPaintBackground(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaintBackground != null)
-            {
-                CustomPaintBackground(this, e);
-            }
-        }
-
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaint;
-        protected virtual void OnCustomPaint(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaint != null)
-            {
-                CustomPaint(this, e);
-            }
-        }
-
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaintForeground;
-        protected virtual void OnCustomPaintForeground(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaintForeground != null)
-            {
-                CustomPaintForeground(this, e);
-            }
-        }
-
-        private LmTheme lmTema = LmTheme.Padrao;
-        [Category(LmDefault.PropertyCategory.LmUI)]
+        private LmTheme lmTema = LmTheme.Padrao;        
         [DefaultValue(LmTheme.Padrao)]
         public LmTheme Theme
         {
@@ -115,33 +84,6 @@ namespace LMControls.LmControls
                 //    ((LmLabel)ctrl).ForeColor = this.Grid.RowHeadersDefaultCellStyle.ForeColor;
 
             }
-        }
-
-        private bool useCustomBackColor = false;
-        [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public bool UseCustomBackColor
-        {
-            get { return useCustomBackColor; }
-            set { useCustomBackColor = value; }
-        }
-
-        private bool useCustomForeColor = false;
-        [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public bool UseCustomForeColor
-        {
-            get { return useCustomForeColor; }
-            set { useCustomForeColor = value; }
-        }
-
-        [Browsable(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        [DefaultValue(false)]
-        public bool UseSelectable
-        {
-            get { return GetStyle(ControlStyles.Selectable); }
-            set { SetStyle(ControlStyles.Selectable, value); }
         }
 
         #endregion
@@ -327,12 +269,7 @@ namespace LMControls.LmControls
         {
             try
             {
-                Color backColor = BackColor;
-
-                if (!useCustomBackColor)
-                {
-                    backColor = LmPaint.BackColor.Form(Theme);
-                }
+                Color backColor = backColor = LmPaint.BackColor.Form(Theme);
 
                 if (backColor.A == 255 && BackgroundImage == null)
                 {
@@ -342,7 +279,7 @@ namespace LMControls.LmControls
 
                 base.OnPaintBackground(e);
 
-                OnCustomPaintBackground(new LmPaintEventArgs(backColor, Color.Empty, e.Graphics));
+                // OnCustomPaintBackground(new LmPaintEventArgs(backColor, Color.Empty, e.Graphics));
             }
             catch
             {
@@ -359,7 +296,7 @@ namespace LMControls.LmControls
                     OnPaintBackground(e);
                 }
 
-                OnCustomPaint(new LmPaintEventArgs(Color.Empty, Color.Empty, e.Graphics));
+                // OnCustomPaint(new LmPaintEventArgs(Color.Empty, Color.Empty, e.Graphics));
                 OnPaintForeground(e);
             }
             catch
@@ -370,7 +307,7 @@ namespace LMControls.LmControls
 
         protected virtual void OnPaintForeground(PaintEventArgs e)
         {
-            OnCustomPaintForeground(new LmPaintEventArgs(Color.Empty, Color.Empty, e.Graphics));
+            // OnCustomPaintForeground(new LmPaintEventArgs(Color.Empty, Color.Empty, e.Graphics));
         }
 
         #endregion

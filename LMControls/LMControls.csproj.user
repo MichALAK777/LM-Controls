@@ -34,7 +34,28 @@
     <Compile Update="01_LmForms\LmSingleForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="02_LmMsgBox\LmImputBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="02_LmMsgBox\LmMsgBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="02_LmMsgBox\LmMsgBoxAutoHide.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="02_LmMsgBox\LmMsgBoxCustom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="02_LmMsgBox\LmMsgToolTip.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="02_LmMsgBox\LmMsgToolTipPerson.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="03_Components\LmStyleManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="04_LmControls\DefaultControls\LmButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="04_LmControls\DefaultControls\LmColunaGrid.cs">
@@ -42,6 +63,9 @@
     </Compile>
     <Compile Update="04_LmControls\DefaultControls\LmDataGridView.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="04_LmControls\DefaultControls\LmDropdownMenu.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Update="04_LmControls\DefaultControls\LmGroupBox.cs">
       <SubType>Component</SubType>
@@ -61,11 +85,11 @@
     <Compile Update="04_LmControls\DefaultControls\LmListBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="04_LmControls\DefaultControls\LmMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="04_LmControls\DefaultControls\LmMenuJanelaAberta.cs">
       <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="04_LmControls\DefaultControls\LmMenuStrip.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Update="04_LmControls\DefaultControls\LmPanel.cs">
       <SubType>Component</SubType>
@@ -90,9 +114,6 @@
     </Compile>
     <Compile Update="04_LmControls\DefaultControls\LmTextBox.cs">
       <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="04_LmControls\DefaultControls\LmButton.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Update="Form1.cs">
       <SubType>Form</SubType>

@@ -3,6 +3,7 @@ using LMControls.Interfaces;
 using LMControls.LmControls;
 using LMControls.LmDesign;
 using LMControls.Metodos;
+using LMControls.Native;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -53,26 +54,27 @@ namespace LMControls.LmForms
                           ControlStyles.ResizeRedraw |
                           ControlStyles.UserPaint, true);
 
-            this.Name = "LmMainForm";
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.TransparencyKey = Color.Magenta;
-
             this.Padding = new Padding(borderSize);//Border size
+
+            var rec = Screen.FromHandle(this.Handle).WorkingArea;
+            this.MaximizedBounds = new Rectangle(0, 0, rec.Width, rec.Height - 1);
 
             StyleManager = Estilo;
             Estilo.Owner = this;
             Estilo.Theme = InfoDefaultUI.DefaultStyle;
             Estilo.TipoMensagem = InfoDefaultUI.DefaultMsgType;
-
             TipoMensagem = InfoDefaultUI.DefaultMsgType;
 
             this.toolTip1 = new ToolTip();
             this.SuspendLayout();
             // 
-            // LmForm
+            // LmMainForm
             // 
+            this.FormBorderStyle = FormBorderStyle.None;
             this.ClientSize = new System.Drawing.Size(150, 150);
             this.Name = "LmMainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.TransparencyKey = Color.Magenta;
             this.ResumeLayout(false);
         }
 
@@ -91,7 +93,6 @@ namespace LMControls.LmForms
         #region Interface
 
         private LmTheme lmTema = LmTheme.Padrao;
-        [Category(LmDefault.PropertyCategory.LmUI)]
         public LmTheme Theme
         {
             get
@@ -105,10 +106,7 @@ namespace LMControls.LmForms
             }
             set
             {
-                InvertMenuImageColor(value, lmTema);
-
                 lmTema = value;
-
                 SaveStyle();
             }
         }
@@ -121,6 +119,7 @@ namespace LMControls.LmForms
             set
             {
                 lmStyleManager = value;
+                this.Theme = lmStyleManager.Theme;
             }
         }
 
@@ -130,9 +129,8 @@ namespace LMControls.LmForms
 
         //Fields
         private int borderSize = 1;
-        private Size formSize; //Keep form size when it is minimized and restored.Since the form is resized because it takes into account the size of the title bar and borders.
 
-        [Category(LmDefault.PropertyCategory.LmUI)]
+        
         [Browsable(true)]
         public LmFormTextAlign TextAlign { get; set; } = LmFormTextAlign.Left;
 
@@ -150,7 +148,7 @@ namespace LMControls.LmForms
 
         protected override Padding DefaultPadding
         {
-            get { return new Padding(1, 30, 1, 3); }
+            get { return new Padding(2, 30, 2, 2); }
         }
 
         private LmMessageType tipoMensagem = LmMessageType.Padrao;
@@ -201,7 +199,7 @@ namespace LMControls.LmForms
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            Color foreColor = LmPaint.BackColor.FormHeader(Theme).IsDarkColor() ?LmCores.Fr_Claro_Normal :  LmCores.Fr_Escuro_Normal;
+            Color foreColor = LmPaint.BackColor.FormHeader(Theme).GetForeColor(LmControlStatus.Normal);
 
             // Pintar Cabeçalho
             using (SolidBrush b = new SolidBrush(LmPaint.BackColor.FormHeader(Theme)))
@@ -210,12 +208,12 @@ namespace LMControls.LmForms
                 e.Graphics.FillRectangle(b, topRect);
             }
 
-            // pintar Rodapé
-            using (SolidBrush b = new SolidBrush(LmPaint.BackColor.FormHeader(Theme)))
-            {
-                Rectangle bottonRect = new Rectangle(0, Height - 30, Width, 30);
-                e.Graphics.FillRectangle(b, bottonRect);
-            }
+            //// pintar Rodapé
+            //using (SolidBrush b = new SolidBrush(LmPaint.BackColor.FormHeader(Theme)))
+            //{
+            //    Rectangle bottonRect = new Rectangle(0, Height - 30, Width, 30);
+            //    e.Graphics.FillRectangle(b, bottonRect);
+            //}
 
             // pintar Bordas
             using (Pen pen = new Pen(LmPaint.BackColor.FormHeader(Theme), 2))
@@ -305,7 +303,7 @@ namespace LMControls.LmForms
                 if (WindowState == FormWindowState.Maximized) return;
 
                 ReleaseCapture();
-                SendMessage(this.Handle, 0x112, 0xf012, 0);
+                SendMessage(Handle, (int)WinApi.Messages.WM_NCLBUTTONDOWN, (int)WinApi.Messages.WM_DESTROY, 0);
             }
         }
 
@@ -350,16 +348,13 @@ namespace LMControls.LmForms
         //Overridden methods
         protected override void WndProc(ref Message m)
         {
-            const int WM_NCCALCSIZE = 0x0083;//Standar Title Bar - Snap Window
             const int WM_SYSCOMMAND = 0x0112;
-            const int SC_MINIMIZE = 0xF020; //Minimize form (Before)
-            const int SC_RESTORE = 0xF120; //Restore form (Before)
             const int WM_NCHITTEST = 0x0084;//Win32, Mouse Input Notification: Determine what part of the window corresponds to a point, allows to resize the form.
             const int resizeAreaSize = 10;
 
             #region Form Resize
-            // Resize/WM_NCHITTEST values
             const int HTCLIENT = 1; //Represents the client area of the window
+            const int HTCAPTION = 2; //Represents the client Header of the window
             const int HTLEFT = 10;  //Left border of a window, allows resize horizontally to the left
             const int HTRIGHT = 11; //Right border of a window, allows resize horizontally to the right
             const int HTTOP = 12;   //Upper-horizontal border of a window, allows resize vertically up
@@ -368,20 +363,26 @@ namespace LMControls.LmForms
             const int HTBOTTOM = 15; //Lower-horizontal border of a window, allows resize vertically down
             const int HTBOTTOMLEFT = 16;//Lower-left corner of a window border, allows resize diagonally to the left
             const int HTBOTTOMRIGHT = 17;//Lower-right corner of a window border, allows resize diagonally to the right
+            const int WM_SIZE = 0x5;
 
             ///<Doc> More Information: https://docs.microsoft.com/en-us/windows/win32/inputdev/wm-nchittest </Doc>
 
             if (m.Msg == WM_NCHITTEST)
             { //If the windows m is WM_NCHITTEST
                 base.WndProc(ref m);
-                if (this.WindowState == FormWindowState.Normal)//Resize the form if it is in normal state
-                {
-                    if ((int)m.Result == HTCLIENT)//If the result of the m (mouse pointer) is in the client area of the window
-                    {
-                        Point screenPoint = new Point(m.LParam.ToInt32()); //Gets screen point coordinates(X and Y coordinate of the pointer)                           
-                        Point clientPoint = this.PointToClient(screenPoint); //Computes the location of the screen point into client coordinates                          
 
-                        if (clientPoint.Y <= resizeAreaSize)//If the pointer is at the top of the form (within the resize area- X coordinate)
+                if ((int)m.Result == HTCLIENT)//If the result of the m (mouse pointer) is in the client area of the window
+                {
+                    Point screenPoint = new Point(m.LParam.ToInt32()); //Gets screen point coordinates(X and Y coordinate of the pointer)                           
+                    Point clientPoint = this.PointToClient(screenPoint); //Computes the location of the screen point into client coordinates                          
+
+                    if (this.WindowState == FormWindowState.Normal)//Resize the form if it is in normal state
+                    {
+                        if (RectangleToScreen(new Rectangle(5, 5, ClientRectangle.Width - 10, 30)).Contains(screenPoint))
+                        {
+                            m.Result = (IntPtr)HTCAPTION;
+                        }
+                        else if (clientPoint.Y <= resizeAreaSize)//If the pointer is at the top of the form (within the resize area- X coordinate)
                         {
                             if (clientPoint.X <= resizeAreaSize) //If the pointer is at the coordinate X=0 or less than the resizing area(X=10) in 
                                 m.Result = (IntPtr)HTTOPLEFT; //Resize diagonally to the left
@@ -407,32 +408,49 @@ namespace LMControls.LmForms
                                 m.Result = (IntPtr)HTBOTTOMRIGHT;
                         }
                     }
+                    else
+                    {
+                        if (RectangleToScreen(new Rectangle(5, 5, ClientRectangle.Width - 10, 30)).Contains(screenPoint))
+                        {
+                            m.Result = (IntPtr)HTCAPTION;
+                        }
+                    }
                 }
                 return;
             }
-            #endregion
-
-            //Remove border and keep snap window
-            if (m.Msg == WM_NCCALCSIZE && m.WParam.ToInt32() == 1)
+            else if (m.Msg == WM_SIZE)
             {
-                return;
+                if (windowButtonList != null)
+                {
+                    LmFormButton btn;
+                    windowButtonList.TryGetValue(WindowButtons.Maximize, out btn);
+                    if (btn == null) return;
+                    if (WindowState == FormWindowState.Normal)
+                    {
+                        this.toolTip1.SetToolTip(btn, "Maximizar");
+                        btn.Text = "1";
+                    }
+                    if (WindowState == FormWindowState.Maximized)
+                    {
+                        this.toolTip1.SetToolTip(btn, "Rest. Tamanho");
+                        btn.Text = "2";
+                    }
+                }
             }
+
+            #endregion
 
             //Keep form size when it is minimized and restored. Since the form is resized because it takes into account the size of the title bar and borders.
             if (m.Msg == WM_SYSCOMMAND)
             {
-                /// <see cref="https://docs.microsoft.com/en-us/windows/win32/menurc/wm-syscommand"/>
-                /// Quote:
-                /// In WM_SYSCOMMAND messages, the four low - order bits of the wParam parameter 
-                /// are used internally by the system.To obtain the correct result when testing 
-                /// the value of wParam, an application must combine the value 0xFFF0 with the 
-                /// wParam value by using the bitwise AND operator.
-                int wParam = (m.WParam.ToInt32() & 0xFFF0);
-
-                if (wParam == SC_MINIMIZE)  //Before
-                    formSize = this.ClientSize;
-                if (wParam == SC_RESTORE)// Restored form(Before)
-                    this.Size = formSize;
+                int sc = m.WParam.ToInt32() & 0xFFF0;
+                switch (sc)
+                {
+                    case (int)WinApi.Messages.SC_MAXIMIZE:
+                        break;
+                    case (int)WinApi.Messages.SC_RESTORE:
+                        break;
+                }
             }
             base.WndProc(ref m);
         }
@@ -441,9 +459,8 @@ namespace LMControls.LmForms
 
         #region Window Buttons
 
-        public delegate void ButClick(object sender, EventArgs e);
-
-        public event ButClick ClickHelp;
+        //public delegate void ButClick(object sender, EventArgs e);
+        //public event ButClick ClickHelp;
 
         private enum WindowButtons
         {
@@ -719,9 +736,9 @@ namespace LMControls.LmForms
                     var corHead = LmPaint.BackColor.FormHeader(_Tema);
                     var corForm = LmPaint.BackColor.Form(_Tema);
 
-                    var isDarkHead = LmCores.IsDarkColor(corHead.R, corHead.G, corHead.B);
+                   // var isDarkHead = LmCores.IsDarkColor(corHead.R, corHead.G, corHead.B);
 
-                    foreColor = isDarkHead ? LmCores.Fr_Claro_Normal : LmCores.Fr_Escuro_Normal;
+                    foreColor = corHead.GetForeColor(LmControlStatus.Normal);
 
                     backColor = corHead;
 
@@ -729,7 +746,7 @@ namespace LMControls.LmForms
                     {
                         if (!isCloseBtn)
                         {
-                            foreColor = isDarkHead ? LmCores.Fr_Claro_Selected : LmCores.Fr_Escuro_Selected;
+                            foreColor = corHead.GetForeColor(LmControlStatus.Selected);
 
                             backColor = LmPaint.BackColor.Form(_Tema);
                         }
@@ -741,13 +758,13 @@ namespace LMControls.LmForms
                     }
                     else if (isHovered && isPressed && Enabled)
                     {
-                        foreColor = isDarkHead ? LmCores.Fr_Claro_Selected : LmCores.Fr_Escuro_Selected;
+                        foreColor = corHead.GetForeColor(LmControlStatus.Selected);
 
                         backColor = LmPaint.BackColor.GridView.CellNormal(_Tema);
                     }
                     else if (!Enabled)
                     {
-                        foreColor = isDarkHead ? LmCores.Fr_Claro_Disabled : LmCores.Fr_Escuro_Disabled;
+                        foreColor = corHead.GetForeColor(LmControlStatus.Disabled);
 
                         backColor = LmPaint.BackColor.Button.Disabled(_Tema);
                     }
@@ -816,7 +833,7 @@ namespace LMControls.LmForms
                 {
                     if (PnlMain.Controls.Count > 12)
                     {
-                        MsgBox.Show("O Lizard Permite trabalhar com no máximo Doze(12) Janelas ao mesmo tempo.\nFeche algumas janelas para continuar.",
+                        MsgBox.Show("O Corbie Permite trabalhar com no máximo Doze(12) Janelas ao mesmo tempo.\nFeche algumas janelas para continuar.",
                             "Limite de janelas atingido", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         Cursor = Cursors.Default;
                         return;
@@ -828,7 +845,7 @@ namespace LMControls.LmForms
                     };
                     contC++;
 
-                    frmContainer.ClickHelp += MsJanelaAberta_ClickHelp;
+                   // frmContainer.ClickHelp += MsJanelaAberta_ClickHelp;
 
                     var abaJanela = new LmJanelaAberta(this.Theme)
                     {
@@ -849,7 +866,7 @@ namespace LMControls.LmForms
                     MenuJanelaAberta.Controls.Add(abaJanela);
 
                     form.TopLevel = false;
-                
+
                     form.IsSelected = true;
                     form.OnLoading();
 
@@ -882,10 +899,10 @@ namespace LMControls.LmForms
             Cursor = Cursors.Default;
         }
 
-        private void MsJanelaAberta_ClickHelp(object sender, EventArgs e)
-        {
-            ClickHelp?.Invoke(((LmChildForm)sender).Text, e);
-        }
+        //private void MsJanelaAberta_ClickHelp(object sender, EventArgs e)
+        //{
+        //    ClickHelp?.Invoke(((LmChildForm)sender).Text, e);
+        //}
 
         private void MsJanelaAberta_FecharContainerForms(object sender, EventArgs e)
         {
@@ -1032,45 +1049,6 @@ namespace LMControls.LmForms
 
         #region Metodos Privados
 
-        public void InvertMenuImageColor(LmTheme ThemeNovo, LmTheme ThemeAtual)
-        {
-            var corHeaderNovo = LmPaint.BackColor.FormHeader(ThemeNovo);
-            var corHeaderAtual = LmPaint.BackColor.FormHeader(ThemeAtual);
-
-            var novoIsDark = LmCores.IsDarkColor(corHeaderNovo.R, corHeaderNovo.G, corHeaderNovo.B);
-            var AtualIsDark = LmCores.IsDarkColor(corHeaderAtual.R, corHeaderAtual.G, corHeaderAtual.B);
-
-            if (novoIsDark != AtualIsDark)
-            {
-                foreach (Control ctrl in this.Controls)
-                {
-                    if (ctrl is LmMenuStrip menuStrip)
-                    {
-                        foreach (ToolStripMenuItem item in menuStrip.Items)
-                        {
-                            if (item.Tag != null && item.Tag.ToString().ToLower() == "protegidocor")
-                                continue;
-
-                            item.MouseEnter += Item_MouseEnter;
-                            item.MouseLeave += Item_MouseLeave;
-
-                            item.DropDownClosed += Item_DropDownClosed;
-
-                            if (item.Image != null)
-                                item.Image = Metodos.Controles.ApplyInvert(item.Image);
-
-                            item.ForeColor = novoIsDark ? LmCores.Fr_Claro_Normal : LmCores.Fr_Escuro_Normal;
-                        }
-                    }
-                    if (ctrl is PictureBox ptb)
-                    {
-                        if (ptb.Image != null)
-                            ptb.Image = Metodos.Controles.ApplyInvert(ptb.Image);
-                    }
-                }
-            }
-        }
-
         private void Item_DropDownClosed(object sender, EventArgs e)
         {
             Item_MouseLeave(sender, new EventArgs());
@@ -1091,7 +1069,7 @@ namespace LMControls.LmForms
                 if (((ToolStripMenuItem)sender).Image != null)
                     ((ToolStripMenuItem)sender).Image = LMControls.Metodos.Controles.ApplyInvert(((ToolStripMenuItem)sender).Image);
 
-                ((ToolStripMenuItem)sender).ForeColor = formIsDark ? LmCores.Fr_Claro_Normal : LmCores.Fr_Escuro_Normal;
+                ((ToolStripMenuItem)sender).ForeColor = corForm.GetForeColor(LmControlStatus.Normal);
             }
         }
 
@@ -1110,7 +1088,7 @@ namespace LMControls.LmForms
                 if (((ToolStripMenuItem)sender).Image != null)
                     ((ToolStripMenuItem)sender).Image = Metodos.Controles.ApplyInvert(((ToolStripMenuItem)sender).Image);
 
-                ((ToolStripMenuItem)sender).ForeColor = headIsDark ? LmCores.Fr_Claro_Normal : LmCores.Fr_Escuro_Normal;
+                ((ToolStripMenuItem)sender).ForeColor = corHead.GetForeColor(LmControlStatus.Normal);
             }
         }
 
@@ -1134,6 +1112,18 @@ namespace LMControls.LmForms
         }
 
         #endregion
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // LmMainForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "LmMainForm";
+            this.ResumeLayout(false);
+
+        }
 
     }
 }

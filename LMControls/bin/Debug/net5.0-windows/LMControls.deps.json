@@ -9,6 +9,7 @@
       "LMControls/1.0.0": {
         "dependencies": {
           "DotNetZip": "1.15.0",
+          "FontAwesome.Sharp.Pro": "5.15.3",
           "iTextSharp.LGPLv2.Core.StrongName": "1.6.71"
         },
         "runtime": {
@@ -24,6 +25,25 @@
           "lib/netstandard2.0/DotNetZip.dll": {
             "assemblyVersion": "1.15.0.0",
             "fileVersion": "1.15.0.0"
+          }
+        }
+      },
+      "FontAwesome.Sharp/5.15.3": {
+        "runtime": {
+          "lib/netcoreapp3.1/FontAwesome.Sharp.dll": {
+            "assemblyVersion": "5.15.3.0",
+            "fileVersion": "5.15.3.0"
+          }
+        }
+      },
+      "FontAwesome.Sharp.Pro/5.15.3": {
+        "dependencies": {
+          "FontAwesome.Sharp": "5.15.3"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/FontAwesome.Sharp.Pro.dll": {
+            "assemblyVersion": "5.15.3.0",
+            "fileVersion": "5.15.3.0"
           }
         }
       },
@@ -555,6 +575,20 @@
       "sha512": "sha512-sqVRN5V5NI/HM5Ll+Flr+u4fIf2pNiGSQr5pusAGCufYeEQ3Wn3yFlgw87iqHhbTkKQmCHZVsfBfRw05GSKG5g==",
       "path": "dotnetzip/1.15.0",
       "hashPath": "dotnetzip.1.15.0.nupkg.sha512"
+    },
+    "FontAwesome.Sharp/5.15.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-b72giuP5i2aR2W+u1gdYfYnTRkMIvI78idSDgrgcSV0aSE/nwJcMoh3sItxugMqOcNeIHxveGxAxcrcTYmwlHA==",
+      "path": "fontawesome.sharp/5.15.3",
+      "hashPath": "fontawesome.sharp.5.15.3.nupkg.sha512"
+    },
+    "FontAwesome.Sharp.Pro/5.15.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JPGny7ohoJA12Qla9m7Zh2lrImCDWof6KguoriZq0DFEmUfVcev2qaGBKJkZUi5ssmkmtxMOLaYq561lOZj3Ig==",
+      "path": "fontawesome.sharp.pro/5.15.3",
+      "hashPath": "fontawesome.sharp.pro.5.15.3.nupkg.sha512"
     },
     "iTextSharp.LGPLv2.Core.StrongName/1.6.71": {
       "type": "package",

@@ -137,7 +137,6 @@ namespace LMControls.LmControls
             this.Grid.RowTemplate.Height = 25;
             this.Grid.Size = new System.Drawing.Size(447, 176);
             this.Grid.TabIndex = 1;
-            this.Grid.UseSelectable = true;
             this.Grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Grid_CellClick);
             this.Grid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Grid_CellDoubleClick);
             this.Grid.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dgv_CellEnter);
@@ -197,7 +196,6 @@ namespace LMControls.LmControls
             this.GridRodape.RowTemplate.Height = 25;
             this.GridRodape.Size = new System.Drawing.Size(447, 25);
             this.GridRodape.TabIndex = 2;
-            this.GridRodape.UseSelectable = true;
             // 
             // flpBotoes
             // 
@@ -291,14 +289,11 @@ namespace LMControls.LmControls
             // txtProcurar
             // 
             this.txtProcurar.BackColor = System.Drawing.SystemColors.Window;
-            this.txtProcurar.BorderColor = System.Drawing.Color.MediumSlateBlue;
-            this.txtProcurar.BorderFocusColor = System.Drawing.Color.HotPink;
             this.txtProcurar.BorderRadius = 0;
             this.txtProcurar.BorderSize = 2;
             this.txtProcurar.Dock = System.Windows.Forms.DockStyle.Top;
             this.txtProcurar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtProcurar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.txtProcurar.Icon = ((System.Drawing.Image)(resources.GetObject("txtProcurar.Icon")));
             this.txtProcurar.IconShow = true;
             this.txtProcurar.Lines = new string[0];
             this.txtProcurar.Location = new System.Drawing.Point(128, 4);
@@ -318,8 +313,6 @@ namespace LMControls.LmControls
             this.txtProcurar.TabIndex = 9;
             this.txtProcurar.TextPrompt = "Procurar Por...";
             this.txtProcurar.UnderlinedStyle = true;
-            this.txtProcurar.UseCustomBackColor = false;
-            this.txtProcurar.UseSelectable = true;
             this.txtProcurar.Valor_Decimais = ((short)(0));
             this.txtProcurar.TextChanged += new System.EventHandler(this.TxtProcurar_TextChanged);
             this.txtProcurar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtProcurar_KeyDown);

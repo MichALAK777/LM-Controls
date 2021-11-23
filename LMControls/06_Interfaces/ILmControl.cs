@@ -10,16 +10,16 @@ namespace LMControls.Interfaces
 {
    public interface ILmControl
     {
-        event EventHandler<LmPaintEventArgs> CustomPaintBackground;
-        event EventHandler<LmPaintEventArgs> CustomPaint;
-        event EventHandler<LmPaintEventArgs> CustomPaintForeground;
+        //event EventHandler<LmPaintEventArgs> CustomPaintBackground;
+        //event EventHandler<LmPaintEventArgs> CustomPaint;
+        //event EventHandler<LmPaintEventArgs> CustomPaintForeground;
 
         LmTheme Theme { get; set; }
 
         LmStyleManager StyleManager { get; set; }
 
-        bool UseCustomBackColor { get; set; }
-        bool UseCustomForeColor { get; set; }
-        bool UseSelectable { get; set; }
+        //bool UseCustomBackColor { get; set; }
+        //bool UseCustomForeColor { get; set; }
+        //bool UseSelectable { get; set; }
     }
 }

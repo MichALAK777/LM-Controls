@@ -14,8 +14,8 @@ using System.Windows.Forms;
 
 namespace LMControls.LmControls
 {
-    [Designer("LMControls.LmControls.Design.LmJanelaAbertaDesign")]
-    public partial class LmJanelaAberta :  UserControl, ILmControl
+    [Designer(typeof(LmControls.Design.LmJanelaAbertaDesign))]
+    public partial class LmJanelaAberta : UserControl, ILmControl
     {
         #region Construtor
 
@@ -37,38 +37,7 @@ namespace LMControls.LmControls
 
         #region Interface
 
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaintBackground;
-        protected virtual void OnCustomPaintBackground(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaintBackground != null)
-            {
-                CustomPaintBackground(this, e);
-            }
-        }
-
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaint;
-        protected virtual void OnCustomPaint(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaint != null)
-            {
-                CustomPaint(this, e);
-            }
-        }
-
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public event EventHandler<LmPaintEventArgs> CustomPaintForeground;
-        protected virtual void OnCustomPaintForeground(LmPaintEventArgs e)
-        {
-            if (GetStyle(ControlStyles.UserPaint) && CustomPaintForeground != null)
-            {
-                CustomPaintForeground(this, e);
-            }
-        }
-
         private LmTheme lmTheme = LmTheme.Padrao;
-        [Category(LmDefault.PropertyCategory.LmUI)]
         [DefaultValue(LmTheme.Padrao)]
         public LmTheme Theme
         {
@@ -111,33 +80,6 @@ namespace LMControls.LmControls
             }
         }
 
-        private bool useCustomBackColor = false;
-        [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public bool UseCustomBackColor
-        {
-            get { return useCustomBackColor; }
-            set { useCustomBackColor = value; }
-        }
-
-        private bool useCustomForeColor = false;
-        [DefaultValue(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        public bool UseCustomForeColor
-        {
-            get { return useCustomForeColor; }
-            set { useCustomForeColor = value; }
-        }
-
-        [Browsable(false)]
-        [Category(LmDefault.PropertyCategory.LmUI)]
-        [DefaultValue(false)]
-        public bool UseSelectable
-        {
-            get { return GetStyle(ControlStyles.Selectable); }
-            set { SetStyle(ControlStyles.Selectable, value); }
-        }
-
         #endregion
 
         #region Fields
@@ -159,25 +101,21 @@ namespace LMControls.LmControls
                 Color backColor = BackColor;
                 Color foreColor = ForeColor;
 
-                if (!useCustomBackColor)
+                if (IsSelected)
+                    backColor = LmPaint.BackColor.Form(this.Theme);
+                else if (IsHovered)
                 {
-                    if (IsSelected)
-                        backColor = LmPaint.BackColor.Form(this.Theme);
-                    else if (IsHovered)
-                    {
-                        backColor = LmPaint.BackColor.MenuJanelaAberta.JanelaAberta(this.Theme);
+                    backColor = LmPaint.BackColor.MenuJanelaAberta.JanelaAberta(this.Theme);
 
-                        if (backColor.IsDarkColor())
-                            backColor = Color.FromArgb(backColor.R + 30, backColor.G + 30, backColor.B + 30);
-                        else
-                            backColor = Color.FromArgb(backColor.R - 30, backColor.G - 30, backColor.B - 30);
-                    }
+                    if (backColor.IsDarkColor())
+                        backColor = Color.FromArgb(backColor.R + 30, backColor.G + 30, backColor.B + 30);
                     else
-                        backColor = LmPaint.BackColor.MenuJanelaAberta.JanelaAberta(this.Theme);
+                        backColor = Color.FromArgb(backColor.R - 30, backColor.G - 30, backColor.B - 30);
                 }
+                else
+                    backColor = LmPaint.BackColor.MenuJanelaAberta.JanelaAberta(this.Theme);
 
-                if (!useCustomForeColor)
-                    foreColor = backColor.IsDarkColor() ? LmCores.Fr_Claro_Normal : LmCores.Fr_Escuro_Normal;
+                foreColor = backColor.GetForeColor(LmControlStatus.Normal);
 
                 lblNomeJanela.ForeColor = foreColor;
 
@@ -189,7 +127,7 @@ namespace LMControls.LmControls
 
                 base.OnPaint(e);
 
-                OnCustomPaintBackground(new LmPaintEventArgs(backColor, Color.Empty, e.Graphics));
+                // OnCustomPaintBackground(new LmPaintEventArgs(backColor, Color.Empty, e.Graphics));
             }
             catch
             {
